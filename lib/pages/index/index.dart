@@ -52,7 +52,7 @@ class _IndexPageState extends State<IndexPage> {
   List<BottomNavigationBarItem> _getNavBarItem() {
     return _navBarItem
         .map((e) => BottomNavigationBarItem(
-            icon: _iconMap[e.icon] ?? const Icon(Icons.search), label: e.label))
+        icon: _iconMap[e.icon] ?? const Icon(Icons.search), label: e.label))
         .toList();
   }
 
