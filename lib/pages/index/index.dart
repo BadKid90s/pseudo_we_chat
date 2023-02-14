@@ -18,6 +18,9 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage> {
   late int _index;
 
+  //定义页面控制器，可以左右滑动切换页面
+  PageController pageController = PageController(initialPage: 0);
+
   // 重写初始化状态方法进行下标赋值
   @override
   void initState() {
@@ -51,6 +54,12 @@ class _IndexPageState extends State<IndexPage> {
 
   // 导航栏按钮按下事件
   void _onBottomNavigationBarTapped(index) {
+    pageController.animateToPage(index,
+        duration: const Duration(milliseconds: 300), curve: Curves.ease);
+  }
+
+  // 页面切换事件
+  void _onPageChanged(index) {
     // 下标重新赋值，进行切换
     setState(() {
       _index = index;
@@ -68,10 +77,13 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: IndexedStack(
-          index: _index,
-          children: _pageItem,
-        ),
+        body: PageView.builder(
+            onPageChanged: _onPageChanged,
+            controller: pageController,
+            itemCount: _pageItem.length,
+            itemBuilder: (BuildContext context, int index) {
+              return _pageItem[index];
+            }),
         bottomNavigationBar: BottomNavigationBar(
           //设置选中图标颜色
           selectedItemColor: Colors.green,
