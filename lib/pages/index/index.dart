@@ -3,6 +3,7 @@ import 'package:pseudo_we_chat/pages/directory/directory.dart';
 import 'package:pseudo_we_chat/pages/discover/discover.dart';
 import 'package:pseudo_we_chat/pages/home/home.dart';
 import 'package:pseudo_we_chat/pages/message/message.dart';
+import 'package:pseudo_we_chat/ui/font/WeChatFont.dart';
 
 class IndexPage extends StatefulWidget {
   // 定义初始化导航栏选择的下标，默认为0
@@ -34,10 +35,10 @@ class _IndexPageState extends State<IndexPage> {
 
   // 定义图标Map(方便后期使用自定义图标库)
   final Map<String, Icon> _iconMap = const {
-    "message": Icon(Icons.message),
-    "directory": Icon(Icons.list),
-    "discover": Icon(Icons.find_in_page),
-    "home": Icon(Icons.person),
+    "message": Icon(WeChatFont.message),
+    "directory": Icon(WeChatFont.directory),
+    "discover": Icon(WeChatFont.discover),
+    "home": Icon(WeChatFont.my),
   };
 
   // 定义导航栏组件的数据
@@ -60,7 +61,7 @@ class _IndexPageState extends State<IndexPage> {
   List<BottomNavigationBarItem> _getNavBarItem() {
     return _navBarItem
         .map((e) => BottomNavigationBarItem(
-        icon: _iconMap[e.icon] ?? const Icon(Icons.search), label: e.label))
+            icon: _iconMap[e.icon] ?? const Icon(Icons.search), label: e.label))
         .toList();
   }
 
@@ -72,10 +73,22 @@ class _IndexPageState extends State<IndexPage> {
           children: _pageItem,
         ),
         bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed, //设置类型
-          currentIndex: _index,  //设置选中下标
-          onTap: _onBottomNavigationBarTapped, //设置按钮按下事件
-          items: _getNavBarItem(), //调用构建导航栏组件方法
+          //设置选中图标颜色
+          selectedItemColor: Colors.green,
+          //设置未选中图标颜色
+          unselectedItemColor: Colors.grey,
+          //设置选中文字大小
+          selectedLabelStyle: const TextStyle(fontSize: 10),
+          //设置未选中文字大小
+          unselectedLabelStyle: const TextStyle(fontSize: 10),
+          //设置类型
+          type: BottomNavigationBarType.fixed,
+          //设置选中下标
+          currentIndex: _index,
+          //设置按钮按下事件
+          onTap: _onBottomNavigationBarTapped,
+          //调用构建导航栏组件方法
+          items: _getNavBarItem(),
         ));
   }
 }
