@@ -1,0 +1,212 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1262",
+      "name": "添加用户",
+      "font_class": "add_user",
+      "unicode": "f014d",
+      "unicode_decimal": 983373
+    },
+    {
+      "icon_id": "436016",
+      "name": "语音",
+      "font_class": "speech",
+      "unicode": "e805",
+      "unicode_decimal": 59397
+    },
+    {
+      "icon_id": "17782707",
+      "name": "语音",
+      "font_class": "speech_2",
+      "unicode": "e888",
+      "unicode_decimal": 59528
+    },
+    {
+      "icon_id": "393406",
+      "name": "我",
+      "font_class": "my",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "716041",
+      "name": "消息",
+      "font_class": "message",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "1725623",
+      "name": "消息",
+      "font_class": "message_2",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "1519675",
+      "name": "公众号",
+      "font_class": "official_accounts",
+      "unicode": "e68b",
+      "unicode_decimal": 59019
+    },
+    {
+      "icon_id": "1727582",
+      "name": "位置",
+      "font_class": "address",
+      "unicode": "e8ff",
+      "unicode_decimal": 59647
+    },
+    {
+      "icon_id": "3545516",
+      "name": "视频",
+      "font_class": "video",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "4244922",
+      "name": "群聊",
+      "font_class": "group_chat",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "4347549",
+      "name": "设置",
+      "font_class": "setting",
+      "unicode": "eb8d",
+      "unicode_decimal": 60301
+    },
+    {
+      "icon_id": "5387377",
+      "name": "标签",
+      "font_class": "label",
+      "unicode": "eabd",
+      "unicode_decimal": 60093
+    },
+    {
+      "icon_id": "5387392",
+      "name": "图片",
+      "font_class": "picture",
+      "unicode": "eac4",
+      "unicode_decimal": 60100
+    },
+    {
+      "icon_id": "6683141",
+      "name": "搜一搜",
+      "font_class": "search",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "7025922",
+      "name": "服务",
+      "font_class": "server",
+      "unicode": "e732",
+      "unicode_decimal": 59186
+    },
+    {
+      "icon_id": "7450649",
+      "name": "音乐",
+      "font_class": "music",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    },
+    {
+      "icon_id": "8169760",
+      "name": "扫一扫",
+      "font_class": "sweep",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "3170635",
+      "name": "发现",
+      "font_class": "discover",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
+    {
+      "icon_id": "10463853",
+      "name": "表情",
+      "font_class": "expression",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "11818313",
+      "name": "添加",
+      "font_class": "add",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "15559661",
+      "name": "朋友圈",
+      "font_class": "friend_circle",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "16401957",
+      "name": "附近",
+      "font_class": "nearby",
+      "unicode": "ebfa",
+      "unicode_decimal": 60410
+    },
+    {
+      "icon_id": "18664706",
+      "name": "通讯录",
+      "font_class": "directory",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "21242880",
+      "name": "相机",
+      "font_class": "camera",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "22280762",
+      "name": "转账",
+      "font_class": "transfer",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "23214108",
+      "name": "收藏",
+      "font_class": "collection",
+      "unicode": "ea5a",
+      "unicode_decimal": 59994
+    },
+    {
+      "icon_id": "25537563",
+      "name": "卡包",
+      "font_class": "card_package",
+      "unicode": "e7d1",
+      "unicode_decimal": 59345
+    },
+    {
+      "icon_id": "27229314",
+      "name": "文件",
+      "font_class": "file",
+      "unicode": "e69e",
+      "unicode_decimal": 59038
+    },
+    {
+      "icon_id": "29130774",
+      "name": "收付款",
+      "font_class": "payment_received",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    }
+  ]
+}
