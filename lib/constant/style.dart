@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 class Style {
 
   ///脚手架组件背景颜色
-  static const Color scaffoldBackgroundColor = Color.fromRGBO(237,237,237,5);
+  static const Color scaffoldBackgroundColor = Color.fromRGBO(247,247,247,5);
 
   ///AppBar背景颜色
-  static const Color appBarBackgroundColor = Colors.white70;
+  static const Color appBarBackgroundColor = Color.fromRGBO(247,247,247,5);
   static const Color appBarTextColor = Colors.black;
 
   ///底部导航栏背景颜色
@@ -19,5 +19,9 @@ class Style {
 
   ///内容背景颜色
   static const Color contentBackgroundColor = Colors.white;
+
+  ///消息页搜索背景颜色
+  static const Color messageSearchBackgroundColor = Color.fromRGBO(247,247,247,5);
+
 
 }
