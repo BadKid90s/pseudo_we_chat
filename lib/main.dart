@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pseudo_we_chat/pages/index/index.dart';
 
+import 'constant/style.dart';
+
 void main() {
   runApp(const App());
 }
@@ -14,7 +16,7 @@ class App extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.green,
+          scaffoldBackgroundColor: Style.scaffoldBackgroundColor,
         ),
         home: const IndexPage());
   }

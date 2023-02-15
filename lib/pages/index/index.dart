@@ -5,6 +5,8 @@ import 'package:pseudo_we_chat/pages/home/home.dart';
 import 'package:pseudo_we_chat/pages/message/message.dart';
 import 'package:pseudo_we_chat/ui/font/WeChatFont.dart';
 
+import '../../constant/style.dart';
+
 class IndexPage extends StatefulWidget {
   // 定义初始化导航栏选择的下标，默认为0
   final int index;
@@ -85,14 +87,15 @@ class _IndexPageState extends State<IndexPage> {
               return _pageItem[index];
             }),
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Style.navBarBgColor,
           //设置选中图标颜色
-          selectedItemColor: Colors.green,
+          selectedItemColor: Style.navBarSelectedItemColor,
           //设置未选中图标颜色
-          unselectedItemColor: Colors.grey,
+          unselectedItemColor: Style.navBarUnSelectedItemColor,
           //设置选中文字大小
-          selectedLabelStyle: const TextStyle(fontSize: 10),
+          selectedLabelStyle: const TextStyle(fontSize: 14),
           //设置未选中文字大小
-          unselectedLabelStyle: const TextStyle(fontSize: 10),
+          unselectedLabelStyle: const TextStyle(fontSize: 14),
           //设置类型
           type: BottomNavigationBarType.fixed,
           //设置选中下标
