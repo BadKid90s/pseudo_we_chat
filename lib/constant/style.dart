@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class Style {
 
   ///脚手架组件背景颜色
-  static const Color scaffoldBackgroundColor = Colors.white70;
+  static const Color scaffoldBackgroundColor = Color.fromRGBO(237,237,237,5);
 
   ///AppBar背景颜色
   static const Color appBarBackgroundColor = Colors.white70;
@@ -18,6 +18,6 @@ class Style {
   static const Color navBarUnSelectedItemColor = Colors.black45;
 
   ///内容背景颜色
-  static const Color contentBackgroundColor = Colors.white70;
+  static const Color contentBackgroundColor = Colors.white;
 
 }
