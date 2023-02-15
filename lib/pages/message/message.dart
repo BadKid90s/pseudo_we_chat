@@ -157,63 +157,92 @@ class _MessagePageState extends State<MessagePage> {
                         return Column(
                           children: [
                             //搜索按钮
-                           index ==0 ? Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.only(
-                                  left: 10, right: 10, top: 5, bottom: 5),
-                              decoration: const BoxDecoration(
-                                  color: Style.messageSearchBackgroundColor),
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                    elevation: MaterialStateProperty.all(0),
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.white)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Icon(
-                                      Icons.search,
-                                      color: Colors.grey,
+                            index == 0
+                                ? Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10, top: 5, bottom: 5),
+                                    decoration: const BoxDecoration(
+                                        color:
+                                            Style.messageSearchBackgroundColor),
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                          elevation:
+                                              MaterialStateProperty.all(0),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.white)),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: const [
+                                          Icon(
+                                            Icons.search,
+                                            color: Colors.grey,
+                                          ),
+                                          Text(
+                                            "搜索",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.grey),
+                                          )
+                                        ],
+                                      ),
+                                      onPressed: () {},
                                     ),
-                                    Text(
-                                      "搜索",
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.grey),
-                                    )
-                                  ],
+                                  )
+                                : const SizedBox(),
+                            Column(
+                              children: [
+                                ListTile(
+                                  //头像
+                                  leading: Image.network(
+                                    item.avatar,
+                                    width: 50,
+                                    height: 50,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  //名称和时间
+                                  title: Row(
+                                    children: [
+                                      //名称
+                                      Expanded(
+                                          flex: 9,
+                                          child: Text(item.name,
+                                              style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight:
+                                                      FontWeight.w500))),
+                                      //右侧时间
+                                      Expanded(
+                                          flex: 1,
+                                          child: Text(
+                                            formatDate(
+                                                item.lastTime, [HH, ':', nn]),
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          )),
+                                    ],
+                                  ),
+                                  //消息内容
+                                  subtitle: Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Text(item.message,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: const TextStyle(
+                                            fontSize: 16, color: Colors.grey)),
+                                  ),
                                 ),
-                                onPressed: () {},
-                              ),
-                            ): const SizedBox(),
-                            ListTile(
-                              //头像
-                              leading: Image.network(
-                                item.avatar,
-                                width: 50,
-                                height: 50,
-                                fit: BoxFit.cover,
-                              ),
-                              //名称和时间
-                              title: Row(
-                                children: [
-                                  //名称
-                                  Expanded(flex: 8, child: Text(item.name)),
-                                  //右侧时间
-                                  Expanded(
-                                      flex: 2,
-                                      child: Text(
-                                        formatDate(item.lastTime,
-                                            [HH, ':', nn, ':', ss]),
-                                        style: const TextStyle(fontSize: 12),
-                                      )),
-                                ],
-                              ),
-                              //消息内容
-                              subtitle: Text(
-                                item.message,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
+                                //下划线
+                                Padding(
+                                  padding: index == _messageList.length - 1
+                                      ? const EdgeInsets.only(left: 0)
+                                      : const EdgeInsets.only(left: 80),
+                                  child: const Divider(),
+                                )
+                              ],
                             )
                           ],
                         );
