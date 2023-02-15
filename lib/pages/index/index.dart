@@ -87,6 +87,7 @@ class _IndexPageState extends State<IndexPage> {
               return _pageItem[index];
             }),
         bottomNavigationBar: BottomNavigationBar(
+          elevation: 0,
           backgroundColor: Style.navBarBgColor,
           //设置选中图标颜色
           selectedItemColor: Style.navBarSelectedItemColor,
