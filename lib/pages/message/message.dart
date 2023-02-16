@@ -1,5 +1,6 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:pseudo_we_chat/ui/badge_avatar.dart';
 
 import '../../constant/style.dart';
 
@@ -28,21 +29,21 @@ class _MessagePageState extends State<MessagePage> {
         name: "云淡风轻",
         message: "[图片]",
         lastTime: DateTime.now().subtract(const Duration(minutes: 30)),
-        unReadNum: 1),
+        unReadNum: 0),
     MessageData(
         id: BigInt.from(1),
         avatar: "https://www.itying.com/images/flutter/2.png",
         name: "魅力人生",
         message: "今天是个好日子。",
         lastTime: DateTime.now().subtract(const Duration(hours: 1)),
-        unReadNum: 66),
+        unReadNum: 9),
     MessageData(
         id: BigInt.from(1),
         avatar: "https://www.itying.com/images/flutter/1.png",
         name: "随访飘逸",
         message: "你好啊",
         lastTime: DateTime.now().subtract(const Duration(hours: 2)),
-        unReadNum: 99),
+        unReadNum: 66),
     MessageData(
         id: BigInt.from(1),
         avatar:
@@ -50,7 +51,7 @@ class _MessagePageState extends State<MessagePage> {
         name: "张三",
         message: "Hello word!",
         lastTime: DateTime.now(),
-        unReadNum: 1),
+        unReadNum: 120),
     MessageData(
         id: BigInt.from(1),
         avatar: "https://www.itying.com/images/flutter/3.png",
@@ -196,18 +197,9 @@ class _MessagePageState extends State<MessagePage> {
                               children: [
                                 ListTile(
                                   //头像
-                                  leading: Badge(
-                                    label: Text("${item.unReadNum}"),
-                                    backgroundColor: Colors.red,
-                                    alignment: item.unReadNum < 10
-                                        ? AlignmentDirectional(40, -6)
-                                        : AlignmentDirectional(30, -6),
-                                    child: Image.network(
-                                      item.avatar,
-                                      width: 50,
-                                      height: 50,
-                                      fit: BoxFit.cover,
-                                    ),
+                                  leading: BadgeAvatar(
+                                    avatar: item.avatar,
+                                    num: item.unReadNum,
                                   ),
                                   //名称和时间
                                   title: Row(
