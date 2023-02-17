@@ -240,11 +240,7 @@ class _MessagePageState extends State<MessagePage> {
                                         SlidableAction(
                                           autoClose: false,
                                           flex: 1,
-                                          onPressed: (BuildContext context) {
-                                            setState(() {
-                                              _state = "del_ok";
-                                            });
-                                          },
+                                          onPressed: (BuildContext context) {},
                                           backgroundColor: Colors.deepOrange,
                                           foregroundColor: Colors.white,
                                           label: '删除',
