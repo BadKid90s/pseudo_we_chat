@@ -2,6 +2,8 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pseudo_we_chat/ui/badge_avatar.dart';
+import 'package:pseudo_we_chat/ui/font/WeChatFont.dart';
+import 'package:pseudo_we_chat/ui/tooltip_shape.dart';
 
 import '../../constant/style.dart';
 
@@ -134,6 +136,13 @@ class _MessagePageState extends State<MessagePage> {
         unReadNum: 1)
   ];
 
+  List<PopupMenuData> popList = const [
+    PopupMenuData(name: "发起群聊", icon: WeChatFont.group_chat),
+    PopupMenuData(name: "添加朋友", icon: WeChatFont.person_outlined),
+    PopupMenuData(name: "扫一扫", icon: WeChatFont.sweep),
+    PopupMenuData(name: "收付款", icon: WeChatFont.payment_received),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,6 +153,48 @@ class _MessagePageState extends State<MessagePage> {
             style: TextStyle(color: Style.appBarTextColor),
           ),
           backgroundColor: Style.appBarBackgroundColor,
+          //导航右侧按钮组
+          actions: [
+            //外部container可以用来调整间距，不放到里面的Container
+            //是因为这个margin会增加点击区域，毕竟外面包了一层TextButton一样的东西
+            Container(
+              margin: const EdgeInsets.only(right: 10),
+              //使用 PopupMenuButton 来定义右侧点击弹层功能
+              child: PopupMenuButton(
+                color: Colors.black87,
+                //弹层实物位置，相对于当前组件的偏移
+                offset: const Offset(0, 56),
+                //我们看到的按钮的信息，组件给其默认添加点击事件
+                shape: const TooltipShape(),
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  alignment: Alignment.center,
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.black,
+                  ),
+                ),
+                //返回内部组件信息列表，单行 item 使用 PopupMenuItem
+                //使用 .map<PopupMenuItem> 的原因可以动态生成多个 item
+                itemBuilder: (BuildContext context) {
+                  return popList.map<PopupMenuItem>((item) {
+                    return PopupMenuItem(
+                      //水平布局，左侧图片，右侧问题，中间间隔使用 Sizebox即可
+                      child: Row(
+                        children: [
+                          Icon(item.icon),
+                          const SizedBox(width: 10),
+                          Text(item.name,
+                              style: const TextStyle(color: Colors.white)),
+                        ],
+                      ),
+                    );
+                  }).toList();
+                },
+              ),
+            )
+          ],
         ),
         body: Container(
             color: Style.contentBackgroundColor,
@@ -337,4 +388,14 @@ class MessageData {
 
   /// 消息时间
   final DateTime lastTime;
+}
+
+class PopupMenuData {
+  const PopupMenuData({required this.name, required this.icon});
+
+  /// 名称
+  final String name;
+
+  /// 图标
+  final IconData icon;
 }

@@ -7,6 +7,7 @@ class WeChatFont {
 
   ///添加用户
   static const IconData add_user = IconData(0xf014d, fontFamily: fontFamily);
+  static const IconData person_outlined = IconData(0xf27b, fontFamily: 'MaterialIcons');
   ///语音
   static const IconData speech = IconData(0xe805, fontFamily: fontFamily,);
   ///语音
