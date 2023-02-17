@@ -3,8 +3,8 @@
 使用Flutter框架开发微信页面
 
 ## 预览效果
-<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8beaa24877a345f8bfe4207b42bf42c9~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>          <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/730991adade04eb1a323bd281456af62~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>
-
+<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8beaa24877a345f8bfe4207b42bf42c9~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>        <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/730991adade04eb1a323bd281456af62~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>
+<img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ba3fb7cfc94c441183c9e794cf499146~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>
 
 ## 参考文档
 
