@@ -17,6 +17,8 @@
 - [004-使用PageView滑动切换页面](https://juejin.cn/post/7199895323186544698)
 - [005-自定义Style设置页面颜色](https://juejin.cn/post/7200225253674713147)
 - [006-实现消息页聊天列表和搜索框](https://juejin.cn/post/7200293749837873207)
+- [007-Badge、Avatar组件实现未读小红点](https://juejin.cn/post/7200962751400214583)
+- [008-Flutter_Slidable组件实现列表侧面滑动效果 ](https://juejin.cn/post/7200963221423177765)
 
 
 
