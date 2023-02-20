@@ -22,6 +22,6 @@ class Style {
 
   ///消息页搜索背景颜色
   static const Color messageSearchBackgroundColor = Color.fromRGBO(247,247,247,5);
-
-
+  ///通讯录页分组背景
+  static const Color groupBackgroundColor = Color.fromRGBO(247,247,247,5);
 }
