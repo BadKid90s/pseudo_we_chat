@@ -206,7 +206,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
       List<DirectoryData> data, int currentIndex, bool isLastGroup) {
     int dataSize = data.length;
     bool isLastItem = (dataSize - 1 == currentIndex);
-    // 最后一组
+    // 最后一组,最后一个不需要缩进，直接添加下划线，其余的添加缩进下划线
     if (isLastGroup) {
       return Padding(
         padding: isLastItem
@@ -216,13 +216,12 @@ class _DirectoryPageState extends State<DirectoryPage> {
       );
     }
 
-    if (dataSize <= 1) {
+    //如果只有一个元素不添加下划线
+    if (dataSize <= 1 || isLastItem) {
       return const SizedBox.shrink();
     }
 
-    if (isLastItem) {
-      return const SizedBox.shrink();
-    }
+    //其余添加缩进下划线
     return const Padding(
       padding: EdgeInsets.only(left: 80),
       child: Divider(),
