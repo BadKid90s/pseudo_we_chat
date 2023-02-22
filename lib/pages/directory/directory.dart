@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pseudo_we_chat/constant/style.dart';
+import 'package:section_view/section_view.dart';
 
 class DirectoryPage extends StatefulWidget {
   const DirectoryPage({Key? key}) : super(key: key);
@@ -115,6 +116,9 @@ class _DirectoryPageState extends State<DirectoryPage> {
     ),
   ];
 
+  late final ScrollController _scrollController;
+  final GlobalKey _globalKey = GlobalKey(debugLabel: "list");
+
   @override
   void initState() {
     super.initState();
@@ -128,6 +132,9 @@ class _DirectoryPageState extends State<DirectoryPage> {
         .toList();
     _list.addAll(tempData);
     _list.sort((a, b) => a.groupName.compareTo(b.groupName));
+
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {});
   }
 
   @override
@@ -140,65 +147,73 @@ class _DirectoryPageState extends State<DirectoryPage> {
               style: TextStyle(color: Style.appBarTextColor),
             ),
             backgroundColor: Style.appBarBackgroundColor),
-        body: Container(
-          color: Style.contentBackgroundColor,
-          child: ListView.builder(
-              itemCount: _list.length,
-              itemBuilder: (context, index) {
-                List<Widget> listView = [];
-
-                var groupData = _list[index];
-
-                bool isLastGroup = index == _list.length - 1;
-
-                if (groupData.groupName != '') {
-                  listView.add(Container(
-                      alignment: Alignment.centerLeft,
-                      height: 30,
-                      color: Style.groupBackgroundColor,
-                      padding:
-                          const EdgeInsets.only(left: 15, top: 5, bottom: 5),
-                      child: Text(groupData.groupName)));
-                }
-
-                var listTileList = groupData.list
-                    .asMap()
-                    .entries
-                    .map((item) => Column(
-                          children: [
-                            //构建列表信息
-                            ListTile(
-                              leading: item.value.avatar.startsWith("images")
-                                  ? Image.asset(
-                                      item.value.avatar,
-                                      width: 50,
-                                      height: 50,
-                                    )
-                                  : Image.network(
-                                      item.value.avatar,
-                                      width: 50,
-                                      height: 50,
-                                      fit: BoxFit.cover,
-                                    ),
-                              title: Text(item.value.name),
-                              subtitle: item.value.remarks != null
-                                  ? Text(item.value.remarks!)
-                                  : null,
+        body: SectionView<DirectoryGroupData, DirectoryData>(
+            source: _list,
+            onFetchListData: (header) => header.list,
+            enableSticky: true,
+            alphabetAlign: Alignment.center,
+            alphabetInset: const EdgeInsets.all(4.0),
+            headerBuilder: (context, headerData, headerIndex) {
+              if (headerData.groupName == '') {
+                return const SizedBox.shrink();
+              }
+              return Container(
+                  alignment: Alignment.centerLeft,
+                  height: 30,
+                  color: Style.groupBackgroundColor,
+                  padding: const EdgeInsets.only(left: 15, top: 5, bottom: 5),
+                  child: Text(headerData.groupName.toUpperCase()));
+            },
+            itemBuilder:
+                (context, itemData, itemIndex, headerData, headerIndex) {
+              return Container(
+                color: Style.contentBackgroundColor,
+                child: Column(
+                  children: [
+                    //构建列表信息
+                    ListTile(
+                      leading: itemData.avatar.startsWith("images")
+                          ? Image.asset(
+                              itemData.avatar,
+                              width: 50,
+                              height: 50,
+                            )
+                          : Image.network(
+                              itemData.avatar,
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover,
                             ),
-
-                            //构建下划线
-                            _buildUnderline(
-                                groupData.list, item.key, isLastGroup)
-                          ],
-                        ))
-                    .toList();
-
-                listView.addAll(listTileList);
-
-                return Column(
-                  children: listView,
-                );
-              }),
+                      title: Text(itemData.name),
+                    ),
+                    //构建下划线
+                    _buildUnderline(headerData.list, itemIndex,
+                        _list.length - 1 == headerIndex)
+                  ],
+                ),
+              );
+            },
+            alphabetBuilder: (context, headerData, isCurrent, headerIndex) {
+              return isCurrent
+                  ? SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey[400],
+                              borderRadius: BorderRadius.circular(9)),
+                          child: Center(
+                              child: Text(
+                            headerData.groupName == ''
+                                ? "🔍"
+                                : headerData.groupName,
+                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                          ))))
+                  : Text(
+                      headerData.groupName == '' ? "🔍" : headerData.groupName,
+                      style: const TextStyle(color: Color(0xFF767676)),
+                    );
+            },
         ));
   }
 
