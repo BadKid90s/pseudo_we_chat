@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pseudo_we_chat/ui/badge_avatar.dart';
 import 'package:pseudo_we_chat/ui/font/WeChatFont.dart';
+import 'package:pseudo_we_chat/ui/search.dart';
 import 'package:pseudo_we_chat/ui/tooltip_shape.dart';
 
 import '../../constant/style.dart';
@@ -212,42 +213,7 @@ class _MessagePageState extends State<MessagePage> {
                             children: [
                               //搜索按钮
                               index == 0
-                                  ? Container(
-                                      width: double.infinity,
-                                      padding: const EdgeInsets.only(
-                                          left: 10,
-                                          right: 10,
-                                          top: 5,
-                                          bottom: 5),
-                                      decoration: const BoxDecoration(
-                                          color: Style
-                                              .messageSearchBackgroundColor),
-                                      child: ElevatedButton(
-                                        style: ButtonStyle(
-                                            elevation:
-                                                MaterialStateProperty.all(0),
-                                            backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    Colors.white)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: const [
-                                            Icon(
-                                              Icons.search,
-                                              color: Colors.grey,
-                                            ),
-                                            Text(
-                                              "搜索",
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.grey),
-                                            )
-                                          ],
-                                        ),
-                                        onPressed: () {},
-                                      ),
-                                    )
+                                  ? const SearchView()
                                   : const SizedBox(),
                               Column(
                                 children: [
