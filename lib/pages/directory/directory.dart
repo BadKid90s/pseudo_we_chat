@@ -117,7 +117,6 @@ class _DirectoryPageState extends State<DirectoryPage> {
   ];
 
   late final ScrollController _scrollController;
-  final GlobalKey _globalKey = GlobalKey(debugLabel: "list");
 
   @override
   void initState() {
@@ -147,7 +146,9 @@ class _DirectoryPageState extends State<DirectoryPage> {
               style: TextStyle(color: Style.appBarTextColor),
             ),
             backgroundColor: Style.appBarBackgroundColor),
-        body: SectionView<DirectoryGroupData, DirectoryData>(
+        body: Container(
+          color: Style.contentBackgroundColor,
+          child:  SectionView<DirectoryGroupData, DirectoryData>(
             source: _list,
             onFetchListData: (header) => header.list,
             enableSticky: true,
@@ -164,8 +165,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
                   padding: const EdgeInsets.only(left: 15, top: 5, bottom: 5),
                   child: Text(headerData.groupName.toUpperCase()));
             },
-            itemBuilder:
-                (context, itemData, itemIndex, headerData, headerIndex) {
+            itemBuilder: (context, itemData, itemIndex, headerData, headerIndex) {
               return Container(
                 color: Style.contentBackgroundColor,
                 child: Column(
@@ -174,21 +174,27 @@ class _DirectoryPageState extends State<DirectoryPage> {
                     ListTile(
                       leading: itemData.avatar.startsWith("images")
                           ? Image.asset(
-                              itemData.avatar,
-                              width: 50,
-                              height: 50,
-                            )
+                        itemData.avatar,
+                        width: 50,
+                        height: 50,
+                      )
                           : Image.network(
-                              itemData.avatar,
-                              width: 50,
-                              height: 50,
-                              fit: BoxFit.cover,
-                            ),
+                        itemData.avatar,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
                       title: Text(itemData.name),
                     ),
                     //构建下划线
                     _buildUnderline(headerData.list, itemIndex,
-                        _list.length - 1 == headerIndex)
+                        _list.length - 1 == headerIndex),
+                    //构建总人数统计
+                    _buildCountPersonNum(
+                        _list.length - 1 == headerIndex &&
+                            headerData.list.length - 1 == itemIndex,
+                        _list.map((e) => e.list.length).fold(0,
+                                (previousValue, element) => previousValue + element))
                   ],
                 ),
               );
@@ -196,25 +202,28 @@ class _DirectoryPageState extends State<DirectoryPage> {
             alphabetBuilder: (context, headerData, isCurrent, headerIndex) {
               return isCurrent
                   ? SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey[400],
-                              borderRadius: BorderRadius.circular(9)),
-                          child: Center(
-                              child: Text(
+                  width: 18,
+                  height: 18,
+                  child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[400],
+                          borderRadius: BorderRadius.circular(9)),
+                      child: Center(
+                          child: Text(
                             headerData.groupName == ''
                                 ? "🔍"
                                 : headerData.groupName,
-                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 12),
                           ))))
                   : Text(
-                      headerData.groupName == '' ? "🔍" : headerData.groupName,
-                      style: const TextStyle(color: Color(0xFF767676)),
-                    );
+                headerData.groupName == '' ? "🔍" : headerData.groupName,
+                style: const TextStyle(color: Color(0xFF767676)),
+              );
             },
-        ));
+          ),
+        )
+    );
   }
 
   Widget _buildUnderline(
@@ -230,7 +239,6 @@ class _DirectoryPageState extends State<DirectoryPage> {
         child: const Divider(),
       );
     }
-
     //如果只有一个元素不添加下划线
     if (dataSize <= 1 || isLastItem) {
       return const SizedBox.shrink();
@@ -241,6 +249,21 @@ class _DirectoryPageState extends State<DirectoryPage> {
       padding: EdgeInsets.only(left: 80),
       child: Divider(),
     );
+  }
+
+  Widget _buildCountPersonNum(bool isLastItem, int num) {
+    if (isLastItem) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "共$num个朋友",
+            style: const TextStyle(fontSize: 18, color: Colors.grey),
+          )
+        ],
+      );
+    }
+    return const SizedBox.shrink();
   }
 }
 
