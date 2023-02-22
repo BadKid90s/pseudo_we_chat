@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pseudo_we_chat/constant/style.dart';
+import 'package:pseudo_we_chat/ui/search.dart';
 import 'package:section_view/section_view.dart';
 
 class DirectoryPage extends StatefulWidget {
@@ -156,7 +157,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
             alphabetInset: const EdgeInsets.all(4.0),
             headerBuilder: (context, headerData, headerIndex) {
               if (headerData.groupName == '') {
-                return const SizedBox.shrink();
+                return const SearchView();
               }
               return Container(
                   alignment: Alignment.centerLeft,
