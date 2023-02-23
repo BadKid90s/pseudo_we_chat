@@ -12,21 +12,20 @@ class DiscoverPage extends StatefulWidget {
 class _DiscoverPageState extends State<DiscoverPage> {
   final List<DiscoverGroupData> _list = const [
     DiscoverGroupData(groupName: "a", list: [
-      DiscoverData(
-          name: "朋友圈", icon: "images/friend_circle.png", isNewMsg: false)
+      DiscoverData(name: "朋友圈", icon: "images/friend_circle.png", msgNum: 12)
     ]),
     DiscoverGroupData(groupName: "b", list: [
-      DiscoverData(name: "视频号", icon: "images/video.png", isNewMsg: true),
-      DiscoverData(name: "直播", icon: "images/direct_seeding.png", isNewMsg: true),
+      DiscoverData(name: "视频号", icon: "images/video.png"),
+      DiscoverData(name: "直播", icon: "images/direct_seeding.png"),
     ]),
     DiscoverGroupData(groupName: "c", list: [
-      DiscoverData(name: "扫一扫", icon: "images/sweep.png", isNewMsg: false),
+      DiscoverData(name: "扫一扫", icon: "images/sweep.png"),
     ]),
     DiscoverGroupData(groupName: "d", list: [
-      DiscoverData(name: "搜一搜", icon: "images/search.png", isNewMsg: false),
+      DiscoverData(name: "搜一搜", icon: "images/search.png"),
     ]),
     DiscoverGroupData(groupName: "e", list: [
-      DiscoverData(name: "附近", icon: "images/address.png", isNewMsg: false),
+      DiscoverData(name: "附近", icon: "images/address.png"),
     ]),
   ];
 
@@ -90,8 +89,12 @@ class GroupItemView extends StatelessWidget {
           .map((item) => Column(
                 children: [
                   ListTile(
-                    leading: Image.asset(item.value.icon,width: 54,height: 54,),
-                    title: Text(item.value.name),
+                    leading: Image.asset(
+                      item.value.icon,
+                      width: 54,
+                      height: 54,
+                    ),
+                    title: GroupItemContentView(item.value),
                     trailing: const Icon(Icons.chevron_right),
                   ),
                   if (item.key != list.length - 1)
@@ -102,6 +105,36 @@ class GroupItemView extends StatelessWidget {
                 ],
               ))
           .toList(),
+    );
+  }
+}
+
+class GroupItemContentView extends StatelessWidget {
+  const GroupItemContentView(this.data, {Key? key}) : super(key: key);
+
+  final DiscoverData data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      // direction: null,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Text(data.name),
+        ),
+        if (data.msgNum != null)
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [Badge.count(count: data.msgNum!)],
+              ),
+            ),
+          )
+      ],
     );
   }
 }
@@ -117,8 +150,7 @@ class DiscoverGroupData {
 }
 
 class DiscoverData {
-  const DiscoverData(
-      {required this.name, required this.icon, required this.isNewMsg});
+  const DiscoverData({required this.name, required this.icon, this.msgNum});
 
   /// 名称
   final String name;
@@ -126,6 +158,6 @@ class DiscoverData {
   /// 图标
   final String icon;
 
-  /// 是否有新消息
-  final bool isNewMsg;
+  /// 新消息数量
+  final int? msgNum;
 }
