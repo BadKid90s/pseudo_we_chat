@@ -99,7 +99,4 @@ flutter:
       fonts:
         - asset: fonts/wechat-iconfont.ttf
   assets:
-    - images/friend.png
-    - images/group_chat.png
-    - images/label.png
-    - images/official_accounts.png
+    - images/
