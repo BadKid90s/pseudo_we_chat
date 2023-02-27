@@ -16,7 +16,7 @@ class _MessagePageState extends State<MessagePage> {
     MessageData(
         id: BigInt.from(1),
         avatar:
-            "https://d36tnp772eyphs.cloudfront.net/blogs/1/2018/02/Taj-Mahal.jpg",
+            "https://www.itying.com/images/flutter/3.png",
         name: "张三123",
         message:
             "ZFLEX对UIKit的一层封装，主要包含一个数据驱动的列表框架、和UIKit中常用控件的链式拓展，ZZFLEX相关资料正在整理中，目前已经开源，ZFLEX对UIKit的一层封装，主要包含一个数据驱动的列表框架、和UIKit中常用控件的链式拓展，ZZFLEX相关资料正在整理中，目前已经开源",
@@ -46,7 +46,7 @@ class _MessagePageState extends State<MessagePage> {
     MessageData(
         id: BigInt.from(1),
         avatar:
-            "https://d36tnp772eyphs.cloudfront.net/blogs/1/2018/02/Taj-Mahal.jpg",
+            "https://www.itying.com/images/flutter/3.png",
         name: "张三",
         message: "Hello word!",
         lastTime: DateTime.now(),
@@ -75,7 +75,7 @@ class _MessagePageState extends State<MessagePage> {
     MessageData(
         id: BigInt.from(1),
         avatar:
-            "https://d36tnp772eyphs.cloudfront.net/blogs/1/2018/02/Taj-Mahal.jpg",
+            "https://www.itying.com/images/flutter/3.png",
         name: "张三",
         message: "Hello word!",
         lastTime: DateTime.now(),
@@ -104,7 +104,7 @@ class _MessagePageState extends State<MessagePage> {
     MessageData(
         id: BigInt.from(1),
         avatar:
-            "https://d36tnp772eyphs.cloudfront.net/blogs/1/2018/02/Taj-Mahal.jpg",
+            "https://www.itying.com/images/flutter/3.png",
         name: "张三",
         message: "Hello word!",
         lastTime: DateTime.now(),
