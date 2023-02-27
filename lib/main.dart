@@ -17,6 +17,9 @@ class App extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           scaffoldBackgroundColor: Style.scaffoldBackgroundColor,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Style.appBarBackgroundColor
+          )
         ),
         home: const IndexPage());
   }
