@@ -10,6 +10,8 @@
 <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2fb7a864f0a6449993ab98a762fdaf41~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>
 <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e675237a1b1b4748af21c7177b49c2c1~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>
 <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ebbc718952f24a099493dd441b5ea1d4~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>
+<img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/81afa73d76264b30bae17201c3121c13~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>
+<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5af8c776cd0e49489de831b50c87311c~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>
 ## 参考文档
 
 [掘金专栏](https://juejin.cn/column/7199484168294760485)
@@ -28,6 +30,8 @@
 - [011-使用section_view构建微信通讯录页面](https://juejin.cn/post/7202779356938158117)
 - [012-构建微信通讯录页面顶部搜索和底部人数统计](https://juejin.cn/post/7202826051541778487)
 - [013-构建微信发现页列表](https://juejin.cn/post/7203191249753571388)
+- [014-构建微信朋友圈未读小红点](https://juejin.cn/post/7204680573120577596)
+- [015-构建微信我的页面](https://juejin.cn/post/7204680573120856124)
 
 
 ## 快速开始
