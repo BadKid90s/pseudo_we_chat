@@ -7,6 +7,9 @@ import 'package:styled_widget/styled_widget.dart';
 class IndexPage extends StatelessWidget {
   const IndexPage({super.key});
 
+  TextStyle get _textStyle =>
+      const TextStyle(fontSize: 18, wordSpacing: 20, letterSpacing: 20);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,16 +37,22 @@ class IndexPage extends StatelessWidget {
                           onPressed: () {
                             Get.toNamed(AppRoutes.login);
                           },
-                          child: const Text("登录"),
                           color: Color.fromRGBO(255, 255, 255, 100),
+                          child: Text(
+                            'login_login_button_title'.tr,
+                            style: _textStyle,
+                          ),
                         ).height(50).paddingSymmetric(horizontal: 20),
                       ),
                       Expanded(
                         flex: 1,
                         child: GFButton(
                           onPressed: () {},
-                          child: const Text("注册"),
                           color: Colors.green,
+                          child: Text(
+                            'login_signup_button_title'.tr,
+                            style: _textStyle,
+                          ),
                         ).height(50).paddingSymmetric(horizontal: 20),
                       ),
                     ],
