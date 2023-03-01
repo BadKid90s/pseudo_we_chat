@@ -6,7 +6,9 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text("登录页")),
+      body: Center(
+        child: Text("xlsx"),
+      ),
     );
   }
 }
