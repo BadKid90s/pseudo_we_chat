@@ -37,10 +37,20 @@ dependencies:
   cupertino_icons: ^1.0.2
   # 时间格式插件
   date_format: ^2.0.7
-  # 列表左侧滑动插件
-  flutter_slidable: ^2.0.0
-  # 列表上滑粘头右侧导航字母插件
-  section_view: ^2.0.5
+  # UI库
+  getwidget: ^3.0.1
+  # 组件样式
+  styled_widget: ^0.4.1
+  # 缓存
+  shared_preferences: ^2.0.17
+  # GetX
+  get: ^4.6.5
+  # http client
+  dio: ^4.0.6
+  # http 日志
+  pretty_dio_logger: ^1.2.0-beta-1
+  # 国际化, 包括了时间格式化
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
@@ -94,9 +104,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-  fonts:
-    - family: WeChatFont
-      fonts:
-        - asset: fonts/wechat-iconfont.ttf
-  assets:
-    - images/
+
