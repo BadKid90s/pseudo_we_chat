@@ -28,7 +28,7 @@ class App extends StatelessWidget {
         colorSchemeSeed: Colors.blue,
       ),
       getPages: AppPages.routes,
-      initialRoute: AppPages.initial,
+      initialRoute: AppPages.splash,
     );
   }
 }
