@@ -35,6 +35,7 @@ class IndexPage extends StatelessWidget {
                         flex: 1,
                         child: GFButton(
                           onPressed: () {
+                            // 跳转登录页
                             Get.toNamed(AppRoutes.login);
                           },
                           color: Color.fromRGBO(255, 255, 255, 100),
@@ -47,7 +48,10 @@ class IndexPage extends StatelessWidget {
                       Expanded(
                         flex: 1,
                         child: GFButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // 跳转注册页
+                            Get.toNamed(AppRoutes.signup);
+                          },
                           color: Colors.green,
                           child: Text(
                             'login_signup_button_title'.tr,
