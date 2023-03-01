@@ -38,7 +38,7 @@ class IndexPage extends StatelessWidget {
                             // 跳转登录页
                             Get.toNamed(AppRoutes.login);
                           },
-                          color: Color.fromRGBO(255, 255, 255, 100),
+                          color: const Color.fromRGBO(247, 247, 247, 70),
                           child: Text(
                             'login_login_button_title'.tr,
                             style: _textStyle,
