@@ -42,7 +42,7 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
               if (controller.phoneController.text.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
-                  middleText: "login_account_username_verify_message".tr,
+                  middleText: "login_phone_phone_verify_message".tr,
                 );
                 return;
               }
