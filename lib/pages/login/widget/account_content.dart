@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:pseudo_we_chat/pages/login/login_account.dart';
+import 'package:pseudo_we_chat/router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 class AccountContent extends StatelessWidget {
@@ -27,7 +28,7 @@ class AccountContent extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: Container(
-                        alignment: Alignment.center,
+                        alignment: Alignment.centerLeft,
                         child: Text("login_account_username".tr,
                             style: context.textTheme.titleMedium)),
                   ),
@@ -49,7 +50,7 @@ class AccountContent extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: Container(
-                        alignment: Alignment.center,
+                        alignment: Alignment.centerLeft,
                         child: Text("login_account_password".tr,
                             style: context.textTheme.titleMedium)),
                   ),
@@ -61,25 +62,25 @@ class AccountContent extends StatelessWidget {
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "login_account_password_hint_text".tr,
-                        ),
-                        onSubmitted: (value) {
-                          print("object");
-                          if (value.isBlank == true) {
-
-                          }
-                        }),
+                        )),
                   ),
                 ],
               ).height(60),
               const Divider(height: 1, thickness: 1),
               Row(children: [
                 GFButton(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  highlightElevation: 0, // 控制按钮下方阴影的大小，默认值为 8
+                  elevation: 0, // 凸起按钮下方阴影的大小，默认值为 2
+                  padding: EdgeInsets.zero,
                   type: GFButtonType.transparent,
                   child: Text("login_account_use_phone_login".tr,
-                      style: context.textTheme.titleMedium),
+                      style: context.textTheme.bodySmall),
                   onPressed: () {
-                    Get.back();
+                    Get.offAndToNamed(AppRoutes.loginPhone);
                   },
+
                 )
               ]),
             ],

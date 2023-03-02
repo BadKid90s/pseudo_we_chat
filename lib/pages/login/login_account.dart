@@ -46,7 +46,7 @@ class LoginAccountPage extends GetView<LoginAccountController> {
                 size: 30,
               ),
               onPressed: () {
-                Get.back();
+                Get.offAndToNamed(AppRoutes.index);
               })),
       body: Column(
         children: [
