@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'i18n.dart';
 import 'router.dart';
 import 'dart:ui';
+import 'themes.dart';
 
 void main() {
   runApp(const App());
@@ -23,12 +24,10 @@ class App extends StatelessWidget {
       // locale: const Locale('en', 'US'),
       // 将会按照此处指定的语言翻译
       fallbackLocale: const Locale('zh', 'CN'),
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: Colors.blue,
-      ),
+      theme: appLightThemeData,
+      darkTheme: appDarkThemeData,
       getPages: AppPages.routes,
-      initialRoute: AppPages.initial,
+      initialRoute: AppPages.splash,
     );
   }
 }
