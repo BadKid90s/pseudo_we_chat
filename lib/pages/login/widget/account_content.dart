@@ -26,14 +26,14 @@ class AccountContent extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Container(
                         alignment: Alignment.centerLeft,
                         child: Text("login_account_username".tr,
                             style: context.textTheme.titleMedium)),
                   ),
                   Expanded(
-                    flex: 8,
+                    flex: 7,
                     child: TextField(
                       controller: _controller.usernameController,
                       decoration: InputDecoration(
@@ -48,14 +48,14 @@ class AccountContent extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Container(
                         alignment: Alignment.centerLeft,
                         child: Text("login_account_password".tr,
                             style: context.textTheme.titleMedium)),
                   ),
                   Expanded(
-                    flex: 8,
+                    flex: 7,
                     child: TextField(
                         obscureText: true,
                         controller: _controller.passwordController,
