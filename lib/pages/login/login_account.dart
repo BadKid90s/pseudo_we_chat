@@ -7,27 +7,28 @@ import 'package:pseudo_we_chat/pages/login/widget/top_title.dart';
 import 'package:pseudo_we_chat/router.dart';
 
 class LoginFormData {
-  LoginFormData({this.username = '', this.password = ''});
+  const LoginFormData(this.username, this.password);
 
-  String username;
-  String password;
+  final String username;
+  final String password;
 }
 
 class LoginAccountController extends GetxController {
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final loginForm = const LoginFormData("", "").obs;
+
+  void changeUsername(String value) {
+    loginForm(LoginFormData(value, loginForm.value.password));
+  }
+
+  void changePassword(String value) {
+    loginForm(LoginFormData(loginForm.value.username, value));
+  }
 
   void login() async {
     //TODO("后台处理")
+    print(loginForm);
     //跳转到消息页
     Get.offAllNamed(AppRoutes.message);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    usernameController.dispose();
-    passwordController.dispose();
   }
 }
 
@@ -51,20 +52,20 @@ class LoginAccountPage extends GetView<LoginAccountController> {
       body: Column(
         children: [
           TopTitle(4, "login_account_title".tr),
-          AccountContent(10),
+          const AccountContent(10),
           Bottom(
             flex: 6,
             title: "login_account_bottom_title".tr,
             buttonTitle: "login_account_bottom_button_title".tr,
             buttonPressed: () {
-              if (controller.usernameController.text.isBlank == true) {
+              if (controller.loginForm.value.username.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
                   middleText: "login_account_username_verify_message".tr,
                 );
                 return;
               }
-              if (controller.passwordController.text.isBlank == true) {
+              if (controller.loginForm.value.password.isBlank == true) {
                 Get.defaultDialog(
                     title: "❕",
                     middleText: "login_account_password_verify_message".tr);
