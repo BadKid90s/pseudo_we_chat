@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:pseudo_we_chat/generated/l10n.dart';
 import 'package:pseudo_we_chat/pages/login/widget/bottom.dart';
 import 'package:pseudo_we_chat/pages/login/widget/phone_content.dart';
 import 'package:pseudo_we_chat/pages/login/widget/top_title.dart';
@@ -9,7 +10,7 @@ import 'package:pseudo_we_chat/router.dart';
 class LoginPhoneController extends GetxController {
   var phoneCode = "86".obs;
   var phone = "".obs;
-  var region = "中国".obs;
+  var region = Rxn<String>(null);
 
   void changeRegion(String code, String? regionName) {
     phoneCode(code);
@@ -19,10 +20,13 @@ class LoginPhoneController extends GetxController {
   void login() async {
     print("loginPhone: +$phoneCode $phone");
   }
+
+
 }
 
 class LoginPhonePage extends GetView<LoginPhoneController> {
   const LoginPhonePage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,17 +44,17 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
               })),
       body: Column(
         children: [
-          TopTitle(4, "login_phone_title".tr),
+          TopTitle(4, S.of(context).login_phone_title),
           const PhoneContent(10),
           Bottom(
             flex: 6,
-            title: "login_phone_bottom_title".tr,
-            buttonTitle: "login_phone_bottom_button_title".tr,
+            title: S.of(context).login_phone_bottom_title,
+            buttonTitle: S.of(context).login_phone_bottom_button_title,
             buttonPressed: () {
               if (controller.phone.value.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
-                  middleText: "login_phone_phone_verify_message".tr,
+                  middleText: S.of(context).login_account_username_verify_message,
                 );
                 return;
               }

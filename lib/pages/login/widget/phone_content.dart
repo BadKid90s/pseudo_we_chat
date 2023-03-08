@@ -4,6 +4,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:pseudo_we_chat/generated/l10n.dart';
 import 'package:pseudo_we_chat/pages/login/login_phone.dart';
 import 'package:pseudo_we_chat/pages/login/widget/onth_login.dart';
 import 'package:pseudo_we_chat/router.dart';
@@ -27,19 +28,19 @@ class PhoneContent extends StatelessWidget {
             _buildDivider(),
             _buildRegionView(
               context,
-              title: "login_phone_region".tr,
+              title: S.of(context).login_phone_region,
               onChanged: (val) => _controller.region(val),
             ),
             _buildDivider(),
             _buildPhoneView(
               context,
-              title: "login_phone_phone".tr,
-              hintText: "login_phone_phone_hint_text".tr,
+              title: S.of(context).login_phone_phone,
+              hintText: S.of(context).login_phone_phone_hint_text,
               onChanged: (val) => _controller.phone(val),
             ),
             _buildDivider(),
             OtherLogin(
-              title: "login_phone_use_other_login".tr,
+              title: S.of(context).login_phone_use_other_login,
               buttonPressed: () => Get.offAndToNamed(AppRoutes.loginAccount),
             ),
           ],
@@ -73,7 +74,6 @@ class PhoneContent extends StatelessWidget {
               ),
               //Optional. Styles the search field.
               inputDecoration: InputDecoration(
-                hintText: '搜索',
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
@@ -97,7 +97,8 @@ class PhoneContent extends StatelessWidget {
             flex: 8,
             child: Center(
               child: Text(
-                _controller.region.value,
+                _controller.region.value ??
+                    S.of(context).login_phone_default_region,
                 style: context.textTheme.titleMedium,
               ),
             ).paddingOnly(left: 5),
