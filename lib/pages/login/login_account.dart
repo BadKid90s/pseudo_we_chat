@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:pseudo_we_chat/generated/l10n.dart';
 import 'package:pseudo_we_chat/pages/login/widget/account_content.dart';
 import 'package:pseudo_we_chat/pages/login/widget/bottom.dart';
 import 'package:pseudo_we_chat/pages/login/widget/top_title.dart';
 import 'package:pseudo_we_chat/router.dart';
+
 
 class LoginFormData {
   const LoginFormData(this.username, this.password);
@@ -49,24 +51,24 @@ class LoginAccountPage extends GetView<LoginAccountController> {
               })),
       body: Column(
         children: [
-          TopTitle(4, "login_account_title".tr),
+          TopTitle(4, S.of(context).login_account_title),
           const AccountContent(10),
           Bottom(
             flex: 6,
-            title: "login_account_bottom_title".tr,
-            buttonTitle: "login_account_bottom_button_title".tr,
+            title: S.of(context).login_account_bottom_title,
+            buttonTitle: S.of(context).login_account_bottom_button_title,
             buttonPressed: () {
               if (controller.loginForm.value.username.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
-                  middleText: "login_account_username_verify_message".tr,
+                  middleText: S.of(context).login_account_username_verify_message,
                 );
                 return;
               }
               if (controller.loginForm.value.password.isBlank == true) {
                 Get.defaultDialog(
                     title: "❕",
-                    middleText: "login_account_password_verify_message".tr);
+                    middleText: S.of(context).login_account_password_verify_message);
                 return;
               }
               controller.login();

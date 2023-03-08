@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pseudo_we_chat/generated/l10n.dart';
 import 'package:pseudo_we_chat/pages/login/login_account.dart';
 import 'package:pseudo_we_chat/pages/login/widget/onth_login.dart';
 import 'package:pseudo_we_chat/router.dart';
@@ -22,21 +23,21 @@ class AccountContent extends StatelessWidget {
             _buildDivider(),
             _buildRowView(
               context,
-              title: "login_account_username".tr,
-              hintText: "login_account_username_hint_text".tr,
+              title: S.of(context).login_account_username,
+              hintText: S.of(context).login_account_username_hint_text,
               onChanged: (val) => _controller.changeUsername(val),
             ),
             _buildDivider(),
             _buildRowView(
               context,
-              title: "login_account_password".tr,
-              hintText: "login_account_password_hint_text".tr,
+              title: S.of(context).login_account_password,
+              hintText: S.of(context).login_account_password_hint_text,
               obscureText: true,
               onChanged: (val) => _controller.changePassword(val),
             ),
             _buildDivider(),
             OtherLogin(
-              title: "login_account_use_phone_login".tr,
+              title: S.of(context).login_account_use_phone_login,
               buttonPressed: () => Get.offAndToNamed(AppRoutes.loginPhone),
             ),
           ],

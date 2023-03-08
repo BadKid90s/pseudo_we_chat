@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:pseudo_we_chat/generated/l10n.dart';
 import 'package:pseudo_we_chat/router.dart';
 import 'package:styled_widget/styled_widget.dart';
+
 
 class IndexPage extends StatelessWidget {
   const IndexPage({super.key});
@@ -37,7 +39,7 @@ class IndexPage extends StatelessWidget {
                           },
                           color: const Color.fromRGBO(247, 247, 247, 30),
                           child: Text(
-                            'login_login_button_title'.tr,
+                            S.of(context).login_login_button_title,
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -54,7 +56,7 @@ class IndexPage extends StatelessWidget {
                           },
                           color: Colors.green,
                           child: Text(
-                            'login_signup_button_title'.tr,
+                            S.of(context).login_signup_button_title,
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,

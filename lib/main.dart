@@ -1,8 +1,11 @@
+import 'package:country_picker/country_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'i18n.dart';
+import 'package:pseudo_we_chat/generated/l10n.dart';
+
 import 'router.dart';
-import 'dart:ui';
 import 'themes.dart';
 
 void main() {
@@ -17,17 +20,21 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      // 国际化
-      translations: I18nMessages(),
-      // 读取系统语言
-      locale: window.locale,
-      // locale: const Locale('en', 'US'),
-      // 将会按照此处指定的语言翻译
-      fallbackLocale: const Locale('zh', 'CN'),
       theme: appLightThemeData,
       darkTheme: appDarkThemeData,
       getPages: AppPages.routes,
       initialRoute: AppPages.splash,
+      supportedLocales: const [
+        Locale('en'),
+        Locale('zh')
+      ],
+      localizationsDelegates: const [
+        S.delegate,
+        CountryLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
     );
   }
 }
