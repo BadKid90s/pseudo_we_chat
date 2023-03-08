@@ -7,10 +7,13 @@ import 'package:pseudo_we_chat/pages/login/widget/top_title.dart';
 import 'package:pseudo_we_chat/router.dart';
 
 class LoginPhoneController extends GetxController {
-  TextEditingController phoneController = TextEditingController();
   var phonePrefix = "86".obs;
+  var phone = "".obs;
+  var region = "".obs;
 
-  void login() async {}
+  void login() async {
+    print("loginPhone: +$phonePrefix $phone");
+  }
 }
 
 class LoginPhonePage extends GetView<LoginPhoneController> {
@@ -33,13 +36,13 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
       body: Column(
         children: [
           TopTitle(4, "login_phone_title".tr),
-          PhoneContent(10),
+          const PhoneContent(10),
           Bottom(
             flex: 6,
             title: "login_phone_bottom_title".tr,
             buttonTitle: "login_phone_bottom_button_title".tr,
             buttonPressed: () {
-              if (controller.phoneController.text.isBlank == true) {
+              if (controller.phone.value.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
                   middleText: "login_phone_phone_verify_message".tr,
@@ -47,6 +50,7 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
                 return;
               }
               controller.login();
+              Get.offAllNamed(AppRoutes.message);
             },
           ),
         ],

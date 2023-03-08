@@ -27,8 +27,6 @@ class LoginAccountController extends GetxController {
   void login() async {
     //TODO("后台处理")
     print(loginForm);
-    //跳转到消息页
-    Get.offAllNamed(AppRoutes.message);
   }
 }
 
@@ -72,6 +70,8 @@ class LoginAccountPage extends GetView<LoginAccountController> {
                 return;
               }
               controller.login();
+              //跳转到消息页
+              Get.offAllNamed(AppRoutes.message);
             },
           ),
         ],
