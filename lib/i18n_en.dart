@@ -15,9 +15,14 @@ class I18nEn {
     "login_account_password_verify_message": "Please enter a password",
 
     "login_phone_title": "Phone Number Login",
+    "login_phone_region": "Country",
+    "login_phone_phone": "Phone",
+    "login_phone_phone_hint_text": "Please fill in the mobile phone number",
+    "login_phone_use_other_login": "Log in using a different method",
     "login_phone_bottom_title": "The above phone number is for verification only",
     "login_phone_bottom_button_title": "Agree And Continue",
-    "login_phone_phone_verify_message": "Please enter the correct mobile phone number",
+    "login_phone_phone_verify_message": "Please enter phone number",
+
 
   };
 }

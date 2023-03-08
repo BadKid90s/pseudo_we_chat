@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pseudo_we_chat/pages/login/login_account.dart';
+import 'package:pseudo_we_chat/pages/login/widget/onth_login.dart';
+import 'package:pseudo_we_chat/router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 class AccountContent extends StatelessWidget {
@@ -33,6 +35,10 @@ class AccountContent extends StatelessWidget {
               onChanged: (val) => _controller.changePassword(val),
             ),
             _buildDivider(),
+            OtherLogin(
+              title: "login_account_use_phone_login".tr,
+              buttonPressed: () => Get.offAndToNamed(AppRoutes.loginPhone),
+            ),
           ],
         ).paddingSymmetric(horizontal: 40));
   }

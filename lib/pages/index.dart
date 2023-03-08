@@ -33,7 +33,7 @@ class IndexPage extends StatelessWidget {
                         child: GFButton(
                           onPressed: () {
                             // 跳转登录页
-                            Get.toNamed(AppRoutes.loginAccount);
+                            Get.toNamed(AppRoutes.loginPhone);
                           },
                           color: const Color.fromRGBO(247, 247, 247, 30),
                           child: Text(
