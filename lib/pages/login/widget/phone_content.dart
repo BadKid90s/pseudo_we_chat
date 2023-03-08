@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -16,7 +19,8 @@ class PhoneContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Obx(
+      () => Expanded(
         flex: flex,
         child: Column(
           children: [
@@ -39,7 +43,9 @@ class PhoneContent extends StatelessWidget {
               buttonPressed: () => Get.offAndToNamed(AppRoutes.loginAccount),
             ),
           ],
-        ).paddingSymmetric(horizontal: 40));
+        ).paddingSymmetric(horizontal: 40),
+      ),
+    );
   }
 
   Widget _buildDivider() {
@@ -51,27 +57,58 @@ class PhoneContent extends StatelessWidget {
     required String title,
     required ValueChanged<String> onChanged,
   }) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 2,
-          child: Container(
-              alignment: Alignment.centerLeft,
-              child: Text(title, style: context.textTheme.titleMedium)),
-        ),
-        Expanded(
-          flex: 7,
-          child: Container(
-                  // color: Colors.red,
-                  )
-              .paddingOnly(left: 5),
-        ),
-        const Expanded(
-          flex: 1,
-          child: Icon(Icons.chevron_right_outlined),
-        ),
-      ],
-    ).height(60);
+    return InkWell(
+      onTap: () {
+        showCountryPicker(
+            context: context,
+            countryListTheme: CountryListThemeData(
+              flagSize: 25,
+              backgroundColor: Colors.white,
+              textStyle: const TextStyle(fontSize: 16, color: Colors.blueGrey),
+              // Optional. Country list modal height
+              //Optional. Sets the border radius for the bottomsheet.
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
+              //Optional. Styles the search field.
+              inputDecoration: InputDecoration(
+                hintText: '搜索',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: const Color(0xFF8C98A8).withOpacity(0.2),
+                  ),
+                ),
+              ),
+            ),
+            onSelect: (Country country) => _controller.changeRegion(
+                country.phoneCode, country.nameLocalized));
+      },
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(title, style: context.textTheme.titleMedium)),
+          ),
+          Expanded(
+            flex: 8,
+            child: Center(
+              child: Text(
+                _controller.region.value,
+                style: context.textTheme.titleMedium,
+              ),
+            ).paddingOnly(left: 5),
+          ),
+          const Expanded(
+            flex: 1,
+            child: Icon(Icons.chevron_right_outlined),
+          ),
+        ],
+      ).height(60),
+    );
   }
 
   Widget _buildPhoneView(
@@ -90,6 +127,13 @@ class PhoneContent extends StatelessWidget {
               child: Text(title, style: context.textTheme.titleMedium)),
         ),
         Expanded(
+          flex: 2,
+          child: Container(
+              alignment: Alignment.centerLeft,
+              child: Text("+${_controller.phoneCode.value}",
+                  style: context.textTheme.titleMedium)),
+        ),
+        Expanded(
           flex: 7,
           child: TextField(
             obscureText: obscureText,
@@ -99,8 +143,8 @@ class PhoneContent extends StatelessWidget {
             ),
             keyboardType: TextInputType.phone,
             inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,//只允许输入数字
-              LengthLimitingTextInputFormatter(11)//限制长度
+              FilteringTextInputFormatter.digitsOnly, //只允许输入数字
+              LengthLimitingTextInputFormatter(11) //限制长度
             ],
             onChanged: onChanged,
           ),
@@ -109,5 +153,3 @@ class PhoneContent extends StatelessWidget {
     ).height(60);
   }
 }
-
-

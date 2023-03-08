@@ -7,12 +7,17 @@ import 'package:pseudo_we_chat/pages/login/widget/top_title.dart';
 import 'package:pseudo_we_chat/router.dart';
 
 class LoginPhoneController extends GetxController {
-  var phonePrefix = "86".obs;
+  var phoneCode = "86".obs;
   var phone = "".obs;
-  var region = "".obs;
+  var region = "中国".obs;
+
+  void changeRegion(String code, String? regionName) {
+    phoneCode(code);
+    region(regionName);
+  }
 
   void login() async {
-    print("loginPhone: +$phonePrefix $phone");
+    print("loginPhone: +$phoneCode $phone");
   }
 }
 
