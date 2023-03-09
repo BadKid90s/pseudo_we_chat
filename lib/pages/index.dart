@@ -1,75 +1,112 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:pseudo_we_chat/generated/l10n.dart';
-import 'package:pseudo_we_chat/router.dart';
-import 'package:styled_widget/styled_widget.dart';
+import 'package:pseudo_we_chat/pages/directory/directory.dart';
+import 'package:pseudo_we_chat/pages/discover/discover.dart';
+import 'package:pseudo_we_chat/pages/home/home.dart';
+import 'package:pseudo_we_chat/pages/message/message.dart';
 
+class IndexPage extends StatefulWidget {
+  const IndexPage({Key? key}) : super(key: key);
 
-class IndexPage extends StatelessWidget {
-  const IndexPage({super.key});
+  @override
+  State<IndexPage> createState() => _IndexPageState();
+}
+
+// class _IndexPageState extends State<IndexPage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Placeholder();
+//   }
+// }
+
+class _IndexPageState extends State<IndexPage> {
+  static int _index = 0;
+
+  // 定义导航栏组件集合
+  static const List<Widget> _pageItem = [
+    MessagePage(),
+    DirectoryPage(),
+    DiscoverPage(),
+    HomePage(),
+  ];
+
+  //定义页面控制器，可以左右滑动切换页面
+  static final PageController _pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: Get.height,
-        width: Get.width,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-          image: AssetImage("images/login_bg.jpg"),
-          fit: BoxFit.cover,
-        )),
-        child: Stack(
-          alignment: Alignment.center, //指定未定位或部分定位widget的对齐方式
-          children: <Widget>[
-            Positioned(
-                bottom: 120,
-                child: IntrinsicWidth(
-                  stepWidth: Get.width,
-                  child: Flex(
-                    direction: Axis.horizontal,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: GFButton(
-                          onPressed: () {
-                            // 跳转登录页
-                            Get.toNamed(AppRoutes.loginPhone);
-                          },
-                          color: const Color.fromRGBO(247, 247, 247, 30),
-                          child: Text(
-                            S.of(context).login_login_button_title,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ).height(50).paddingSymmetric(horizontal: 20),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: GFButton(
-                          onPressed: () {
-                            // 跳转注册页
-                            Get.toNamed(AppRoutes.signup);
-                          },
-                          color: Colors.green,
-                          child: Text(
-                            S.of(context).login_signup_button_title,
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ).height(50).paddingSymmetric(horizontal: 20),
-                      ),
-                    ],
-                  ),
-                )),
-          ],
+      body: _buildPageView(_index),
+      bottomNavigationBar: _buildNavigationBar(context),
+    );
+  }
+
+  Widget _buildPageView(int index) {
+    return PageView.builder(
+        onPageChanged: (value) {
+          _index = value;
+        },
+        controller: _pageController,
+        itemCount: _pageItem.length,
+        itemBuilder: (BuildContext context, int index) {
+          return _pageItem[index];
+        });
+  }
+
+  Widget _buildNavigationBar(BuildContext context) {
+    return Container(
+      height: 100,
+      // color: const Color(0x88FFFFFF),
+      color: Colors.white,
+      child: ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+          //背景模糊化
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            items: _buildNavigationBarItemList(context),
+            elevation: 0,
+            onTap: (index) {
+              setState(() {
+                _index = index;
+              });
+              _pageController.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.ease,
+              );
+            },
+            currentIndex: _index,
+          ),
         ),
       ),
     );
+  }
+
+  List<BottomNavigationBarItem> _buildNavigationBarItemList(
+      BuildContext context) {
+    return _buildNavBarData(context)
+        .entries
+        .map((item) => _buildNavigationBarItem(item.value, item.key))
+        .toList();
+  }
+
+  BottomNavigationBarItem _buildNavigationBarItem(Widget icon, String label) {
+    return BottomNavigationBarItem(
+      icon: icon,
+      label: label,
+    );
+  }
+
+  Map<String, Widget> _buildNavBarData(BuildContext context) {
+    return {
+      S.of(context).index_message: const Icon(Icons.message),
+      S.of(context).index_directory: const Icon(Icons.message),
+      S.of(context).index_discover: const Icon(Icons.message),
+      S.of(context).index_home: const Icon(Icons.message),
+    };
   }
 }

@@ -40,7 +40,7 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
                 size: 30,
               ),
               onPressed: () {
-                Get.offAndToNamed(AppRoutes.index);
+                Get.offAndToNamed(AppRoutes.root);
               })),
       body: Column(
         children: [
@@ -59,7 +59,7 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
                 return;
               }
               controller.login();
-              Get.offAllNamed(AppRoutes.message);
+              Get.offAllNamed(AppRoutes.index);
             },
           ),
         ],

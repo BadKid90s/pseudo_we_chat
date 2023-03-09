@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
+import 'package:pseudo_we_chat/pages/index.dart';
 
-import 'pages/index.dart';
+import 'pages/root.dart';
 import 'pages/login/login_account.dart';
 import 'pages/login/login_phone.dart';
 import 'pages/signup.dart';
@@ -11,7 +12,7 @@ abstract class AppRoutes {
   static const splash = "/";
 
   /// 首屏页
-  static const index = "/index";
+  static const root = "/root";
 
   /// 登录页-账号
   static const loginAccount = "/loginAccount";
@@ -23,7 +24,7 @@ abstract class AppRoutes {
   static const signup = "/signup";
 
   /// 消息页
-  static const message = "/message";
+  static const index = "/index";
 }
 
 class AppPages {
@@ -35,20 +36,26 @@ class AppPages {
       page: () => const SplashPage(),
     ),
     GetPage(
-      name: AppRoutes.index,
-      page: () => const IndexPage(),
+      name: AppRoutes.root,
+      page: () => const RootPage(),
     ),
     GetPage(
         name: AppRoutes.loginAccount,
         page: () => const LoginAccountPage(),
-        binding: BindingsBuilder(() => Get.lazyPut(() => LoginAccountController()))),
+        binding:
+            BindingsBuilder(() => Get.lazyPut(() => LoginAccountController()))),
     GetPage(
         name: AppRoutes.loginPhone,
         page: () => const LoginPhonePage(),
-        binding: BindingsBuilder(() => Get.lazyPut(() => LoginPhoneController()))),
+        binding:
+            BindingsBuilder(() => Get.lazyPut(() => LoginPhoneController()))),
     GetPage(
       name: AppRoutes.signup,
       page: () => const SignupPage(),
+    ),
+    GetPage(
+      name: AppRoutes.index,
+      page: () => const IndexPage(),
     ),
   ];
 }
