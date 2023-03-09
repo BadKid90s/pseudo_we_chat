@@ -21,6 +21,11 @@
   "login_phone_bottom_title": "上述手机号仅用于验证",
   "login_phone_bottom_button_title": "同意并继续",
   "login_phone_phone_verify_message": "请输入正确的手机号",
-  "login_phone_default_region": "中国"
+  "login_phone_default_region": "中国",
+
+  "index_message": "微信",
+  "index_directory": "通讯录",
+  "index_discover": "发现",
+  "index_home": "我的"
 
 }

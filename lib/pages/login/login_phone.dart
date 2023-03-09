@@ -40,7 +40,7 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
                 size: 30,
               ),
               onPressed: () {
-                Get.offAndToNamed(AppRoutes.index);
+                Get.offAndToNamed(AppRoutes.root);
               })),
       body: Column(
         children: [
@@ -54,12 +54,12 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
               if (controller.phone.value.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
-                  middleText: S.of(context).login_account_username_verify_message,
+                  middleText: S.of(context).login_phone_phone_verify_message,
                 );
                 return;
               }
               controller.login();
-              Get.offAllNamed(AppRoutes.message);
+              Get.offAllNamed(AppRoutes.index);
             },
           ),
         ],

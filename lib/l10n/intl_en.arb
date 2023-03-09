@@ -21,5 +21,10 @@
   "login_phone_bottom_title": "The above phone number is for verification only",
   "login_phone_bottom_button_title": "Agree And Continue",
   "login_phone_phone_verify_message": "Please enter phone number",
-  "login_phone_default_region": "China"
+  "login_phone_default_region": "China",
+
+  "index_message": "Wechat",
+  "index_directory": "Directory",
+  "index_discover": "Discover",
+  "index_home": "Home"
 }

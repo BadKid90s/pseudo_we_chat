@@ -47,7 +47,7 @@ class LoginAccountPage extends GetView<LoginAccountController> {
                 size: 30,
               ),
               onPressed: () {
-                Get.offAndToNamed(AppRoutes.index);
+                Get.offAndToNamed(AppRoutes.root);
               })),
       body: Column(
         children: [
@@ -73,7 +73,7 @@ class LoginAccountPage extends GetView<LoginAccountController> {
               }
               controller.login();
               //跳转到消息页
-              Get.offAllNamed(AppRoutes.message);
+              Get.offAllNamed(AppRoutes.index);
             },
           ),
         ],

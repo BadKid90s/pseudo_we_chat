@@ -8,7 +8,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 1000), () {
-      Get.offNamed(AppRoutes.index);
+      Get.offNamed(AppRoutes.root);
     });
     return Scaffold(
       body: Container(
