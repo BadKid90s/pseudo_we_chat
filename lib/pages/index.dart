@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pseudo_we_chat/generated/l10n.dart';
 import 'package:pseudo_we_chat/pages/directory/directory.dart';
 import 'package:pseudo_we_chat/pages/discover/discover.dart';
@@ -14,13 +13,6 @@ class IndexPage extends StatefulWidget {
   @override
   State<IndexPage> createState() => _IndexPageState();
 }
-
-// class _IndexPageState extends State<IndexPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Placeholder();
-//   }
-// }
 
 class _IndexPageState extends State<IndexPage> {
   static int _index = 0;
@@ -104,9 +96,9 @@ class _IndexPageState extends State<IndexPage> {
   Map<String, Widget> _buildNavBarData(BuildContext context) {
     return {
       S.of(context).index_message: const Icon(Icons.message),
-      S.of(context).index_directory: const Icon(Icons.message),
-      S.of(context).index_discover: const Icon(Icons.message),
-      S.of(context).index_home: const Icon(Icons.message),
+      S.of(context).index_directory: const Icon(Icons.people),
+      S.of(context).index_discover: const Icon(Icons.my_location),
+      S.of(context).index_home: const Icon(Icons.person),
     };
   }
 }
