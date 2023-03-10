@@ -38,7 +38,7 @@ class RootPage extends StatelessWidget {
                           },
                           color: const Color.fromRGBO(247, 247, 247, 30),
                           child: Text(
-                            S.of(context).login_login_button_title,
+                            AppLocalizations.of(context).login_login_button_title,
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -55,7 +55,7 @@ class RootPage extends StatelessWidget {
                           },
                           color: Colors.green,
                           child: Text(
-                            S.of(context).login_signup_button_title,
+                            AppLocalizations.of(context).login_signup_button_title,
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,

@@ -44,17 +44,17 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
               })),
       body: Column(
         children: [
-          TopTitle(4, S.of(context).login_phone_title),
+          TopTitle(4, AppLocalizations.of(context).login_phone_title),
           const PhoneContent(10),
           Bottom(
             flex: 6,
-            title: S.of(context).login_phone_bottom_title,
-            buttonTitle: S.of(context).login_phone_bottom_button_title,
+            title: AppLocalizations.of(context).login_phone_bottom_title,
+            buttonTitle: AppLocalizations.of(context).login_phone_bottom_button_title,
             buttonPressed: () {
               if (controller.phone.value.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
-                  middleText: S.of(context).login_phone_phone_verify_message,
+                  middleText: AppLocalizations.of(context).login_phone_phone_verify_message,
                 );
                 return;
               }

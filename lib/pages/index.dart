@@ -89,10 +89,10 @@ class _IndexPageState extends State<IndexPage> {
 
   Map<String, Widget> _buildNavBarData(BuildContext context) {
     return {
-      S.of(context).index_message: const Icon(Icons.message),
-      S.of(context).index_directory: const Icon(Icons.people),
-      S.of(context).index_discover: const Icon(Icons.my_location),
-      S.of(context).index_home: const Icon(Icons.person),
+      AppLocalizations.of(context).index_message: const Icon(Icons.message),
+      AppLocalizations.of(context).index_directory: const Icon(Icons.people),
+      AppLocalizations.of(context).index_discover: const Icon(Icons.my_location),
+      AppLocalizations.of(context).index_home: const Icon(Icons.person),
     };
   }
 
