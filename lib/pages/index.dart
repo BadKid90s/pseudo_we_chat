@@ -38,9 +38,7 @@ class _IndexPageState extends State<IndexPage> {
 
   Widget _buildPageView(int index) {
     return PageView.builder(
-        onPageChanged: (value) {
-          _index = value;
-        },
+        onPageChanged: (value) => _changeIndex(value),
         controller: _pageController,
         itemCount: _pageItem.length,
         itemBuilder: (BuildContext context, int index) {
@@ -50,9 +48,7 @@ class _IndexPageState extends State<IndexPage> {
 
   Widget _buildNavigationBar(BuildContext context) {
     return Container(
-      height: 100,
-      // color: const Color(0x88FFFFFF),
-      color: Colors.white,
+      color: const Color(0x88FFFFFF),
       child: ClipRect(
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100),
@@ -62,9 +58,7 @@ class _IndexPageState extends State<IndexPage> {
             items: _buildNavigationBarItemList(context),
             elevation: 0,
             onTap: (index) {
-              setState(() {
-                _index = index;
-              });
+              _changeIndex(index);
               _pageController.animateToPage(
                 index,
                 duration: const Duration(milliseconds: 300),
@@ -100,5 +94,11 @@ class _IndexPageState extends State<IndexPage> {
       S.of(context).index_discover: const Icon(Icons.my_location),
       S.of(context).index_home: const Icon(Icons.person),
     };
+  }
+
+  void _changeIndex(int index) {
+    setState(() {
+      _index = index;
+    });
   }
 }
