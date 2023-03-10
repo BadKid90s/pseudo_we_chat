@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:pseudo_we_chat/api/api.dart';
 import 'package:pseudo_we_chat/generated/l10n.dart';
 import 'package:pseudo_we_chat/pages/login/widget/account_content.dart';
 import 'package:pseudo_we_chat/pages/login/widget/bottom.dart';
@@ -28,6 +29,8 @@ class LoginAccountController extends GetxController {
 
   void login() async {
     //TODO("后台处理")
+    Api.userApi.accountLogin("username", "password");
+
     print(loginForm);
   }
 }

@@ -47,13 +47,15 @@ dependencies:
   # GetX
   get: ^4.6.5
   # http client
-  dio: ^4.0.6
+  dio: ^5.0.1
   # http 日志
   pretty_dio_logger: ^1.2.0-beta-1
   # 国际化, 包括了时间格式化
   intl: ^0.17.0
   # 国家选择器
   country_picker: ^2.0.20
+  # ApiMock
+  http_mock_adapter: ^0.4.2
 
 dev_dependencies:
   flutter_test:
