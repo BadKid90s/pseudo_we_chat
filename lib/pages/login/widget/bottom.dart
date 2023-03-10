@@ -30,7 +30,7 @@ class Bottom extends StatelessWidget {
                 style: context.textTheme.bodySmall,
               ).paddingOnly(bottom: 20),
               SizedBox(
-                height: 60,
+                height: 50,
                 child: GFButton(
                   onPressed: buttonPressed,
                   text: buttonTitle,
@@ -40,7 +40,7 @@ class Bottom extends StatelessWidget {
                       wordSpacing: 2,
                       letterSpacing: 2,
                       color: Colors.white),
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   color: GFColors.SUCCESS,
                   shape: GFButtonShape.standard,
                 ),

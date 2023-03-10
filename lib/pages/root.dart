@@ -5,7 +5,6 @@ import 'package:pseudo_we_chat/generated/l10n.dart';
 import 'package:pseudo_we_chat/router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-
 class RootPage extends StatelessWidget {
   const RootPage({super.key});
 
@@ -24,7 +23,7 @@ class RootPage extends StatelessWidget {
           alignment: Alignment.center, //指定未定位或部分定位widget的对齐方式
           children: <Widget>[
             Positioned(
-                bottom: 120,
+                bottom: Get.height * 0.1,
                 child: IntrinsicWidth(
                   stepWidth: Get.width,
                   child: Flex(
