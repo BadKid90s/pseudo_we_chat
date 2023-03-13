@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:pseudo_we_chat/api/api_mock/api_mock_config.dart';
 
-class MockApiInterceptor extends Interceptor {
-  MockApiInterceptor();
+class ApiMockInterceptor extends Interceptor {
+  ApiMockInterceptor();
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {

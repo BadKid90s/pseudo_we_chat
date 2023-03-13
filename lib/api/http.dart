@@ -1,21 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:pseudo_we_chat/api/exception.dart';
-import 'package:pseudo_we_chat/api/resp_model.dart';
-
-import 'mock_api_interceptor.dart';
+import 'package:pseudo_we_chat/api/api_exception_interceptor.dart';
+import 'package:pseudo_we_chat/api/api_mock_interceptor.dart';
+import 'package:pseudo_we_chat/config.dart';
 
 class Http {
-  ///超时时间
-  static const int connectTimeout = 30000;
-  static const int receiveTimeout = 30000;
-  static const String baseUrl = "http://localhost:9999/wechat";
-  List<Interceptor> interceptors = [PrettyDioLogger(), MockApiInterceptor()];
-
   /// 单例
   static final Http instance = Http._internal();
-  late final Dio _dio;
+  late final Dio dio;
   late final DioAdapter dioAdapter;
 
   /// 工厂方法
@@ -23,59 +16,25 @@ class Http {
 
   /// 构造函数
   Http._internal() {
+    var timeOut = const Duration(microseconds: AppConfig.apiTimeOut);
     BaseOptions options = BaseOptions(
-      connectTimeout: const Duration(microseconds: connectTimeout),
+      connectTimeout: timeOut,
       // 响应流上前后两次接受到数据的间隔，单位为毫秒。
-      receiveTimeout: const Duration(microseconds: receiveTimeout),
+      receiveTimeout: timeOut,
       // Http请求头.
       headers: {},
-      baseUrl: baseUrl,
+      baseUrl: AppConfig.appAPI,
     );
-    _dio = Dio(options);
-    _dio.interceptors.addAll(interceptors);
+    dio = Dio(options);
 
-    dioAdapter = DioAdapter(dio: _dio);
-  }
-
-  Future<dynamic> post(
-    String path, {
-    Object? data,
-    Map<String, dynamic>? queryParameters,
-    CancelToken? cancelToken,
-    Options? options,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    try {
-      var result = await _dio.post(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        cancelToken: cancelToken,
-        options: options,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
-      );
-      return result.data;
-    } on DioError catch (e) {
-      try {
-        var resp = WeChatRespModel.fromJson(e.response?.data);
-        switch (resp.code) {
-          case 500:
-            throw WeChatServerException(resp.message);
-          case 600: // -2
-            throw WeChatCommonException(resp.message);
-          case 403: // -2
-            throw WeChatValidateException(resp.message);
-          default:
-            throw WeChatException(-1, "未知的异常");
-        }
-      } catch (e) {
-        // 其他DioError, 一般都是网络问题
-        throw WeChatException(-1, e.toString());
-      }
-    } catch (e) {
-      throw WeChatException(-1, e.toString());
+    //拦截器
+    dio.interceptors.add(PrettyDioLogger());
+    dio.interceptors.add(ApiExceptionInterceptor());
+    //是否开启ApiMock
+    if (AppConfig.apiMock) {
+      dio.interceptors.add(ApiMockInterceptor());
     }
+
+    dioAdapter = DioAdapter(dio: dio);
   }
 }

@@ -9,10 +9,10 @@ class UserApi {
   ///
   static Future<UserInfo> accountLogin(
       String username, String password) async {
-    var result = await Http.instance.post(accountLoginPath, queryParameters: {
+    var result = await Http.instance.dio.post(accountLoginPath, queryParameters: {
       "username": username,
       "password": password,
     });
-    return UserInfo.fromJson(result);
+    return UserInfo.fromJson(result.data);
   }
 }
