@@ -7,6 +7,8 @@ import 'package:pseudo_we_chat/pages/login/widget/bottom.dart';
 import 'package:pseudo_we_chat/pages/login/widget/top_title.dart';
 import 'package:pseudo_we_chat/router.dart';
 
+import '../../api/interface/user/model/user_info.dart';
+import '../../api/interface/user/user.dart';
 
 class LoginFormData {
   const LoginFormData(this.username, this.password);
@@ -27,8 +29,8 @@ class LoginAccountController extends GetxController {
   }
 
   void login() async {
-    //TODO("后台处理")
-    print(loginForm);
+    UserInfo userInfo = await UserApi.accountLogin(
+        loginForm.value.username, loginForm.value.password);
   }
 }
 
