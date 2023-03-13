@@ -1,13 +1,18 @@
-abstract class UserApi {
-  ///
-  ///
-  ///
-  UserInfo accountLogin(String username, String password,
-      {String path = "/login"});
-}
+import 'package:pseudo_we_chat/api/http.dart';
+import 'package:pseudo_we_chat/api/interface/user/model/user_info.dart';
 
-class UserInfo {
-  String name;
+class UserApi {
+  static const String accountLoginPath = "/accountLoginPath";
 
-  UserInfo(this.name);
+  ///
+  ///
+  ///
+  static Future<UserInfo> accountLogin(
+      String username, String password) async {
+    var result = await Http.instance.post(accountLoginPath, queryParameters: {
+      "username": username,
+      "password": password,
+    });
+    return UserInfo.fromJson(result);
+  }
 }

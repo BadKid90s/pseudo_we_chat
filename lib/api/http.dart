@@ -1,20 +1,28 @@
 import 'package:dio/dio.dart';
+import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:pseudo_we_chat/api/exception.dart';
+import 'package:pseudo_we_chat/api/resp_model.dart';
 
-import '../resp_model.dart';
+import 'mock_api_interceptor.dart';
 
 class Http {
   ///超时时间
   static const int connectTimeout = 30000;
   static const int receiveTimeout = 30000;
-  static const String baseUrl = "30000";
-  static List<Interceptor> interceptors = [PrettyDioLogger()];
+  static const String baseUrl = "http://localhost:9999/wechat";
+  List<Interceptor> interceptors = [PrettyDioLogger(), MockApiInterceptor()];
 
-  static late Http instance;
-  static late Dio _dio;
+  /// 单例
+  static final Http instance = Http._internal();
+  late final Dio _dio;
+  late final DioAdapter dioAdapter;
 
-  factory Http() {
+  /// 工厂方法
+  factory Http() => instance;
+
+  /// 构造函数
+  Http._internal() {
     BaseOptions options = BaseOptions(
       connectTimeout: const Duration(microseconds: connectTimeout),
       // 响应流上前后两次接受到数据的间隔，单位为毫秒。
@@ -26,10 +34,10 @@ class Http {
     _dio = Dio(options);
     _dio.interceptors.addAll(interceptors);
 
-    return instance;
+    dioAdapter = DioAdapter(dio: _dio);
   }
 
-  Future<dynamic> _request(
+  Future<dynamic> post(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
@@ -39,7 +47,7 @@ class Http {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      var result = await _dio.request(
+      var result = await _dio.post(
         path,
         data: data,
         queryParameters: queryParameters,

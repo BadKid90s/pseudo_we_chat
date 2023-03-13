@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:pseudo_we_chat/api/api.dart';
 import 'package:pseudo_we_chat/generated/l10n.dart';
 import 'package:pseudo_we_chat/pages/login/widget/account_content.dart';
 import 'package:pseudo_we_chat/pages/login/widget/bottom.dart';
 import 'package:pseudo_we_chat/pages/login/widget/top_title.dart';
 import 'package:pseudo_we_chat/router.dart';
 
+import '../../api/interface/user/model/user_info.dart';
+import '../../api/interface/user/user.dart';
 
 class LoginFormData {
   const LoginFormData(this.username, this.password);
@@ -28,10 +29,8 @@ class LoginAccountController extends GetxController {
   }
 
   void login() async {
-    //TODO("后台处理")
-    Api.userApi.accountLogin("username", "password");
-
-    print(loginForm);
+    UserInfo userInfo = await UserApi.accountLogin(
+        loginForm.value.username, loginForm.value.password);
   }
 }
 
@@ -64,14 +63,16 @@ class LoginAccountPage extends GetView<LoginAccountController> {
               if (controller.loginForm.value.username.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
-                  middleText: S.of(context).login_account_username_verify_message,
+                  middleText:
+                      S.of(context).login_account_username_verify_message,
                 );
                 return;
               }
               if (controller.loginForm.value.password.isBlank == true) {
                 Get.defaultDialog(
                     title: "❕",
-                    middleText: S.of(context).login_account_password_verify_message);
+                    middleText:
+                        S.of(context).login_account_password_verify_message);
                 return;
               }
               controller.login();
