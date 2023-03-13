@@ -57,7 +57,7 @@ class UserApiMock {
         ),
       )
       ..onPost(
-          UserApi.accountLoginPath,
+          UserApi.phoneLoginPath,
               (server) => server.reply(
             200,
             {
