@@ -7,7 +7,6 @@ import 'package:pseudo_we_chat/pages/login/widget/bottom.dart';
 import 'package:pseudo_we_chat/pages/login/widget/top_title.dart';
 import 'package:pseudo_we_chat/router.dart';
 
-import '../../api/interface/user/model/user_info.dart';
 import '../../api/interface/user/user.dart';
 
 class LoginFormData {
@@ -19,6 +18,7 @@ class LoginFormData {
 
 class LoginAccountController extends GetxController {
   final loginForm = const LoginFormData("", "").obs;
+  var message = Rxn<String>(null);
 
   void changeUsername(String value) {
     loginForm(LoginFormData(value, loginForm.value.password));
@@ -29,8 +29,17 @@ class LoginAccountController extends GetxController {
   }
 
   void login() async {
-    UserInfo userInfo = await UserApi.accountLogin(
-        loginForm.value.username, loginForm.value.password);
+    UserApi.accountLogin(
+      loginForm.value.username,
+      loginForm.value.password,
+    ).then((loginStatus) {
+      if(loginStatus.status){
+        //跳转到消息页
+        Get.offAllNamed(AppRoutes.index);
+      }else{
+        message(loginStatus.message);
+      }
+    });
   }
 }
 
@@ -58,24 +67,26 @@ class LoginAccountPage extends GetView<LoginAccountController> {
           Bottom(
             flex: 6,
             title: AppLocalizations.of(context).login_account_bottom_title,
-            buttonTitle: AppLocalizations.of(context).login_account_bottom_button_title,
+            buttonTitle:
+                AppLocalizations.of(context).login_account_bottom_button_title,
             buttonPressed: () {
               if (controller.loginForm.value.username.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
-                  middleText: AppLocalizations.of(context).login_account_username_verify_message,
+                  middleText: AppLocalizations.of(context)
+                      .login_account_username_verify_message,
                 );
                 return;
               }
               if (controller.loginForm.value.password.isBlank == true) {
                 Get.defaultDialog(
                     title: "❕",
-                    middleText: AppLocalizations.of(context).login_account_password_verify_message);
+                    middleText: AppLocalizations.of(context)
+                        .login_account_password_verify_message);
                 return;
               }
               controller.login();
-              //跳转到消息页
-              Get.offAllNamed(AppRoutes.index);
+
             },
           ),
         ],

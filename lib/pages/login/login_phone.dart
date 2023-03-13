@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:pseudo_we_chat/api/interface/user/user.dart';
 import 'package:pseudo_we_chat/generated/l10n.dart';
 import 'package:pseudo_we_chat/pages/login/widget/bottom.dart';
 import 'package:pseudo_we_chat/pages/login/widget/phone_content.dart';
@@ -11,6 +12,7 @@ class LoginPhoneController extends GetxController {
   var phoneCode = "86".obs;
   var phone = "".obs;
   var region = Rxn<String>(null);
+  var message = Rxn<String>(null);
 
   void changeRegion(String code, String? regionName) {
     phoneCode(code);
@@ -18,15 +20,21 @@ class LoginPhoneController extends GetxController {
   }
 
   void login() async {
-    print("loginPhone: +$phoneCode $phone");
+    UserApi.phoneLogin(
+      phone.value,
+    ).then((loginStatus) {
+      if (loginStatus.status) {
+        //跳转到消息页
+        Get.offAllNamed(AppRoutes.index);
+      } else {
+        message(loginStatus.message);
+      }
+    });
   }
-
-
 }
 
 class LoginPhonePage extends GetView<LoginPhoneController> {
   const LoginPhonePage({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -49,17 +57,18 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
           Bottom(
             flex: 6,
             title: AppLocalizations.of(context).login_phone_bottom_title,
-            buttonTitle: AppLocalizations.of(context).login_phone_bottom_button_title,
+            buttonTitle:
+                AppLocalizations.of(context).login_phone_bottom_button_title,
             buttonPressed: () {
               if (controller.phone.value.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
-                  middleText: AppLocalizations.of(context).login_phone_phone_verify_message,
+                  middleText: AppLocalizations.of(context)
+                      .login_phone_phone_verify_message,
                 );
                 return;
               }
               controller.login();
-              Get.offAllNamed(AppRoutes.index);
             },
           ),
         ],

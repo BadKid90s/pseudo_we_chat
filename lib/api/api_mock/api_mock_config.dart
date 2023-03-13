@@ -6,5 +6,6 @@ typedef MockCallback = void Function();
 class ApiMockConfig {
   static Map<String, MockCallback> mockMap = {
     UserApi.accountLoginPath: UserApiMock.accountLoginMock,
+    UserApi.phoneLoginPath: UserApiMock.phoneLoginMock,
   };
 }

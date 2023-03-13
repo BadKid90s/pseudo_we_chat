@@ -16,7 +16,8 @@ class AccountContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Obx(
+      () => Expanded(
         flex: flex,
         child: Column(
           children: [
@@ -24,24 +25,36 @@ class AccountContent extends StatelessWidget {
             _buildRowView(
               context,
               title: AppLocalizations.of(context).login_account_username,
-              hintText: AppLocalizations.of(context).login_account_username_hint_text,
+              hintText:
+                  AppLocalizations.of(context).login_account_username_hint_text,
               onChanged: (val) => _controller.changeUsername(val),
             ),
             _buildDivider(),
             _buildRowView(
               context,
               title: AppLocalizations.of(context).login_account_password,
-              hintText: AppLocalizations.of(context).login_account_password_hint_text,
+              hintText:
+                  AppLocalizations.of(context).login_account_password_hint_text,
               obscureText: true,
               onChanged: (val) => _controller.changePassword(val),
             ),
             _buildDivider(),
+            if (_controller.message.value != null)
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  _controller.message.value!,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
             OtherLogin(
               title: AppLocalizations.of(context).login_account_use_phone_login,
               buttonPressed: () => Get.offAndToNamed(AppRoutes.loginPhone),
             ),
           ],
-        ).paddingSymmetric(horizontal: 40));
+        ).paddingSymmetric(horizontal: 40),
+      ),
+    );
   }
 
   Widget _buildDivider() {
