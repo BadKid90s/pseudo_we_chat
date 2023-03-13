@@ -29,7 +29,7 @@ class App extends StatelessWidget {
         Locale('zh')
       ],
       localizationsDelegates: const [
-        S.delegate,
+        AppLocalizations.delegate,
         CountryLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

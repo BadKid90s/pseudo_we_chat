@@ -53,26 +53,24 @@ class LoginAccountPage extends GetView<LoginAccountController> {
               })),
       body: Column(
         children: [
-          TopTitle(4, S.of(context).login_account_title),
+          TopTitle(4, AppLocalizations.of(context).login_account_title),
           const AccountContent(10),
           Bottom(
             flex: 6,
-            title: S.of(context).login_account_bottom_title,
-            buttonTitle: S.of(context).login_account_bottom_button_title,
+            title: AppLocalizations.of(context).login_account_bottom_title,
+            buttonTitle: AppLocalizations.of(context).login_account_bottom_button_title,
             buttonPressed: () {
               if (controller.loginForm.value.username.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
-                  middleText:
-                      S.of(context).login_account_username_verify_message,
+                  middleText: AppLocalizations.of(context).login_account_username_verify_message,
                 );
                 return;
               }
               if (controller.loginForm.value.password.isBlank == true) {
                 Get.defaultDialog(
                     title: "❕",
-                    middleText:
-                        S.of(context).login_account_password_verify_message);
+                    middleText: AppLocalizations.of(context).login_account_password_verify_message);
                 return;
               }
               controller.login();

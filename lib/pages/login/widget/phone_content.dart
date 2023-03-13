@@ -28,19 +28,19 @@ class PhoneContent extends StatelessWidget {
             _buildDivider(),
             _buildRegionView(
               context,
-              title: S.of(context).login_phone_region,
+              title: AppLocalizations.of(context).login_phone_region,
               onChanged: (val) => _controller.region(val),
             ),
             _buildDivider(),
             _buildPhoneView(
               context,
-              title: S.of(context).login_phone_phone,
-              hintText: S.of(context).login_phone_phone_hint_text,
+              title: AppLocalizations.of(context).login_phone_phone,
+              hintText: AppLocalizations.of(context).login_phone_phone_hint_text,
               onChanged: (val) => _controller.phone(val),
             ),
             _buildDivider(),
             OtherLogin(
-              title: S.of(context).login_phone_use_other_login,
+              title: AppLocalizations.of(context).login_phone_use_other_login,
               buttonPressed: () => Get.offAndToNamed(AppRoutes.loginAccount),
             ),
           ],
@@ -98,7 +98,7 @@ class PhoneContent extends StatelessWidget {
             child: Center(
               child: Text(
                 _controller.region.value ??
-                    S.of(context).login_phone_default_region,
+                    AppLocalizations.of(context).login_phone_default_region,
                 style: context.textTheme.titleMedium,
               ),
             ).paddingOnly(left: 5),
