@@ -39,6 +39,14 @@ class PhoneContent extends StatelessWidget {
               onChanged: (val) => _controller.phone(val),
             ),
             _buildDivider(),
+            if (_controller.message.value != null)
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  _controller.message.value!,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
             OtherLogin(
               title: AppLocalizations.of(context).login_phone_use_other_login,
               buttonPressed: () => Get.offAndToNamed(AppRoutes.loginAccount),
