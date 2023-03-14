@@ -12,7 +12,7 @@ class WeChatRespModel {
 
   // region 逻辑异常专有字段
   /// 补充数据
-  Map<String, dynamic>? data;
+  dynamic data;
 
   // endregion
   WeChatRespModel({

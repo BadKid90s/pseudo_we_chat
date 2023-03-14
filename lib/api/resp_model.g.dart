@@ -10,7 +10,7 @@ WeChatRespModel _$WeChatRespModelFromJson(Map<String, dynamic> json) =>
     WeChatRespModel(
       code: json['code'] as int,
       message: json['message'] as String?,
-      data: json['data'] as Map<String, dynamic>?,
+      data: json['data'],
     );
 
 Map<String, dynamic> _$WeChatRespModelToJson(WeChatRespModel instance) =>
