@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:pseudo_we_chat/generated/l10n.dart';
+import 'package:pseudo_we_chat/service/user_service.dart';
 
 import 'router.dart';
 import 'themes.dart';
 
 void main() {
+  PluginConfig.init();
+
   runApp(const App());
 }
 
@@ -24,10 +27,7 @@ class App extends StatelessWidget {
       darkTheme: appDarkThemeData,
       getPages: AppPages.routes,
       initialRoute: AppPages.splash,
-      supportedLocales: const [
-        Locale('en'),
-        Locale('zh')
-      ],
+      supportedLocales: const [Locale('en'), Locale('zh')],
       localizationsDelegates: const [
         AppLocalizations.delegate,
         CountryLocalizations.delegate,
@@ -36,5 +36,11 @@ class App extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
     );
+  }
+}
+
+class PluginConfig {
+  static void init() {
+    Get.put(UserService());
   }
 }

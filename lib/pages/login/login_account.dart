@@ -6,6 +6,7 @@ import 'package:pseudo_we_chat/pages/login/widget/account_content.dart';
 import 'package:pseudo_we_chat/pages/login/widget/bottom.dart';
 import 'package:pseudo_we_chat/pages/login/widget/top_title.dart';
 import 'package:pseudo_we_chat/router.dart';
+import 'package:pseudo_we_chat/service/user_service.dart';
 
 import '../../api/interface/user/user.dart';
 
@@ -33,10 +34,11 @@ class LoginAccountController extends GetxController {
       loginForm.value.username,
       loginForm.value.password,
     ).then((loginStatus) {
-      if(loginStatus.status){
+      if (loginStatus.status) {
+        UserService.instance.changeLoginStatue(true);
         //跳转到消息页
         Get.offAllNamed(AppRoutes.index);
-      }else{
+      } else {
         message(loginStatus.message);
       }
     });
@@ -86,7 +88,6 @@ class LoginAccountPage extends GetView<LoginAccountController> {
                 return;
               }
               controller.login();
-
             },
           ),
         ],
