@@ -7,6 +7,7 @@ import 'package:pseudo_we_chat/pages/login/widget/bottom.dart';
 import 'package:pseudo_we_chat/pages/login/widget/phone_content.dart';
 import 'package:pseudo_we_chat/pages/login/widget/top_title.dart';
 import 'package:pseudo_we_chat/router.dart';
+import 'package:pseudo_we_chat/service/user_service.dart';
 
 class LoginPhoneController extends GetxController {
   var phoneCode = "86".obs;
@@ -24,6 +25,7 @@ class LoginPhoneController extends GetxController {
       phone.value,
     ).then((loginStatus) {
       if (loginStatus.status) {
+        UserService.instance.changeLoginStatue(true);
         //跳转到消息页
         Get.offAllNamed(AppRoutes.index);
       } else {

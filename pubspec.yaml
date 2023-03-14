@@ -43,7 +43,7 @@ dependencies:
   # 组件样式
   styled_widget: ^0.4.1
   # 缓存
-  shared_preferences: ^2.0.17
+  shared_preferences: ^2.0.18
   # GetX
   get: ^4.6.5
   # http client
@@ -119,3 +119,4 @@ flutter:
 
 flutter_intl:
   enabled: true
+  class_name: AppLocalizations
