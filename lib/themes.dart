@@ -12,7 +12,7 @@ final ThemeData appDarkThemeData = _getThemeData(ThemeData.dark()).copyWith(
 final ThemeData appLightThemeData = _getThemeData(ThemeData.light()).copyWith(
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     selectedItemColor: Colors.green,
-    unselectedItemColor: Colors.grey,
+    unselectedItemColor: Colors.black45,
   ),
 );
 
