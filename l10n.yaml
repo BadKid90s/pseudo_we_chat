@@ -4,5 +4,5 @@ output-localization-file: app_localizations.dart
 output-class: AppLocalizations
 preferred-supported-locales:
   - en
-  - ch
+  - zh
 
