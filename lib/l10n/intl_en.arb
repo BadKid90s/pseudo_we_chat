@@ -26,5 +26,7 @@
   "index_message": "Wechat",
   "index_directory": "Directory",
   "index_discover": "Discover",
-  "index_home": "Home"
+  "index_home": "Home",
+
+  "widget_search_title": "search"
 }

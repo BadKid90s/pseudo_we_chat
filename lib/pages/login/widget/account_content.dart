@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pseudo_we_chat/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pseudo_we_chat/pages/login/login_account.dart';
 import 'package:pseudo_we_chat/pages/login/widget/onth_login.dart';
 import 'package:pseudo_we_chat/router.dart';
@@ -24,17 +24,17 @@ class AccountContent extends StatelessWidget {
             _buildDivider(),
             _buildRowView(
               context,
-              title: AppLocalizations.of(context).login_account_username,
+              title: AppLocalizations.of(context)!.login_account_username,
               hintText:
-                  AppLocalizations.of(context).login_account_username_hint_text,
+                  AppLocalizations.of(context)!.login_account_username_hint_text,
               onChanged: (val) => _controller.changeUsername(val),
             ),
             _buildDivider(),
             _buildRowView(
               context,
-              title: AppLocalizations.of(context).login_account_password,
+              title: AppLocalizations.of(context)!.login_account_password,
               hintText:
-                  AppLocalizations.of(context).login_account_password_hint_text,
+                  AppLocalizations.of(context)!.login_account_password_hint_text,
               obscureText: true,
               onChanged: (val) => _controller.changePassword(val),
             ),
@@ -48,7 +48,7 @@ class AccountContent extends StatelessWidget {
                 ),
               ),
             OtherLogin(
-              title: AppLocalizations.of(context).login_account_use_phone_login,
+              title: AppLocalizations.of(context)!.login_account_use_phone_login,
               buttonPressed: () => Get.offAndToNamed(AppRoutes.loginPhone),
             ),
           ],

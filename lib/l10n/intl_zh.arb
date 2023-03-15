@@ -26,6 +26,7 @@
   "index_message": "微信",
   "index_directory": "通讯录",
   "index_discover": "发现",
-  "index_home": "我的"
+  "index_home": "我的",
 
+  "widget_search_title": "搜索"
 }

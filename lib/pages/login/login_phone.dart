@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:pseudo_we_chat/api/interface/user/user.dart';
-import 'package:pseudo_we_chat/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pseudo_we_chat/pages/login/widget/bottom.dart';
 import 'package:pseudo_we_chat/pages/login/widget/phone_content.dart';
 import 'package:pseudo_we_chat/pages/login/widget/top_title.dart';
@@ -54,19 +54,18 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
               })),
       body: Column(
         children: [
-          TopTitle(4, AppLocalizations.of(context).login_phone_title),
+          TopTitle(4, AppLocalizations.of(context)!.login_phone_title),
           const PhoneContent(10),
           Bottom(
             flex: 6,
-            title: AppLocalizations.of(context).login_phone_bottom_title,
+            title: AppLocalizations.of(context)!.login_phone_bottom_title,
             buttonTitle:
-                AppLocalizations.of(context).login_phone_bottom_button_title,
+                AppLocalizations.of(context)!.login_phone_bottom_button_title,
             buttonPressed: () {
               if (controller.phone.value.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
-                  middleText: AppLocalizations.of(context)
-                      .login_phone_phone_verify_message,
+                  middleText: AppLocalizations.of(context)!.login_phone_phone_verify_message,
                 );
                 return;
               }

@@ -2,7 +2,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:pseudo_we_chat/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pseudo_we_chat/pages/login/login_phone.dart';
 import 'package:pseudo_we_chat/pages/login/widget/onth_login.dart';
 import 'package:pseudo_we_chat/router.dart';
@@ -26,14 +26,14 @@ class PhoneContent extends StatelessWidget {
             _buildDivider(),
             _buildRegionView(
               context,
-              title: AppLocalizations.of(context).login_phone_region,
+              title: AppLocalizations.of(context)!.login_phone_region,
               onChanged: (val) => _controller.region(val),
             ),
             _buildDivider(),
             _buildPhoneView(
               context,
-              title: AppLocalizations.of(context).login_phone_phone,
-              hintText: AppLocalizations.of(context).login_phone_phone_hint_text,
+              title: AppLocalizations.of(context)!.login_phone_phone,
+              hintText: AppLocalizations.of(context)!.login_phone_phone_hint_text,
               onChanged: (val) => _controller.phone(val),
             ),
             _buildDivider(),
@@ -46,7 +46,7 @@ class PhoneContent extends StatelessWidget {
                 ),
               ),
             OtherLogin(
-              title: AppLocalizations.of(context).login_phone_use_other_login,
+              title: AppLocalizations.of(context)!.login_phone_use_other_login,
               buttonPressed: () => Get.offAndToNamed(AppRoutes.loginAccount),
             ),
           ],
@@ -104,7 +104,7 @@ class PhoneContent extends StatelessWidget {
             child: Center(
               child: Text(
                 _controller.region.value ??
-                    AppLocalizations.of(context).login_phone_default_region,
+                    AppLocalizations.of(context)!.login_phone_default_region,
                 style: context.textTheme.titleMedium,
               ),
             ).paddingOnly(left: 5),

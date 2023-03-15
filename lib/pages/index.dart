@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:pseudo_we_chat/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pseudo_we_chat/pages/directory/directory.dart';
 import 'package:pseudo_we_chat/pages/discover/discover.dart';
 import 'package:pseudo_we_chat/pages/home/home.dart';
@@ -89,10 +89,10 @@ class _IndexPageState extends State<IndexPage> {
 
   Map<String, Widget> _buildNavBarData(BuildContext context) {
     return {
-      AppLocalizations.of(context).index_message: const Icon(Icons.message),
-      AppLocalizations.of(context).index_directory: const Icon(Icons.people),
-      AppLocalizations.of(context).index_discover: const Icon(Icons.my_location),
-      AppLocalizations.of(context).index_home: const Icon(Icons.person),
+      AppLocalizations.of(context)!.index_message: const Icon(Icons.message),
+      AppLocalizations.of(context)!.index_directory: const Icon(Icons.people),
+      AppLocalizations.of(context)!.index_discover: const Icon(Icons.my_location),
+      AppLocalizations.of(context)!.index_home: const Icon(Icons.person),
     };
   }
 
