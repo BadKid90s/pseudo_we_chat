@@ -58,6 +58,8 @@ dependencies:
   http_mock_adapter: ^0.4.2
   # json
   json_annotation: ^4.8.0
+  # 小红点
+  badges: ^3.0.2
 
 dev_dependencies:
   build_runner: ^2.3.3
