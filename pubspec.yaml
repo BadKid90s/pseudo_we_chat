@@ -119,6 +119,4 @@ flutter:
   assets:
     - images/
 
-flutter_intl:
-  enabled: true
-  class_name: AppLocalizations
+  generate: true

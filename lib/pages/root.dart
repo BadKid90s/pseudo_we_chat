@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:pseudo_we_chat/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pseudo_we_chat/router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
@@ -38,7 +38,7 @@ class RootPage extends StatelessWidget {
                           },
                           color: const Color.fromRGBO(247, 247, 247, 30),
                           child: Text(
-                            AppLocalizations.of(context).login_login_button_title,
+                            AppLocalizations.of(context)!.login_login_button_title,
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -55,7 +55,7 @@ class RootPage extends StatelessWidget {
                           },
                           color: Colors.green,
                           child: Text(
-                            AppLocalizations.of(context).login_signup_button_title,
+                            AppLocalizations.of(context)!.login_signup_button_title,
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,

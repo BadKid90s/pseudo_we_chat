@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:pseudo_we_chat/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pseudo_we_chat/pages/login/widget/account_content.dart';
 import 'package:pseudo_we_chat/pages/login/widget/bottom.dart';
 import 'package:pseudo_we_chat/pages/login/widget/top_title.dart';
@@ -64,18 +64,18 @@ class LoginAccountPage extends GetView<LoginAccountController> {
               })),
       body: Column(
         children: [
-          TopTitle(4, AppLocalizations.of(context).login_account_title),
+          TopTitle(4, AppLocalizations.of(context)!.login_account_title),
           const AccountContent(10),
           Bottom(
             flex: 6,
-            title: AppLocalizations.of(context).login_account_bottom_title,
+            title: AppLocalizations.of(context)!.login_account_bottom_title,
             buttonTitle:
-                AppLocalizations.of(context).login_account_bottom_button_title,
+                AppLocalizations.of(context)!.login_account_bottom_button_title,
             buttonPressed: () {
               if (controller.loginForm.value.username.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
-                  middleText: AppLocalizations.of(context)
+                  middleText: AppLocalizations.of(context)!
                       .login_account_username_verify_message,
                 );
                 return;
@@ -83,7 +83,7 @@ class LoginAccountPage extends GetView<LoginAccountController> {
               if (controller.loginForm.value.password.isBlank == true) {
                 Get.defaultDialog(
                     title: "❕",
-                    middleText: AppLocalizations.of(context)
+                    middleText: AppLocalizations.of(context)!
                         .login_account_password_verify_message);
                 return;
               }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Search extends StatelessWidget {
   const Search({Key? key, this.onPressed, this.text}) : super(key: key);
@@ -26,7 +27,7 @@ class Search extends StatelessWidget {
               color: context.textTheme.bodySmall?.color,
             ),
             Text(
-              text ?? "搜索",
+              text ?? AppLocalizations.of(context)!.widget_search_title,
               style: TextStyle(
                   fontSize: 20, color: context.textTheme.bodySmall?.color),
             )
