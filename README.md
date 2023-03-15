@@ -26,13 +26,36 @@
 
 ## 快速开始
 
-This project is a starting point for a Flutter application.
+这个项目是 Flutter 应用程序。
+### 获取依赖
+```shell
+flutter pub get 
+```
 
-A few resources to get you started if this is your first Flutter project:
+### 生成国际化相关的代码
+```shell
+flutter gen-l10n 
+```
+### 生成JSON相关的代码
+```shell
+flutter pub run build_runner build   
+```
+### 运行项目
+```shell
+flutter run 
+```
+
+### 命令介绍
+```shell
+flutter --help
+#或者
+flutter -h
+```
+如果这是您的第一个 Flutter 项目，一些资源可以帮助您入门：
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+有关 Flutter 开发入门的帮助，请查看
+[online documentation](https://docs.flutter.dev/), 提供教程，
+示例、移动开发指南和完整的 API 参考。
