@@ -5,6 +5,7 @@ import 'package:pseudo_we_chat/api/interface/message/model/message_info.dart';
 import 'package:pseudo_we_chat/widget/search.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MessageController extends GetxController {
   final RxList<MessageInfo> messageList = <MessageInfo>[].obs;
@@ -34,37 +35,92 @@ class MessagePage extends GetView<MessageController> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        appBar: AppBar(
-          title: const Text("微信"),
-        ),
+        appBar: _buildAppBar(context),
         body: ListView.separated(
-          itemCount: controller.messageList.length+1,
+          itemCount: controller.messageList.length + 1,
           //列表项构造器
           itemBuilder: (BuildContext context, int index) {
-            if(index==0) {
+            if (index == 0) {
               return const Search();
             }
-            var item = controller.messageList[index-1];
-            return _buildItem(context, item);
+            var item = controller.messageList[index - 1];
+            return _buildItem(context, item).paddingSymmetric(horizontal: 10);
           },
           //分割器构造器
           separatorBuilder: (BuildContext context, int index) {
-            if(index==0) {
+            if (index == 0) {
               return const SizedBox.shrink();
             }
             return const Divider(
               color: Colors.grey,
             ).padding(left: 86);
           },
-        ).paddingSymmetric(horizontal: 10),
+        ),
       ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      title: Text(AppLocalizations.of(context)!.message_title),
+      // backgroundColor: Colors.grey,
+      actions: [
+        PopupMenuButton(
+            offset: const Offset(-10, 56),
+            itemBuilder: (BuildContext context) {
+              return [
+                PopupMenuItem(
+                  child: Row(
+                    children: [
+                      const Icon(Icons.people).marginOnly(left: 10),
+                      Text(AppLocalizations.of(context)!
+                              .message_add_person_title)
+                          .marginOnly(left: 20)
+                    ],
+                  ),
+                  onTap: () {},
+                ),
+                PopupMenuItem(
+                  child: Row(
+                    children: [
+                      const Icon(Icons.person).marginOnly(left: 10),
+                      Text(AppLocalizations.of(context)!
+                              .message_group_person_title)
+                          .marginOnly(left: 20)
+                    ],
+                  ),
+                  onTap: () {},
+                ),
+                PopupMenuItem(
+                  child: Row(
+                    children: [
+                      const Icon(Icons.qr_code).marginOnly(left: 10),
+                      Text(AppLocalizations.of(context)!.message_qr_title)
+                          .marginOnly(left: 20)
+                    ],
+                  ),
+                  onTap: () {},
+                ),
+                PopupMenuItem(
+                  child: Row(
+                    children: [
+                      const Icon(Icons.local_atm).marginOnly(left: 10),
+                      Text(AppLocalizations.of(context)!.message_payment_title)
+                          .marginOnly(left: 20)
+                    ],
+                  ),
+                  onTap: () {},
+                ),
+              ];
+            })
+      ],
     );
   }
 
   Widget _buildItem(BuildContext context, MessageInfo messageInfo) {
     return ListTile(
       leading: badges.Badge(
-        position: badges.BadgePosition.topEnd(top: -8,end: -6),
+        position: badges.BadgePosition.topEnd(top: -8, end: -6),
         badgeContent: messageInfo.isMute
             ? null
             : Text(

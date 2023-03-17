@@ -23,10 +23,16 @@
   "login_phone_phone_verify_message": "Please enter phone number",
   "login_phone_default_region": "China",
 
-  "index_message": "Wechat",
-  "index_directory": "Directory",
+  "index_message": "Chats",
+  "index_directory": "Contacts",
   "index_discover": "Discover",
-  "index_home": "Home",
+  "index_home": "Me",
 
-  "widget_search_title": "search"
+  "widget_search_title": "search",
+
+  "message_title": "WeChat",
+  "message_add_person_title": "New Chat",
+  "message_group_person_title": "Add Contacts",
+  "message_qr_title": "Scan",
+  "message_payment_title": "Money"
 }
