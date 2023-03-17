@@ -25,8 +25,10 @@ ThemeData _buildCommonThemeData(ThemeData theme) {
 
 ThemeData _buildDarkThemeData(ThemeData theme) {
   return theme.copyWith(
-    appBarTheme: theme.appBarTheme
-        .copyWith(backgroundColor: Colors.black, foregroundColor: Colors.grey),
+    appBarTheme: theme.appBarTheme.copyWith(
+      backgroundColor: Colors.black,
+      foregroundColor: Colors.grey,
+    ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedItemColor: Colors.green,
       unselectedItemColor: Colors.white60,

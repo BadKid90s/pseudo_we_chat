@@ -28,11 +28,13 @@
   "index_discover": "Discover",
   "index_home": "Me",
 
-  "widget_search_title": "search",
-
   "message_title": "WeChat",
   "message_add_person_title": "New Chat",
   "message_group_person_title": "Add Contacts",
   "message_qr_title": "Scan",
-  "message_payment_title": "Money"
+  "message_payment_title": "Money",
+
+  "directory_title": "Contacts",
+
+  "widget_search_title": "search"
 }
