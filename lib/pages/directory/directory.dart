@@ -255,7 +255,7 @@ class _AlphabetWidgetState extends State<AlphabetWidget> {
         height: 30,
         child: Text(
           name,
-          style: const TextStyle(fontSize: 14, color: Colors.white70),
+          style: context.textTheme.bodyMedium,
         ),
       ),
     );
@@ -270,7 +270,7 @@ class _AlphabetWidgetState extends State<AlphabetWidget> {
           height: 60,
           width: 60,
           decoration: BoxDecoration(
-            color: Colors.white24,
+            color: Colors.grey.shade200,
             borderRadius: BorderRadius.circular(60),
           ),
           child: Center(
