@@ -17,12 +17,17 @@
  - 使用Dio进行数据交互
  - 使用getwidget做为UI库
 ## 预览效果
-<img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/00e6ef83ccfb439bab65144882395e33~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>
-<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6de20fa4f16b4c7c9b4ffc00cc7855e3~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>
-<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9927454ef858450c8879648e17e2d3cb~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>
-<img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7e67a452d6e0434d92ac23813202f1a2~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>
-<img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/613c04c8262e403da5416e590fb27fc7~tplv-k3u1fbpfcp-watermark.image" width=450 height=860>
 
+![2](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/00e6ef83ccfb439bab65144882395e33~tplv-k3u1fbpfcp-watermark.image)
+![3](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6de20fa4f16b4c7c9b4ffc00cc7855e3~tplv-k3u1fbpfcp-watermark.image)
+![4](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9927454ef858450c8879648e17e2d3cb~tplv-k3u1fbpfcp-watermark.image)
+![5](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7e67a452d6e0434d92ac23813202f1a2~tplv-k3u1fbpfcp-watermark.image)
+![6](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/613c04c8262e403da5416e590fb27fc7~tplv-k3u1fbpfcp-watermark.image)
+![7](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0501678dfee049cd92427e6a503a4251~tplv-k3u1fbpfcp-watermark.image?)
+![8](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2d4613e8cc3245d896defae83627f2d6~tplv-k3u1fbpfcp-watermark.image?)
+![9](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/010422cfd96b4d9a91635118dcfd6d9e~tplv-k3u1fbpfcp-watermark.image?)
+![10](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c9f2a82d4ac942399824e9691bb134ee~tplv-k3u1fbpfcp-watermark.image?)
+![11](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/04d3760d633448df809ac43d9fd2d8c6~tplv-k3u1fbpfcp-watermark.image?)
 
 ## 快速开始
 
