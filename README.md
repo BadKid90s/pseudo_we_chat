@@ -38,7 +38,7 @@ flutter gen-l10n
 ```
 ### 生成JSON相关的代码
 ```shell
-flutter pub run build_runner build   
+flutter pub run build_runner build   --delete-conflicting-outputs
 ```
 ### 运行项目
 ```shell

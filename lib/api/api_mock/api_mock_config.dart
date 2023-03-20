@@ -1,5 +1,7 @@
+import 'package:pseudo_we_chat/api/api_mock/directory/directory.dart';
 import 'package:pseudo_we_chat/api/api_mock/message/message.dart';
 import 'package:pseudo_we_chat/api/api_mock/user/user.dart';
+import 'package:pseudo_we_chat/api/interface/directory/directory.dart';
 import 'package:pseudo_we_chat/api/interface/message/message.dart';
 import 'package:pseudo_we_chat/api/interface/user/user.dart';
 
@@ -13,5 +15,9 @@ class ApiMockConfig {
 
     /// 消息页
     MessageApi.messageListPath: MessageApiMock.messageList,
+
+    /// 通讯录页
+    DirectoryApi.directoryListPath: DirectoryApiMock.directoryList,
+    DirectoryApi.defaultGroupPath: DirectoryApiMock.defaultGroupList,
   };
 }

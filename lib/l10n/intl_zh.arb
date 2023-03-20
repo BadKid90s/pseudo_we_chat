@@ -28,12 +28,13 @@
   "index_discover": "发现",
   "index_home": "我的",
 
-  "widget_search_title": "搜索",
-
   "message_title": "微信",
   "message_add_person_title": "添加朋友",
   "message_group_person_title": "发起群聊",
   "message_qr_title": "扫一扫",
-  "message_payment_title": "收付款"
+  "message_payment_title": "收付款",
 
+  "directory_title": "通讯录",
+
+  "widget_search_title": "搜索"
 }
