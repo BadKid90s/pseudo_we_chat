@@ -117,7 +117,7 @@ class DirectoryPage extends GetView<DirectoryController> {
         children: e.dataList
             .map(
               (item) => WeChatListTile(
-                avatarUrl: item.avatar,
+                avatar: item.avatar,
                 title: Text(
                   item.name,
                   style: context.textTheme.titleMedium,
@@ -139,7 +139,7 @@ class DirectoryPage extends GetView<DirectoryController> {
       children: controller.defaultGroupInfoList
           .map(
             (e) => WeChatListTile(
-              avatarUrl: e.avatar,
+              avatar: e.avatar,
               title: Text(
                 localeName == "en" ? e.nameEnglish : e.nameChina,
                 style: context.textTheme.titleMedium,

@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 
 class WeChatListTile extends StatefulWidget {
-  const WeChatListTile(
-      {Key? key,
-      this.showBadges = false,
-      this.badgeText,
-      required this.avatarUrl,
-      required this.title,
-      this.subtitle,
-      this.trailingIcon})
-      : super(key: key);
+  const WeChatListTile({
+    Key? key,
+    this.showBadges = false,
+    this.badgeText,
+    required this.avatar,
+    this.avatarSize = 64,
+    required this.title,
+    this.subtitle,
+    this.trailingIcon,
+  }) : super(key: key);
 
   /// 是否显示小红点
   final bool showBadges;
@@ -19,7 +20,10 @@ class WeChatListTile extends StatefulWidget {
   final String? badgeText;
 
   /// 头像链接
-  final String avatarUrl;
+  final String avatar;
+
+  /// 头像大小
+  final double avatarSize;
 
   /// 标题
   final Widget title;
@@ -50,14 +54,14 @@ class _WeChatListTileState extends State<WeChatListTile> {
                 style: const TextStyle(color: Colors.white),
               )
             : null,
-        showBadge: widget.showBadges ,
+        showBadge: widget.showBadges,
         child: Container(
-          width: 64,
-          height: 64,
+          width: widget.avatarSize,
+          height: widget.avatarSize,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             image: DecorationImage(
-              image: NetworkImage(widget.avatarUrl),
+              image: NetworkImage(widget.avatar),
               fit: BoxFit.cover,
             ),
           ),

@@ -125,7 +125,7 @@ class MessagePage extends GetView<MessageController> {
           : messageInfo.unReadNum > 99
               ? "99"
               : messageInfo.unReadNum.toString(),
-      avatarUrl: messageInfo.avatar,
+      avatar: messageInfo.avatar,
       title: Row(
         children: [
           Expanded(
