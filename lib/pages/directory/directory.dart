@@ -85,12 +85,14 @@ class DirectoryPage extends GetView<DirectoryController> {
                 return Column(
                   children: [
                     const WeChatSearch(),
-                    _buildDefaultGroupList(context),
+                    _buildDefaultGroupList(context)
+                        .paddingSymmetric(horizontal: 10),
                   ],
                 );
               }
               var newIndex = index - 1;
-              return _buildDirectory(context, newIndex);
+              return _buildDirectory(context, newIndex)
+                  .paddingSymmetric(horizontal: 10);
             },
             itemScrollController: _itemScrollController,
             itemPositionsListener: _itemPositionsListener,
