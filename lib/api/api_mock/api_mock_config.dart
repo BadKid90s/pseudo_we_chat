@@ -2,8 +2,11 @@ import 'package:pseudo_we_chat/api/api_mock/directory/directory.dart';
 import 'package:pseudo_we_chat/api/api_mock/message/message.dart';
 import 'package:pseudo_we_chat/api/api_mock/user/user.dart';
 import 'package:pseudo_we_chat/api/interface/directory/directory.dart';
+import 'package:pseudo_we_chat/api/interface/discover/discover.dart';
 import 'package:pseudo_we_chat/api/interface/message/message.dart';
 import 'package:pseudo_we_chat/api/interface/user/user.dart';
+
+import 'discover/discover.dart';
 
 typedef MockCallback = void Function();
 
@@ -19,5 +22,8 @@ class ApiMockConfig {
     /// 通讯录页
     DirectoryApi.directoryListPath: DirectoryApiMock.directoryList,
     DirectoryApi.defaultGroupPath: DirectoryApiMock.defaultGroupList,
+
+    /// 发现页
+    DiscoverApi.discoverListPath: DiscoverApiMock.discoverList,
   };
 }

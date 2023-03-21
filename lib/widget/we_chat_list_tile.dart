@@ -7,7 +7,7 @@ class WeChatListTile extends StatefulWidget {
     this.showBadges = false,
     this.badgeText,
     required this.avatar,
-    this.avatarSize = 64,
+    this.avatarSize = 54,
     required this.title,
     this.subtitle,
     this.trailingIcon,
