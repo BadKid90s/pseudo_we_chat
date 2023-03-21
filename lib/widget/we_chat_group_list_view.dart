@@ -33,7 +33,7 @@ class _WeChatGroupListViewState extends State<WeChatGroupListView> {
 
   Widget buildSeparateBox() {
     return const SizedBox(
-      height: 20,
+      height: 10,
     );
   }
 }
