@@ -112,7 +112,7 @@ class DirectoryPage extends GetView<DirectoryController> {
         alignment: Alignment.centerLeft,
         child: Text(
           e.name,
-          style: const TextStyle(color: Colors.white),
+          style: context.textTheme.titleMedium,
         ),
       ),
       content: Column(
