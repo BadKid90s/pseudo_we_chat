@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pseudo_we_chat/api/interface/message/message.dart';
 import 'package:pseudo_we_chat/api/interface/message/model/message_info.dart';
-import 'package:pseudo_we_chat/widget/search.dart';
+import 'package:pseudo_we_chat/widget/we_chat_list_tile.dart';
+import 'package:pseudo_we_chat/widget/we_chat_search.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MessageController extends GetxController {
@@ -41,7 +41,7 @@ class MessagePage extends GetView<MessageController> {
           //列表项构造器
           itemBuilder: (BuildContext context, int index) {
             if (index == 0) {
-              return const Search();
+              return const WeChatSearch();
             }
             var item = controller.messageList[index - 1];
             return _buildItem(context, item).paddingSymmetric(horizontal: 10);
@@ -118,44 +118,14 @@ class MessagePage extends GetView<MessageController> {
   }
 
   Widget _buildItem(BuildContext context, MessageInfo messageInfo) {
-    return ListTile(
-      leading: badges.Badge(
-        position: badges.BadgePosition.topEnd(top: -8, end: -6),
-        badgeContent: messageInfo.isMute
-            ? null
-            : Text(
-                "${messageInfo.unReadNum}",
-                style: const TextStyle(color: Colors.white),
-              ),
-        showBadge: true,
-        child: Container(
-          width: 64,
-          height: 64,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            image: DecorationImage(
-              image: NetworkImage(messageInfo.avatar),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ),
-      // Badge(
-      //   alignment: AlignmentDirectional.topEnd,
-      //   label: SizedBox(width: 64,child: Text("${messageInfo.unReadNum}"),),
-      //   child: Container(
-      //     width: 64,
-      //     height: 64,
-      //     decoration: BoxDecoration(
-      //       borderRadius: BorderRadius.circular(5),
-      //       image: DecorationImage(
-      //         image: NetworkImage(messageInfo.avatar),
-      //         fit: BoxFit.cover,
-      //       ),
-      //     ),
-      //   ),
-      // ),
-      contentPadding: EdgeInsets.zero,
+    return WeChatListTile(
+      showBadges: true,
+      badgeText: messageInfo.isMute
+          ? ""
+          : messageInfo.unReadNum > 99
+              ? "99"
+              : messageInfo.unReadNum.toString(),
+      avatarUrl: messageInfo.avatar,
       title: Row(
         children: [
           Expanded(
@@ -179,24 +149,15 @@ class MessagePage extends GetView<MessageController> {
       ),
       subtitle: Row(
         children: [
-          Expanded(
-            flex: 22,
-            child: Text(
-              messageInfo.isMute
-                  ? "[${messageInfo.unReadNum}条] ${messageInfo.lastMessage}"
-                  : messageInfo.lastMessage,
-              style: context.textTheme.bodySmall?.copyWith(fontSize: 16),
-            ),
+          Text(
+            messageInfo.isMute
+                ? "[${messageInfo.unReadNum}条] ${messageInfo.lastMessage}"
+                : messageInfo.lastMessage,
+            style: context.textTheme.bodySmall?.copyWith(fontSize: 16),
           ),
-          if (messageInfo.isMute)
-            const Expanded(
-              flex: 2,
-              child: Icon(
-                Icons.volume_off,
-              ),
-            ),
         ],
       ),
+      trailingIcon: messageInfo.isMute ? Icons.volume_off : null,
     );
   }
 }
