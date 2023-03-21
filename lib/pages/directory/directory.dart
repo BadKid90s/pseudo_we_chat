@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:pseudo_we_chat/api/interface/directory/directory.dart';
 import 'package:pseudo_we_chat/api/interface/directory/model/default_group_info.dart';
 import 'package:pseudo_we_chat/api/interface/directory/model/directory_group.dart';
-import 'package:pseudo_we_chat/widget/search.dart';
+import 'package:pseudo_we_chat/widget/we_chat_list_tile.dart';
+import 'package:pseudo_we_chat/widget/we_chat_search.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
@@ -83,7 +84,7 @@ class DirectoryPage extends GetView<DirectoryController> {
               if (index == 0) {
                 return Column(
                   children: [
-                    const Search(),
+                    const WeChatSearch(),
                     _buildDefaultGroupList(context),
                   ],
                 );
@@ -115,18 +116,8 @@ class DirectoryPage extends GetView<DirectoryController> {
       content: Column(
         children: e.dataList
             .map(
-              (item) => ListTile(
-                leading: Container(
-                  width: 64,
-                  height: 64,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    image: DecorationImage(
-                      image: NetworkImage(item.avatar),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+              (item) => WeChatListTile(
+                avatarUrl: item.avatar,
                 title: Text(
                   item.name,
                   style: context.textTheme.titleMedium,
@@ -147,18 +138,8 @@ class DirectoryPage extends GetView<DirectoryController> {
     return Column(
       children: controller.defaultGroupInfoList
           .map(
-            (e) => ListTile(
-              leading: Container(
-                width: 64,
-                height: 64,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  image: DecorationImage(
-                    image: NetworkImage(e.avatar),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+            (e) => WeChatListTile(
+              avatarUrl: e.avatar,
               title: Text(
                 localeName == "en" ? e.nameEnglish : e.nameChina,
                 style: context.textTheme.titleMedium,

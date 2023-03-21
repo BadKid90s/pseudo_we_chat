@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class Search extends StatelessWidget {
-  const Search({Key? key, this.onPressed, this.text}) : super(key: key);
+class WeChatSearch extends StatelessWidget {
+  const WeChatSearch({Key? key, this.onPressed, this.text}) : super(key: key);
 
   final VoidCallback? onPressed;
   final String? text;
