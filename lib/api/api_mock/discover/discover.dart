@@ -16,6 +16,7 @@ class DiscoverApiMock {
                 "nameChina": "朋友圈",
                 "nameEnglish": "Moments",
                 "avatar": "https://www.itying.com/images/flutter/1.png",
+                "router": ""
               },
             ],
             [
@@ -23,11 +24,13 @@ class DiscoverApiMock {
                 "nameChina": "视频号",
                 "nameEnglish": "Channels",
                 "avatar": "https://www.itying.com/images/flutter/1.png",
+                "router": ""
               },
               {
                 "nameChina": "生活号",
                 "nameEnglish": "Live",
                 "avatar": "https://www.itying.com/images/flutter/1.png",
+                "router": ""
               },
             ],
             [
@@ -35,11 +38,13 @@ class DiscoverApiMock {
                 "nameChina": "扫一扫",
                 "nameEnglish": "Scan",
                 "avatar": "https://www.itying.com/images/flutter/1.png",
+                "router": ""
               },
               {
                 "nameChina": "摇一摇",
                 "nameEnglish": "Shake",
                 "avatar": "https://www.itying.com/images/flutter/1.png",
+                "router": ""
               },
             ],
             [
@@ -47,19 +52,21 @@ class DiscoverApiMock {
                 "nameChina": "看一看",
                 "nameEnglish": "Top Stories",
                 "avatar": "https://www.itying.com/images/flutter/1.png",
+                "router": ""
               },
               {
                 "nameChina": "搜一搜",
                 "nameEnglish": "Search",
                 "avatar": "https://www.itying.com/images/flutter/1.png",
+                "router": ""
               },
-
             ],
             [
               {
                 "nameChina": "直播和附近",
                 "nameEnglish": "Nearby",
                 "avatar": "https://www.itying.com/images/flutter/1.png",
+                "router": ""
               },
             ],
             [
@@ -67,11 +74,13 @@ class DiscoverApiMock {
                 "nameChina": "购物",
                 "nameEnglish": "Shops",
                 "avatar": "https://www.itying.com/images/flutter/1.png",
+                "router": ""
               },
               {
                 "nameChina": "游戏",
                 "nameEnglish": "Games",
                 "avatar": "https://www.itying.com/images/flutter/1.png",
+                "router": ""
               },
             ],
             [
@@ -79,6 +88,7 @@ class DiscoverApiMock {
                 "nameChina": "小程序",
                 "nameEnglish": "Mini Programs",
                 "avatar": "https://www.itying.com/images/flutter/1.png",
+                "router": ""
               },
             ],
           ],

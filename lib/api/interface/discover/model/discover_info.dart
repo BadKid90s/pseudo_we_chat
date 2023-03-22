@@ -13,7 +13,10 @@ class DiscoverInfo {
 
   String nameEnglish;
 
-  DiscoverInfo(this.avatar, this.nameChina, this.nameEnglish);
+  String router;
+
+
+  DiscoverInfo(this.avatar, this.nameChina, this.nameEnglish, this.router);
 
   factory DiscoverInfo.fromJson(Map<String, dynamic> json) =>
       _$DiscoverInfoFromJson(json);

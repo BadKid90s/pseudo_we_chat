@@ -36,6 +36,7 @@ class MessagePage extends GetView<MessageController> {
     return Obx(
       () => Scaffold(
         appBar: _buildAppBar(context),
+        // backgroundColor: context.theme.primaryColor,
         body: ListView.separated(
           itemCount: controller.messageList.length + 1,
           //列表项构造器
@@ -44,18 +45,22 @@ class MessagePage extends GetView<MessageController> {
               return const WeChatSearch();
             }
             var item = controller.messageList[index - 1];
-            return _buildItem(context, item).paddingSymmetric(horizontal: 10);
+            return _buildItem(context, item);
           },
           //分割器构造器
           separatorBuilder: (BuildContext context, int index) {
             if (index == 0) {
               return const SizedBox.shrink();
             }
-            return const Divider(
-              color: Colors.grey,
-            ).padding(left: 86);
+            return Container(
+              color: context.theme.primaryColor,
+              child: const Divider(
+                height: 2,
+                thickness: 1,
+              ).padding(left: 80),
+            );
           },
-        ),
+        )
       ),
     );
   }
