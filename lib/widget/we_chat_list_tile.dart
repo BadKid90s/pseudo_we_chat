@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:get/get.dart';
 
 class WeChatListTile extends StatefulWidget {
   const WeChatListTile({
@@ -11,6 +12,8 @@ class WeChatListTile extends StatefulWidget {
     required this.title,
     this.subtitle,
     this.trailingIcon,
+    this.color,
+    this.padding = const EdgeInsets.symmetric(horizontal: 10,vertical: 2),
   }) : super(key: key);
 
   /// 是否显示小红点
@@ -34,6 +37,11 @@ class WeChatListTile extends StatefulWidget {
   /// 右侧图标
   final IconData? trailingIcon;
 
+  /// 颜色
+  final Color? color;
+
+  final EdgeInsets padding;
+
   @override
   State<WeChatListTile> createState() => _WeChatListTileState();
 }
@@ -45,36 +53,40 @@ class _WeChatListTileState extends State<WeChatListTile> {
   }
 
   Widget _buildItem(BuildContext context) {
-    return ListTile(
-      leading: badges.Badge(
-        position: badges.BadgePosition.topEnd(top: -8, end: -6),
-        badgeContent: widget.showBadges && widget.badgeText != null
-            ? Text(
-                widget.badgeText!,
-                style: const TextStyle(color: Colors.white),
-              )
-            : null,
-        showBadge: widget.showBadges,
-        child: Container(
-          width: widget.avatarSize,
-          height: widget.avatarSize,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            image: DecorationImage(
-              image: NetworkImage(widget.avatar),
-              fit: BoxFit.cover,
+    return Container(
+      padding: widget.padding,
+      color: widget.color ?? context.theme.primaryColor,
+      child: ListTile(
+        leading: badges.Badge(
+          position: badges.BadgePosition.topEnd(top: -8, end: -6),
+          badgeContent: widget.showBadges && widget.badgeText != null
+              ? Text(
+                  widget.badgeText!,
+                  style: const TextStyle(color: Colors.white),
+                )
+              : null,
+          showBadge: widget.showBadges,
+          child: Container(
+            width: widget.avatarSize,
+            height: widget.avatarSize,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              image: DecorationImage(
+                image: NetworkImage(widget.avatar),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
+        contentPadding: EdgeInsets.zero,
+        title: widget.title,
+        subtitle: widget.subtitle,
+        trailing: widget.trailingIcon != null
+            ? Icon(
+                widget.trailingIcon,
+              )
+            : null,
       ),
-      contentPadding: EdgeInsets.zero,
-      title: widget.title,
-      subtitle: widget.subtitle,
-      trailing: widget.trailingIcon != null
-          ? Icon(
-              widget.trailingIcon,
-            )
-          : null,
     );
   }
 }

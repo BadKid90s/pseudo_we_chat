@@ -25,6 +25,8 @@ ThemeData _buildCommonThemeData(ThemeData theme) {
 
 ThemeData _buildDarkThemeData(ThemeData theme) {
   return theme.copyWith(
+    primaryColor: Colors.grey.shade900,
+    scaffoldBackgroundColor:  Colors.black,
     appBarTheme: theme.appBarTheme.copyWith(
       backgroundColor: Colors.black,
       foregroundColor: Colors.grey,
@@ -38,8 +40,12 @@ ThemeData _buildDarkThemeData(ThemeData theme) {
 
 ThemeData _buildLightThemeData(ThemeData theme) {
   return theme.copyWith(
+    primaryColor: Colors.white70,
+    scaffoldBackgroundColor:  Colors.grey.shade200,
     appBarTheme: theme.appBarTheme.copyWith(
-        backgroundColor: Colors.grey.shade200, foregroundColor: Colors.grey),
+      backgroundColor: Colors.grey.shade200,
+      foregroundColor: Colors.grey,
+    ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedItemColor: Colors.green,
       unselectedItemColor: Colors.black45,

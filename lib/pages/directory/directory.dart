@@ -8,6 +8,7 @@ import 'package:pseudo_we_chat/widget/we_chat_list_tile.dart';
 import 'package:pseudo_we_chat/widget/we_chat_search.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sticky_headers/sticky_headers.dart';
+import 'package:styled_widget/styled_widget.dart';
 
 //https://pub.dev/packages/scrollable_positioned_list
 
@@ -85,14 +86,12 @@ class DirectoryPage extends GetView<DirectoryController> {
                 return Column(
                   children: [
                     const WeChatSearch(),
-                    _buildDefaultGroupList(context)
-                        .paddingSymmetric(horizontal: 10),
+                    _buildDefaultGroupList(context),
                   ],
                 );
               }
               var newIndex = index - 1;
-              return _buildDirectory(context, newIndex)
-                  .paddingSymmetric(horizontal: 10);
+              return _buildDirectory(context, newIndex);
             },
             itemScrollController: _itemScrollController,
             itemPositionsListener: _itemPositionsListener,
@@ -116,21 +115,34 @@ class DirectoryPage extends GetView<DirectoryController> {
         ),
       ),
       content: Column(
-        children: e.dataList
-            .map(
-              (item) => WeChatListTile(
-                avatar: item.avatar,
-                title: Text(
-                  item.name,
-                  style: context.textTheme.titleMedium,
-                ),
-                subtitle: Text(
-                  item.remarks.toString(),
-                  style: context.textTheme.bodySmall,
-                ),
+        children: e.dataList.asMap().entries.mapMany(
+          (element) {
+            var index = element.key;
+            var item = element.value;
+            var weChatListTile = WeChatListTile(
+              avatar: item.avatar,
+              title: Text(
+                item.name,
+                style: context.textTheme.titleMedium,
               ),
-            )
-            .toList(),
+              subtitle: Text(
+                item.remarks.toString(),
+                style: context.textTheme.bodySmall,
+              ),
+            );
+            if (index == e.dataList.length - 1) {
+              return [weChatListTile];
+            }
+            var spec= Container(
+              color: context.theme.primaryColor,
+              child: const Divider(
+                height: 2,
+                thickness: 1,
+              ).padding(left: 80),
+            );
+            return [weChatListTile, spec];
+          },
+        ).toList(),
       ),
     );
   }
@@ -146,7 +158,7 @@ class DirectoryPage extends GetView<DirectoryController> {
                 localeName == "en" ? e.nameEnglish : e.nameChina,
                 style: context.textTheme.titleMedium,
               ),
-            ).marginSymmetric(vertical: 5),
+            ),
           )
           .toList(),
     );
