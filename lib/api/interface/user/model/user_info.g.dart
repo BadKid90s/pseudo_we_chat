@@ -8,8 +8,12 @@ part of 'user_info.dart';
 
 UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
       json['name'] as String,
+      json['avatar'] as String,
+      json['weChatNum'] as String,
     );
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'name': instance.name,
+      'avatar': instance.avatar,
+      'weChatNum': instance.weChatNum,
     };

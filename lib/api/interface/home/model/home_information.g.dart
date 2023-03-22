@@ -1,19 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'discover_info.dart';
+part of 'home_information.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-DiscoverInfo _$DiscoverInfoFromJson(Map<String, dynamic> json) => DiscoverInfo(
+HomeInformation _$HomeInformationFromJson(Map<String, dynamic> json) =>
+    HomeInformation(
       json['avatar'] as String,
       json['nameChina'] as String,
       json['nameEnglish'] as String,
       json['router'] as String,
     );
 
-Map<String, dynamic> _$DiscoverInfoToJson(DiscoverInfo instance) =>
+Map<String, dynamic> _$HomeInformationToJson(HomeInformation instance) =>
     <String, dynamic>{
       'avatar': instance.avatar,
       'nameChina': instance.nameChina,
