@@ -1,17 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_status.dart';
+part of 'user_status.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-LoginStatus _$LoginStatusFromJson(Map<String, dynamic> json) => LoginStatus(
+UserStatus _$UserStatusFromJson(Map<String, dynamic> json) => UserStatus(
       json['status'] as bool,
       json['message'] as String?,
     );
 
-Map<String, dynamic> _$LoginStatusToJson(LoginStatus instance) =>
+Map<String, dynamic> _$UserStatusToJson(UserStatus instance) =>
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,

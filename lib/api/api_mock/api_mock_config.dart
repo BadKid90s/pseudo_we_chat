@@ -18,6 +18,7 @@ class ApiMockConfig {
     UserApi.accountLoginPath: UserApiMock.accountLoginMock,
     UserApi.phoneLoginPath: UserApiMock.phoneLoginMock,
     UserApi.userInfoPath: UserApiMock.userInfoMock,
+    UserApi.userSignupPath: UserApiMock.userSignupMock,
 
     /// 消息页
     MessageApi.messageListPath: MessageApiMock.messageList,

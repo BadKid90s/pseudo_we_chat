@@ -23,6 +23,18 @@
   "login_phone_phone_verify_message": "Please enter phone number",
   "login_phone_default_region": "China",
 
+  "signup_title": "Use Phone Sign",
+  "signup_nike_name": "NikeName",
+  "signup_nike_name_hint_text": "Please Enter NikeName",
+  "signup_phone_phone": "Phone",
+  "signup_phone_phone_hint_text": "Please Enter Phone",
+  "signup_password": "Password",
+  "signup_password_hint_text": "Please Enter Password",
+  "signup_phone_region": "Country",
+  "signup_agreement_title": "I have read and agree to the Software License and Service Agreement",
+  "signup_agreement_subtitle": "The information collected on this page is only used to register for an account",
+  "signup_button_title": "同意并继续",
+
   "index_message": "Chats",
   "index_directory": "Contacts",
   "index_discover": "Discover",
