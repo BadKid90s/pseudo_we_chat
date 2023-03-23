@@ -13,9 +13,12 @@
  - 支持国际化（中文、英文）
  - 支持主题自适应（浅色/深色）
  - 支持对接后台进行真实接口对接
- - 使用GetX框架
- - 使用Dio进行数据交互
- - 使用getwidget做为UI库
+ - 使用`get`框架用于状态管理
+ - 使用`dio`进行接口数据交互
+ - 使用`http_mock_adapter`进行接口Mock
+ - 使用`json_annotation`进行JSON与Model的数据转换
+ - 使用`event_bus`做为事件总线
+ 
 ## 预览效果
 
 ![2](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/00e6ef83ccfb439bab65144882395e33~tplv-k3u1fbpfcp-watermark.image)
