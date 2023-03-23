@@ -70,10 +70,8 @@ class PhoneContent extends StatelessWidget {
             context: context,
             countryListTheme: CountryListThemeData(
               flagSize: 25,
-              backgroundColor: Colors.white,
-              textStyle: const TextStyle(fontSize: 16, color: Colors.blueGrey),
-              // Optional. Country list modal height
-              //Optional. Sets the border radius for the bottomsheet.
+              backgroundColor: context.theme.primaryColor,
+              textStyle: context.textTheme.titleMedium,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20.0),
                 topRight: Radius.circular(20.0),

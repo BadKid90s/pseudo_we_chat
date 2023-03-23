@@ -36,10 +36,6 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  # 时间格式插件
-  date_format: ^2.0.7
-  # UI库
-  getwidget: ^3.0.1
   # 组件样式
   styled_widget: ^0.4.1
   # 缓存
@@ -62,8 +58,9 @@ dependencies:
   badges: ^3.0.2
   # 粘头
   sticky_headers: ^0.3.0+2
-  #
+  # 下标滑动定位组件
   scrollable_positioned_list: ^0.3.5
+
 
 dev_dependencies:
   build_runner: ^2.3.3
