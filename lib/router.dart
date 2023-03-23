@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:pseudo_we_chat/pages/index.dart';
 
+import 'pages/index.dart';
 import 'pages/root.dart';
 import 'pages/login/login_account.dart';
 import 'pages/login/login_phone.dart';
