@@ -97,4 +97,22 @@ class UserApiMock {
           "userId": "111111",
         });
   }
+
+  static void userSignupMock() {
+    Http.instance.dioAdapter.onPost(
+        UserApi.userSignupPath,
+        (server) => server.reply(
+              200,
+              {
+                "code": 200,
+                "message": null,
+                "data": {
+                  "status": true,
+                  "userId": "111111",
+                  "message": null,
+                },
+              },
+            ),
+        );
+  }
 }

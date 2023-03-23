@@ -40,18 +40,20 @@ class AppPages {
       page: () => const RootPage(),
     ),
     GetPage(
-        name: AppRoutes.loginAccount,
-        page: () => const LoginAccountPage(),
-        binding:
-            BindingsBuilder(() => Get.lazyPut(() => LoginAccountController()))),
+      name: AppRoutes.loginAccount,
+      page: () => const LoginAccountPage(),
+      binding:
+          BindingsBuilder(() => Get.lazyPut(() => LoginAccountController())),
+    ),
     GetPage(
-        name: AppRoutes.loginPhone,
-        page: () => const LoginPhonePage(),
-        binding:
-            BindingsBuilder(() => Get.lazyPut(() => LoginPhoneController()))),
+      name: AppRoutes.loginPhone,
+      page: () => const LoginPhonePage(),
+      binding: BindingsBuilder(() => Get.lazyPut(() => LoginPhoneController())),
+    ),
     GetPage(
       name: AppRoutes.signup,
       page: () => const SignupPage(),
+      binding: BindingsBuilder(() => Get.lazyPut(() => SignupController())),
     ),
     GetPage(
       name: AppRoutes.index,

@@ -23,6 +23,18 @@
   "login_phone_phone_verify_message": "请输入正确的手机号",
   "login_phone_default_region": "中国",
 
+  "signup_title": "用手机号注册",
+  "signup_nike_name": "昵称",
+  "signup_nike_name_hint_text": "请填写昵称",
+  "signup_phone_phone": "手机号",
+  "signup_phone_phone_hint_text": "请填写手机号码",
+  "signup_password": "密 码",
+  "signup_password_hint_text": "请输入密码",
+  "signup_phone_region": "国家/地区",
+  "signup_agreement_title": "我已阅读并同意《软件许可及服务协议》",
+  "signup_agreement_subtitle": "本页面收集的信息仅用于注册帐号",
+  "signup_button_title": "同意并继续",
+
   "index_message": "微信",
   "index_directory": "通讯录",
   "index_discover": "发现",
