@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pseudo_we_chat/router.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -31,34 +30,43 @@ class RootPage extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 1,
-                        child: GFButton(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor:
+                                const Color.fromRGBO(247, 247, 247, 30),
+                          ),
                           onPressed: () {
                             // 跳转登录页
                             Get.toNamed(AppRoutes.loginPhone);
                           },
-                          color: const Color.fromRGBO(247, 247, 247, 30),
                           child: Text(
-                            AppLocalizations.of(context)!.login_login_button_title,
+                            AppLocalizations.of(context)!
+                                .login_login_button_title,
                             style: const TextStyle(
                                 color: Colors.black,
-                                fontSize: 20,
+                                fontSize: 22,
                                 fontWeight: FontWeight.w500),
                           ),
                         ).height(50).paddingSymmetric(horizontal: 20),
                       ),
                       Expanded(
                         flex: 1,
-                        child: GFButton(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: Colors.green,
+                          ),
                           onPressed: () {
                             // 跳转注册页
                             Get.toNamed(AppRoutes.signup);
                           },
-                          color: Colors.green,
                           child: Text(
-                            AppLocalizations.of(context)!.login_signup_button_title,
+                            AppLocalizations.of(context)!
+                                .login_signup_button_title,
                             style: const TextStyle(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: 22,
                                 fontWeight: FontWeight.w500),
                           ),
                         ).height(50).paddingSymmetric(horizontal: 20),

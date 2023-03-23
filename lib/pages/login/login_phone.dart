@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:pseudo_we_chat/api/interface/user/user.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pseudo_we_chat/pages/login/widget/bottom.dart';
@@ -42,16 +41,17 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: GFButton(
-              type: GFButtonType.transparent,
-              child: Icon(
-                Icons.close,
-                color: context.iconColor,
-                size: 30,
-              ),
-              onPressed: () {
-                Get.offAndToNamed(AppRoutes.root);
-              })),
+        leading: IconButton(
+          icon: Icon(
+            Icons.close,
+            color: context.iconColor,
+            size: 30,
+          ),
+          onPressed: () {
+            Get.offAndToNamed(AppRoutes.root);
+          },
+        ),
+      ),
       body: Column(
         children: [
           TopTitle(4, AppLocalizations.of(context)!.login_phone_title),
@@ -65,7 +65,8 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
               if (controller.phone.value.isBlank == true) {
                 Get.defaultDialog(
                   title: "❕",
-                  middleText: AppLocalizations.of(context)!.login_phone_phone_verify_message,
+                  middleText: AppLocalizations.of(context)!
+                      .login_phone_phone_verify_message,
                 );
                 return;
               }
