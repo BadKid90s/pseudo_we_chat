@@ -60,6 +60,8 @@ dependencies:
   sticky_headers: ^0.3.0+2
   # 下标滑动定位组件
   scrollable_positioned_list: ^0.3.5
+  # 事件总线
+  event_bus: ^2.0.0
 
 dev_dependencies:
   build_runner: ^2.3.3

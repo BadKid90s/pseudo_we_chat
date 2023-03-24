@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:pseudo_we_chat/events/event_bus.dart';
+import 'package:pseudo_we_chat/events/navbar/navbar_change_event.dart';
 import 'package:pseudo_we_chat/pages/directory/directory.dart';
 import 'package:pseudo_we_chat/pages/discover/discover.dart';
 import 'package:pseudo_we_chat/pages/home/home.dart';
@@ -26,7 +28,8 @@ class _IndexPageState extends State<IndexPage> {
   ];
 
   //定义页面控制器，可以左右滑动切换页面
-  static final PageController _pageController = PageController(initialPage: 0);
+  static final PageController _pageController =
+      PageController(initialPage: _index);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,6 @@ class _IndexPageState extends State<IndexPage> {
             items: _buildNavigationBarItemList(context),
             elevation: 0,
             onTap: (index) {
-              _changeIndex(index);
               _pageController.animateToPage(
                 index,
                 duration: const Duration(milliseconds: 300),
@@ -91,7 +93,8 @@ class _IndexPageState extends State<IndexPage> {
     return {
       AppLocalizations.of(context)!.index_message: const Icon(Icons.message),
       AppLocalizations.of(context)!.index_directory: const Icon(Icons.people),
-      AppLocalizations.of(context)!.index_discover: const Icon(Icons.my_location),
+      AppLocalizations.of(context)!.index_discover:
+          const Icon(Icons.my_location),
       AppLocalizations.of(context)!.index_home: const Icon(Icons.person),
     };
   }
@@ -100,5 +103,23 @@ class _IndexPageState extends State<IndexPage> {
     setState(() {
       _index = index;
     });
+
+    NavBarType navBarType = NavBarType.message;
+    switch (index) {
+      case 0:
+        navBarType = NavBarType.message;
+        break;
+      case 1:
+        navBarType = NavBarType.directory;
+        break;
+      case 2:
+        navBarType = NavBarType.discover;
+        break;
+      case 3:
+        navBarType = NavBarType.home;
+        break;
+    }
+    // 发送NavBar切换事件
+    AppEventBus.eventBus.fire(NavbarChangeEvent(navBarType));
   }
 }

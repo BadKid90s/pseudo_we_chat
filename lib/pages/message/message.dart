@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pseudo_we_chat/api/interface/message/message.dart';
@@ -7,18 +9,28 @@ import 'package:pseudo_we_chat/widget/we_chat_search.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../events/navbar/navbar_change_listen.dart';
+
 class MessageController extends GetxController {
   final RxList<MessageInfo> messageList = <MessageInfo>[].obs;
 
-  void initMessageList() {
+  late StreamSubscription navbarChangeSubscription;
+
+  void initData() {
+    messageList.clear();
     MessageApi.messageList().then((value) => messageList(value));
   }
 
   @override
   void onInit() {
     super.onInit();
+    initData();
+    navbarChangeSubscription = NavbarChangeListen.getMessageData(initData);
+  }
 
-    initMessageList();
+  @override
+  void onClose() {
+    navbarChangeSubscription.cancel();
   }
 }
 
@@ -35,33 +47,32 @@ class MessagePage extends GetView<MessageController> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        appBar: _buildAppBar(context),
-        // backgroundColor: context.theme.primaryColor,
-        body: ListView.separated(
-          itemCount: controller.messageList.length + 1,
-          //列表项构造器
-          itemBuilder: (BuildContext context, int index) {
-            if (index == 0) {
-              return const WeChatSearch();
-            }
-            var item = controller.messageList[index - 1];
-            return _buildItem(context, item);
-          },
-          //分割器构造器
-          separatorBuilder: (BuildContext context, int index) {
-            if (index == 0) {
-              return const SizedBox.shrink();
-            }
-            return Container(
-              color: context.theme.primaryColor,
-              child: const Divider(
-                height: 2,
-                thickness: 1,
-              ).padding(left: 80),
-            );
-          },
-        )
-      ),
+          appBar: _buildAppBar(context),
+          // backgroundColor: context.theme.primaryColor,
+          body: ListView.separated(
+            itemCount: controller.messageList.length + 1,
+            //列表项构造器
+            itemBuilder: (BuildContext context, int index) {
+              if (index == 0) {
+                return const WeChatSearch();
+              }
+              var item = controller.messageList[index - 1];
+              return _buildItem(context, item);
+            },
+            //分割器构造器
+            separatorBuilder: (BuildContext context, int index) {
+              if (index == 0) {
+                return const SizedBox.shrink();
+              }
+              return Container(
+                color: context.theme.primaryColor,
+                child: const Divider(
+                  height: 2,
+                  thickness: 1,
+                ).padding(left: 80),
+              );
+            },
+          )),
     );
   }
 
