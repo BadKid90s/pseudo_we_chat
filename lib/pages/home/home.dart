@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,7 @@ import 'package:pseudo_we_chat/api/interface/home/home.dart';
 import 'package:pseudo_we_chat/api/interface/home/model/home_information.dart';
 import 'package:pseudo_we_chat/api/interface/user/model/user_info.dart';
 import 'package:pseudo_we_chat/api/interface/user/user.dart';
+import 'package:pseudo_we_chat/events/navbar/navbar_change_listen.dart';
 import 'package:pseudo_we_chat/widget/we_chat_group_list_view.dart';
 import 'package:pseudo_we_chat/widget/we_chat_list_tile.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -13,12 +16,7 @@ class HomeController extends GetxController {
   final userInfo = Rxn<UserInfo>(null);
   final homeInfoList = <List<HomeInformation>>[].obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-
-    initData();
-  }
+  late StreamSubscription navbarChangeSubscription;
 
   void initData() async {
     var user = await UserApi.userInfo("111111");
@@ -26,7 +24,19 @@ class HomeController extends GetxController {
     update();
 
     var homeInfos = await HomeApi.homeList();
+    homeInfoList.clear();
     homeInfoList(homeInfos);
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    navbarChangeSubscription = NavbarChangeListen.getHomeData(initData);
+  }
+
+  @override
+  void onClose() {
+    navbarChangeSubscription.cancel();
   }
 }
 

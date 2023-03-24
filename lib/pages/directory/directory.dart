@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:pseudo_we_chat/api/interface/directory/directory.dart';
 import 'package:pseudo_we_chat/api/interface/directory/model/default_group_info.dart';
 import 'package:pseudo_we_chat/api/interface/directory/model/directory_group.dart';
+import 'package:pseudo_we_chat/events/navbar/navbar_change_listen.dart';
 import 'package:pseudo_we_chat/widget/we_chat_list_tile.dart';
 import 'package:pseudo_we_chat/widget/we_chat_search.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -20,8 +23,11 @@ class DirectoryController extends GetxController {
   final RxList<String> alphabetList = <String>[].obs;
   final selectIndex = 0.obs;
 
-  void initDataList() async {
+  late StreamSubscription navbarChangeSubscription;
+
+  void initData() async {
     var directories = await DirectoryApi.directoryList();
+    directoryList.clear();
     directoryList(directories);
     var nameList = directories.map((element) => element.name).toList();
     initAlphabetList(nameList);
@@ -31,15 +37,21 @@ class DirectoryController extends GetxController {
   }
 
   void initAlphabetList(List<String> list) {
+    alphabetList.clear();
     alphabetList.add("🔍");
     alphabetList.addAll(list);
   }
 
+
   @override
   void onInit() {
     super.onInit();
+    navbarChangeSubscription = NavbarChangeListen.getDirectoryData(initData);
+  }
 
-    initDataList();
+  @override
+  void onClose() {
+    navbarChangeSubscription.cancel();
   }
 }
 
@@ -53,7 +65,7 @@ class DirectoryPage extends GetView<DirectoryController> {
 
   @override
   StatelessElement createElement() {
-    Get.lazyPut(() => DirectoryController());
+    Get.put(DirectoryController());
 
     _itemPositionsListener.itemPositions.addListener(() {
       var position = _itemPositionsListener.itemPositions.value.first;
@@ -133,7 +145,7 @@ class DirectoryPage extends GetView<DirectoryController> {
             if (index == e.dataList.length - 1) {
               return [weChatListTile];
             }
-            var spec= Container(
+            var spec = Container(
               color: context.theme.primaryColor,
               child: const Divider(
                 height: 2,

@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:pseudo_we_chat/api/interface/discover/discover.dart';
 import 'package:pseudo_we_chat/api/interface/discover/model/discover_info.dart';
+import 'package:pseudo_we_chat/events/navbar/navbar_change_listen.dart';
 import 'package:pseudo_we_chat/widget/we_chat_group_list_view.dart';
 import 'package:pseudo_we_chat/widget/we_chat_list_tile.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -10,16 +13,23 @@ import 'package:styled_widget/styled_widget.dart';
 class DiscoverController extends GetxController {
   final discoverList = <List<DiscoverInfo>>[].obs;
 
+  late StreamSubscription navbarChangeSubscription;
+
+  void initData() async {
+    var discovers = await DiscoverApi.discoverList();
+    discoverList.clear();
+    discoverList(discovers);
+  }
+
   @override
   void onInit() {
     super.onInit();
-
-    initDataList();
+    navbarChangeSubscription = NavbarChangeListen.getDiscoverData(initData);
   }
 
-  void initDataList() async {
-    var discovers = await DiscoverApi.discoverList();
-    discoverList(discovers);
+  @override
+  void onClose() {
+    navbarChangeSubscription.cancel();
   }
 }
 
