@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pseudo_we_chat/api/interface/message/message.dart';
 import 'package:pseudo_we_chat/api/interface/message/model/message_info.dart';
+import 'package:pseudo_we_chat/router.dart';
 import 'package:pseudo_we_chat/widget/we_chat_list_tile.dart';
 import 'package:pseudo_we_chat/widget/we_chat_search.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -134,46 +135,51 @@ class MessagePage extends GetView<MessageController> {
   }
 
   Widget _buildItem(BuildContext context, MessageInfo messageInfo) {
-    return WeChatListTile(
-      showBadges: true,
-      badgeText: messageInfo.isMute
-          ? ""
-          : messageInfo.unReadNum > 99
-              ? "99"
-              : messageInfo.unReadNum.toString(),
-      avatar: messageInfo.avatar,
-      title: Row(
-        children: [
-          Expanded(
-            flex: 18,
-            child: Text(
-              messageInfo.name,
-              style: context.textTheme.titleLarge,
-            ),
-          ),
-          Expanded(
-            flex: 6,
-            child: Align(
-              alignment: Alignment.centerRight,
+    return InkWell(
+      child: WeChatListTile(
+        showBadges: true,
+        badgeText: messageInfo.isMute
+            ? ""
+            : messageInfo.unReadNum > 99
+                ? "99"
+                : messageInfo.unReadNum.toString(),
+        avatar: messageInfo.avatar,
+        title: Row(
+          children: [
+            Expanded(
+              flex: 18,
               child: Text(
-                messageInfo.lastMessageTime.toString(),
-                style: context.textTheme.bodySmall,
+                messageInfo.name,
+                style: context.textTheme.titleLarge,
               ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 6,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  messageInfo.lastMessageTime.toString(),
+                  style: context.textTheme.bodySmall,
+                ),
+              ),
+            ),
+          ],
+        ),
+        subtitle: Row(
+          children: [
+            Text(
+              messageInfo.isMute
+                  ? "[${messageInfo.unReadNum}条] ${messageInfo.lastMessage}"
+                  : messageInfo.lastMessage,
+              style: context.textTheme.bodySmall?.copyWith(fontSize: 16),
+            ),
+          ],
+        ),
+        trailingIcon: messageInfo.isMute ? Icons.volume_off : null,
       ),
-      subtitle: Row(
-        children: [
-          Text(
-            messageInfo.isMute
-                ? "[${messageInfo.unReadNum}条] ${messageInfo.lastMessage}"
-                : messageInfo.lastMessage,
-            style: context.textTheme.bodySmall?.copyWith(fontSize: 16),
-          ),
-        ],
-      ),
-      trailingIcon: messageInfo.isMute ? Icons.volume_off : null,
+      onTap: () {
+        Get.toNamed(AppRoutes.chat,arguments: messageInfo);
+      },
     );
   }
 }
