@@ -150,7 +150,7 @@ class MessagePage extends GetView<MessageController> {
               flex: 18,
               child: Text(
                 messageInfo.name,
-                style: context.textTheme.titleLarge,
+                style: context.textTheme.titleMedium?.copyWith(fontSize: 18),
               ),
             ),
             Expanded(

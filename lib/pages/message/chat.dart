@@ -94,9 +94,7 @@ class ChatPage extends GetView<ChatController> {
         direction: Axis.horizontal,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: _buildBottomItem(context),
-          ),
+        _buildBottomItem(context),
           Expanded(
             child: IconButton(
               onPressed: () {},
