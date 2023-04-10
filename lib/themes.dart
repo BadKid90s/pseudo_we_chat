@@ -26,6 +26,8 @@ ThemeData _buildCommonThemeData(ThemeData theme) {
 ThemeData _buildDarkThemeData(ThemeData theme) {
   return theme.copyWith(
     primaryColor: Colors.grey.shade900,
+    primaryColorDark: Colors.black26,
+    primaryColorLight: Colors.white24,
     scaffoldBackgroundColor:  Colors.black,
     appBarTheme: theme.appBarTheme.copyWith(
       backgroundColor: Colors.black,
@@ -41,6 +43,8 @@ ThemeData _buildDarkThemeData(ThemeData theme) {
 ThemeData _buildLightThemeData(ThemeData theme) {
   return theme.copyWith(
     primaryColor: Colors.white70,
+    primaryColorDark: Colors.black26,
+    primaryColorLight: Colors.white24,
     scaffoldBackgroundColor:  Colors.grey.shade200,
     appBarTheme: theme.appBarTheme.copyWith(
       backgroundColor: Colors.grey.shade200,
