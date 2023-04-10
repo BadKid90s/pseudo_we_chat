@@ -178,7 +178,7 @@ class MessagePage extends GetView<MessageController> {
         trailingIcon: messageInfo.isMute ? Icons.volume_off : null,
       ),
       onTap: () {
-        Get.toNamed(AppRoutes.chat,arguments: messageInfo);
+        Get.toNamed(AppRoutes.chat, arguments: messageInfo);
       },
     );
   }

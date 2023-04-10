@@ -5,9 +5,14 @@ class UserService extends GetxService {
   /// 单例
   static UserService get instance => Get.find<UserService>();
 
-  String get avatar => getAvatar();
+  Future<String?> get avatar => getAvatar();
 
-  get prefs => getPrefs;
+  late SharedPreferences prefs;
+
+
+  void init() async {
+    prefs = await SharedPreferences.getInstance();
+  }
 
   Future<bool> isLogin() async {
     return prefs.getBool('isLogin') ?? false;
@@ -17,15 +22,12 @@ class UserService extends GetxService {
     prefs.setBool("isLogin", statue);
   }
 
-  String getAvatar() {
+  Future<String?> getAvatar() async {
     return prefs.getString('avatar');
   }
 
-  void setAvatar(String avatar) {
+  void setAvatar(String avatar) async {
     prefs.setString("avatar", avatar);
   }
 
-  Future<SharedPreferences> getPrefs() async {
-    return await SharedPreferences.getInstance();
-  }
 }

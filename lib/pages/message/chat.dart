@@ -31,55 +31,59 @@ class ChatPage extends GetView<ChatController> {
     );
   }
 
-  List<Widget> _buildBottomItem(BuildContext context) {
+  Widget _buildBottomItem(BuildContext context) {
     var width = MediaQuery.of(context).size.width * 0.65;
     if (controller.isKeyboardModel.value) {
-      return [
+      return Row(
+        children: [
+          IconButton(
+            onPressed: () {
+              controller.isKeyboardModel(false);
+            },
+            icon: const Icon(Icons.keyboard),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              backgroundColor: context.theme.primaryColorLight,
+              shadowColor: context.theme.primaryColorLight,
+              foregroundColor: context.theme.primaryColorLight,
+              disabledForegroundColor: Colors.transparent,
+              disabledBackgroundColor: Colors.transparent,
+            ),
+            onPressed: () {},
+            child: Text(
+              "Hold to talk",
+              style: context.textTheme.titleMedium,
+            ),
+          ).width(width),
+        ],
+      );
+    }
+    return Row(
+      children: [
         IconButton(
           onPressed: () {
-            controller.isKeyboardModel(false);
+            controller.isKeyboardModel(true);
           },
-          icon: const Icon(Icons.keyboard),
+          icon: const Icon(Icons.volume_up_rounded),
         ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            elevation: 0,
-            backgroundColor: context.theme.primaryColorLight,
-            shadowColor: context.theme.primaryColorLight,
-            foregroundColor: context.theme.primaryColorLight,
-            disabledForegroundColor: Colors.transparent,
-            disabledBackgroundColor: Colors.transparent,
-          ),
-          onPressed: () {},
-          child: Text(
-            "Hold to talk",
-            style: context.textTheme.titleMedium,
+        TextField(
+          maxLines: 3, //最多多少行
+          minLines: 1, //最少多少行
+          decoration: InputDecoration(
+            fillColor: context.theme.primaryColorLight,
+            filled: true,
+            isCollapsed: true,
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+            border: const OutlineInputBorder(
+              gapPadding: 2.0,
+            ),
           ),
         ).width(width),
-      ];
-    }
-    return [
-      IconButton(
-        onPressed: () {
-          controller.isKeyboardModel(true);
-        },
-        icon: const Icon(Icons.volume_up_rounded),
-      ),
-      TextField(
-        maxLines: 3, //最多多少行
-        minLines: 1, //最少多少行
-        decoration: InputDecoration(
-          fillColor: context.theme.primaryColorLight,
-          filled: true,
-          isCollapsed: true,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-          border: const OutlineInputBorder(
-            gapPadding: 2.0,
-          ),
-        ),
-      ).width(width),
-    ];
+      ],
+    );
   }
 
   Widget _buildBottomView(BuildContext context) {
@@ -90,14 +94,20 @@ class ChatPage extends GetView<ChatController> {
         direction: Axis.horizontal,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ..._buildBottomItem(context),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.mood),
+          Expanded(
+            child: _buildBottomItem(context),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.add_circle_outline),
+          Expanded(
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.mood),
+            ),
+          ),
+          Expanded(
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.add_circle_outline),
+            ),
           ),
         ],
       ).padding(bottom: 40),

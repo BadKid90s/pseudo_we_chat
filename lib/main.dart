@@ -42,6 +42,8 @@ class App extends StatelessWidget {
 class PluginConfig {
   static void init() {
     Get.put(UserService());
+    UserService.instance.init();
+
     // UserService.instance.changeLoginStatue(false);
   }
 }
