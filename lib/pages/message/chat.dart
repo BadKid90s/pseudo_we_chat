@@ -1,3 +1,4 @@
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -13,13 +14,19 @@ class ChatInfo {
   ChatInfo(this.message, this.avatar, this.isSelf);
 }
 
+enum BottomViewType { none, emoji, more }
+
 class ChatController extends GetxController {
+  //键盘语音切换
   final isKeyboardModel = false.obs;
+
+  //头像
   static const String selfAvatar =
       "https://www.itying.com/images/flutter/3.png";
   static const String otherAvatar =
       "https://www.itying.com/images/flutter/1.png";
 
+  //消息数据
   Map<Duration, RxList<ChatInfo>> chatMap = <Duration, RxList<ChatInfo>>{
     const Duration(hours: 12, minutes: 30): [
       ChatInfo("你好啊", otherAvatar, false),
@@ -29,9 +36,11 @@ class ChatController extends GetxController {
     ].obs
   }.obs;
 
+  //滑动控制器
   final ScrollController _scrollController = ScrollController();
 
-  void scrollBottom(){
+  //滑动到底部
+  void scrollBottom() {
     _scrollController.animateTo(
       _scrollController.position.maxScrollExtent,
       duration: const Duration(milliseconds: 500),
@@ -39,9 +48,11 @@ class ChatController extends GetxController {
     );
   }
 
+  //输入框控制器
   final TextEditingController _textEditingController = TextEditingController();
   final FocusNode _textFieldFocusNode = FocusNode();
 
+  //发送消息
   void addChatMessage(String text) {
     var now = DateTime.now();
     var time = Duration(hours: now.hour, minutes: now.minute);
@@ -53,6 +64,20 @@ class ChatController extends GetxController {
     }
     _textEditingController.clear();
     scrollBottom();
+  }
+
+  //底部安全区域是否显示
+  final isShowSafetyArea = false.obs;
+
+  //底部安全区域显示的内容
+  final bottomViewType = BottomViewType.none.obs;
+
+  //底部安全高度
+  double get bottomSafetyHeight => isShowSafetyArea.value ? 0 : 20;
+
+  void showSafetyArea(BottomViewType viewType) {
+    isShowSafetyArea(true);
+    bottomViewType(viewType);
   }
 }
 
@@ -73,6 +98,7 @@ class ChatPage extends GetView<ChatController> {
               child: _buildContentView(context),
             ),
             _buildBottomView(context),
+            _buildSafetyAreaView(context)
           ],
         ),
       ),
@@ -124,7 +150,6 @@ class ChatPage extends GetView<ChatController> {
               //执行操作，例如发送消息或提交表单
               String text = controller._textEditingController.text;
               controller.addChatMessage(text);
-
             }
           },
           child: TextField(
@@ -150,9 +175,9 @@ class ChatPage extends GetView<ChatController> {
   }
 
   Widget _buildBottomView(BuildContext context) {
-    return SizedBox(
+    return Container(
       // color: context.theme.primaryColor,
-      height: 100,
+      // height: 100,
       child: Flex(
         direction: Axis.horizontal,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -160,19 +185,23 @@ class ChatPage extends GetView<ChatController> {
           _buildBottomItem(context),
           Expanded(
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                controller.showSafetyArea(BottomViewType.emoji);
+              },
               icon: const Icon(Icons.mood),
             ),
           ),
           Expanded(
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                controller.showSafetyArea(BottomViewType.more);
+              },
               icon: const Icon(Icons.add_circle_outline),
             ),
           ),
         ],
-      ).padding(bottom: 40),
-    );
+      ).paddingSymmetric(vertical: 10),
+    ).marginOnly(bottom: controller.bottomSafetyHeight);
   }
 
   Widget _buildContentView(BuildContext context) {
@@ -200,5 +229,57 @@ class ChatPage extends GetView<ChatController> {
         children: list,
       ),
     ).paddingSymmetric(horizontal: 10);
+  }
+
+  Widget _buildSafetyAreaView(BuildContext context) {
+    switch (controller.bottomViewType.value) {
+      case BottomViewType.none:
+        return const SizedBox();
+      case BottomViewType.emoji:
+        return _buildEmojiView(context);
+      case BottomViewType.more:
+        return _buildMoreView(context);
+    }
+  }
+
+  Widget _buildEmojiView(BuildContext context) {
+    return SizedBox(
+      height: 250,
+      child: EmojiPicker(
+        textEditingController: controller._textEditingController, // pass here the same [TextEditingController] that is connected to your input field, usually a [TextFormField]
+        config: const Config(
+          columns: 6,
+          verticalSpacing: 0,
+          horizontalSpacing: 0,
+          gridPadding: EdgeInsets.zero,
+          initCategory: Category.RECENT,
+          bgColor: Color(0xFFF2F2F2),
+          indicatorColor: Colors.green,
+          iconColor: Colors.grey,
+          iconColorSelected: Colors.blue,
+          backspaceColor: Colors.blue,
+          skinToneDialogBgColor: Colors.white,
+          skinToneIndicatorColor: Colors.grey,
+          enableSkinTones: true,
+          showRecentsTab: true,
+          recentsLimit: 28,
+          noRecents: Text(
+            'No Recents',
+            style: TextStyle(fontSize: 20, color: Colors.black26),
+            textAlign: TextAlign.center,
+          ),
+          // Needs to be const Widget
+          loadingIndicator: SizedBox.shrink(),
+          // Needs to be const Widget
+          tabIndicatorAnimDuration: kTabScrollDuration,
+          categoryIcons: CategoryIcons(),
+          buttonMode: ButtonMode.MATERIAL,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMoreView(BuildContext context){
+    return const SizedBox();
   }
 }
