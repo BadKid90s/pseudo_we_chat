@@ -46,6 +46,19 @@
   "message_qr_title": "Scan",
   "message_payment_title": "Money",
 
+  "chat_album": "Album",
+  "chat_camera": "Camera",
+  "chat_video_call": "Video Call",
+  "chat_location": "Location",
+  "chat_red_packet": "Red Packet",
+  "chat_transfer": "Transfer",
+  "chat_voice_input": "Voice Input",
+  "chat_favorites": "Favorites",
+  "chat_contact_card": "Contact Card",
+  "chat_file": "File",
+  "chat_coupons": "Coupons",
+  "chat_music": "Music",
+
   "directory_title": "Contacts",
 
   "discover_title": "Discover",
