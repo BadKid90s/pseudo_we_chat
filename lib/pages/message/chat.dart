@@ -53,10 +53,11 @@ class ChatController extends GetxController {
   final FocusNode _textFieldFocusNode = FocusNode();
 
   //发送消息
-  void addChatMessage(String text) {
+  void sendChatMessage() {
     var now = DateTime.now();
     var time = Duration(hours: now.hour, minutes: now.minute);
-    var chatInfo = ChatInfo(text, selfAvatar, true);
+    var chatInfo =
+        ChatInfo(_textEditingController.value.text, selfAvatar, true);
     if (chatMap.containsKey(time)) {
       chatMap[time]!.add(chatInfo);
     } else {
@@ -148,8 +149,7 @@ class ChatPage extends GetView<ChatController> {
             if (event.isKeyPressed(LogicalKeyboardKey.enter) &&
                 event.isControlPressed) {
               //执行操作，例如发送消息或提交表单
-              String text = controller._textEditingController.text;
-              controller.addChatMessage(text);
+              controller.sendChatMessage();
             }
           },
           child: TextField(
@@ -246,7 +246,8 @@ class ChatPage extends GetView<ChatController> {
     return SizedBox(
       height: 250,
       child: EmojiPicker(
-        textEditingController: controller._textEditingController, // pass here the same [TextEditingController] that is connected to your input field, usually a [TextFormField]
+        textEditingController: controller._textEditingController,
+        // pass here the same [TextEditingController] that is connected to your input field, usually a [TextFormField]
         config: const Config(
           columns: 6,
           verticalSpacing: 0,
@@ -264,7 +265,7 @@ class ChatPage extends GetView<ChatController> {
           showRecentsTab: true,
           recentsLimit: 28,
           noRecents: Text(
-            'No Recents',
+            'No Resents',
             style: TextStyle(fontSize: 20, color: Colors.black26),
             textAlign: TextAlign.center,
           ),
@@ -279,7 +280,7 @@ class ChatPage extends GetView<ChatController> {
     );
   }
 
-  Widget _buildMoreView(BuildContext context){
-    return const SizedBox();
+  Widget _buildMoreView(BuildContext context) {
+    return const SizedBox(height: 250, child: Wrap());
   }
 }
