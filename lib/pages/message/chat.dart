@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pseudo_we_chat/api/interface/message/model/message_info.dart';
 import 'package:pseudo_we_chat/widget/we_chat_chat_box.dart';
 import 'package:styled_widget/styled_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChatInfo {
   String message;
@@ -77,13 +78,35 @@ class ChatController extends GetxController {
   double get bottomSafetyHeight => isShowSafetyArea.value ? 0 : 20;
 
   void showSafetyArea(BottomViewType viewType) {
-    isShowSafetyArea(true);
-    bottomViewType(viewType);
+
+    if(viewType== bottomViewType.value ){
+      isShowSafetyArea(false);
+      bottomViewType(BottomViewType.none);
+    }else{
+      bottomViewType(viewType);
+    }
   }
 }
 
 class ChatPage extends GetView<ChatController> {
   const ChatPage({super.key});
+
+  Map<String, IconData> getMoreMap(BuildContext context) {
+    return {
+      AppLocalizations.of(context)!.chat_album: Icons.photo_library,
+      AppLocalizations.of(context)!.chat_camera: Icons.photo_camera,
+      AppLocalizations.of(context)!.chat_video_call: Icons.video_call,
+      AppLocalizations.of(context)!.chat_location: Icons.location_on,
+      AppLocalizations.of(context)!.chat_red_packet: Icons.email,
+      AppLocalizations.of(context)!.chat_transfer: Icons.sync_alt,
+      AppLocalizations.of(context)!.chat_voice_input: Icons.mic,
+      AppLocalizations.of(context)!.chat_favorites: Icons.book,
+      AppLocalizations.of(context)!.chat_contact_card: Icons.person,
+      AppLocalizations.of(context)!.chat_file: Icons.folder_zip,
+      AppLocalizations.of(context)!.chat_coupons: Icons.folder,
+      AppLocalizations.of(context)!.chat_music: Icons.music_note,
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -244,36 +267,30 @@ class ChatPage extends GetView<ChatController> {
 
   Widget _buildEmojiView(BuildContext context) {
     return SizedBox(
-      height: 250,
+      height: 280,
       child: EmojiPicker(
         textEditingController: controller._textEditingController,
         // pass here the same [TextEditingController] that is connected to your input field, usually a [TextFormField]
-        config: const Config(
+        config: Config(
           columns: 6,
           verticalSpacing: 0,
           horizontalSpacing: 0,
           gridPadding: EdgeInsets.zero,
           initCategory: Category.RECENT,
-          bgColor: Color(0xFFF2F2F2),
-          indicatorColor: Colors.green,
-          iconColor: Colors.grey,
-          iconColorSelected: Colors.blue,
-          backspaceColor: Colors.blue,
-          skinToneDialogBgColor: Colors.white,
-          skinToneIndicatorColor: Colors.grey,
+          bgColor: context.theme.primaryColor,
           enableSkinTones: true,
           showRecentsTab: true,
           recentsLimit: 28,
-          noRecents: Text(
+          noRecents: const Text(
             'No Resents',
             style: TextStyle(fontSize: 20, color: Colors.black26),
             textAlign: TextAlign.center,
           ),
           // Needs to be const Widget
-          loadingIndicator: SizedBox.shrink(),
+          loadingIndicator: const SizedBox.shrink(),
           // Needs to be const Widget
           tabIndicatorAnimDuration: kTabScrollDuration,
-          categoryIcons: CategoryIcons(),
+          categoryIcons: const CategoryIcons(),
           buttonMode: ButtonMode.MATERIAL,
         ),
       ),
@@ -281,6 +298,56 @@ class ChatPage extends GetView<ChatController> {
   }
 
   Widget _buildMoreView(BuildContext context) {
-    return const SizedBox(height: 250, child: Wrap());
+    var moreMap = getMoreMap(context);
+    var length = moreMap.length;
+    var count = 8;
+    var page =
+        (length % count == 0 ? length / count : length / count + 1).toInt();
+
+    List<Widget> list = [];
+    for (var i = 0; i < page; i++) {
+      var endIndex = (i + 1) * count > length ? length : (i + 1) * count;
+      var map = moreMap.entries.toList().sublist(i * count, endIndex);
+      list.add(Wrap(
+        direction: Axis.horizontal,
+        alignment: WrapAlignment.center,
+        children:
+            map.map((e) => _buildMoreItem(context, e.key, e.value)).toList(),
+      ));
+    }
+
+    return SizedBox(
+      height: 280,
+      child: PageView(
+        children: list,
+      ),
+    );
+  }
+
+  Widget _buildMoreItem(BuildContext context, String title, IconData iconData) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: context.theme.primaryColor,
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(28),
+              child: Icon(
+                iconData,
+                size: 25,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: Text(title),
+          )
+        ],
+      ),
+    );
   }
 }
