@@ -46,6 +46,19 @@
   "message_qr_title": "扫一扫",
   "message_payment_title": "收付款",
 
+  "chat_album": "照片",
+  "chat_camera": "相机",
+  "chat_video_call": "视频通话",
+  "chat_location": "位置",
+  "chat_red_packet": "红包",
+  "chat_transfer": "转账",
+  "chat_voice_input": "语音输入",
+  "chat_favorites": "收藏",
+  "chat_contact_card": "个人名片",
+  "chat_file": "文件",
+  "chat_coupons": "卡劵",
+  "chat_music": "音乐",
+
   "directory_title": "通讯录",
 
   "discover_title": "发现",
