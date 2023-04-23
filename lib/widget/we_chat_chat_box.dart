@@ -4,14 +4,16 @@ import 'package:get/get.dart';
 class WeChatChatBox extends StatelessWidget {
   const WeChatChatBox(
       {super.key,
-      required this.text,
+      this.text,
+      this.image,
       required this.avatar,
       this.avatarSize = 45,
       this.isLeft = true});
 
   final String avatar;
   final double avatarSize;
-  final String text;
+  final String? text;
+  final ImageProvider? image;
 
   final bool isLeft;
 
@@ -43,11 +45,14 @@ class WeChatChatBox extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
-      color: isLeft ? context.theme.primaryColor : Colors.green,
-      child: Text(
-        text,
-        style: context.textTheme.titleMedium,
-      ),
+      color: image == null
+          ? isLeft
+              ? context.theme.primaryColor
+              : Colors.green
+          : null,
+      child: text != null
+          ? Text(text!, style: context.textTheme.titleMedium)
+          : Image(image: image!),
     );
   }
 }
