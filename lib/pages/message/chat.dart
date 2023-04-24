@@ -5,13 +5,28 @@ import 'package:get/get.dart';
 import 'package:pseudo_we_chat/api/interface/message/model/message_info.dart';
 import 'package:pseudo_we_chat/widget/we_chat_chat_box.dart';
 import 'package:styled_widget/styled_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class ChatInfo {
-  String message;
+  ImageProvider? imageProvider;
+  String? message;
   String avatar;
   bool isSelf;
 
-  ChatInfo(this.message, this.avatar, this.isSelf);
+  ChatInfo(
+      {this.message,
+      this.imageProvider,
+      required this.avatar,
+      required this.isSelf});
+}
+
+class MoreInfo {
+  String title;
+  IconData iconData;
+  VoidCallback onTap;
+
+  MoreInfo({required this.title, required this.iconData, required this.onTap});
 }
 
 enum BottomViewType { none, emoji, more }
@@ -27,12 +42,12 @@ class ChatController extends GetxController {
       "https://www.itying.com/images/flutter/1.png";
 
   //消息数据
-  Map<Duration, RxList<ChatInfo>> chatMap = <Duration, RxList<ChatInfo>>{
-    const Duration(hours: 12, minutes: 30): [
-      ChatInfo("你好啊", otherAvatar, false),
-      ChatInfo("干嘛", selfAvatar, true),
-      ChatInfo("你在干什么", otherAvatar, false),
-      ChatInfo("有事吗", selfAvatar, true),
+  Map<String, RxList<ChatInfo>> chatMap = <String, RxList<ChatInfo>>{
+    "12.30": [
+      ChatInfo(message: "你好啊", avatar: otherAvatar, isSelf: false),
+      ChatInfo(message: "干嘛", avatar: selfAvatar, isSelf: true),
+      ChatInfo(message: "你在干什么", avatar: otherAvatar, isSelf: false),
+      ChatInfo(message: "有事吗", avatar: selfAvatar, isSelf: true),
     ].obs
   }.obs;
 
@@ -41,11 +56,13 @@ class ChatController extends GetxController {
 
   //滑动到底部
   void scrollBottom() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.easeOut,
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeOut,
+      );
+    });
   }
 
   //输入框控制器
@@ -53,17 +70,24 @@ class ChatController extends GetxController {
   final FocusNode _textFieldFocusNode = FocusNode();
 
   //发送消息
-  void addChatMessage(String text) {
+  void sendChatMessage() {
+    var chatInfo = ChatInfo(
+        message: _textEditingController.value.text,
+        avatar: selfAvatar,
+        isSelf: true);
+    addChatInfo(chatInfo);
+    _textEditingController.clear();
+    scrollBottom();
+  }
+
+  void addChatInfo(ChatInfo chatInfo) {
     var now = DateTime.now();
-    var time = Duration(hours: now.hour, minutes: now.minute);
-    var chatInfo = ChatInfo(text, selfAvatar, true);
+    var time = "${now.hour}:${now.minute}";
     if (chatMap.containsKey(time)) {
       chatMap[time]!.add(chatInfo);
     } else {
       chatMap[time] = [chatInfo].obs;
     }
-    _textEditingController.clear();
-    scrollBottom();
   }
 
   //底部安全区域是否显示
@@ -76,13 +100,100 @@ class ChatController extends GetxController {
   double get bottomSafetyHeight => isShowSafetyArea.value ? 0 : 20;
 
   void showSafetyArea(BottomViewType viewType) {
-    isShowSafetyArea(true);
-    bottomViewType(viewType);
+    if (viewType == bottomViewType.value) {
+      isShowSafetyArea(false);
+      bottomViewType(BottomViewType.none);
+    } else {
+      bottomViewType(viewType);
+      isShowSafetyArea(true);
+      scrollBottom();
+    }
+  }
+
+  void addPhotoChatInfo(List<AssetEntity>? assets) {
+    assets?.forEach((element) {
+      var chatInfo = ChatInfo(
+        imageProvider: AssetEntityImageProvider(element, isOriginal: false),
+        avatar: ChatController.selfAvatar,
+        isSelf: true,
+      );
+      addChatInfo(chatInfo);
+    });
+    scrollBottom();
   }
 }
 
 class ChatPage extends GetView<ChatController> {
   const ChatPage({super.key});
+
+  List<MoreInfo> getMoreList(BuildContext context) {
+    return [
+      MoreInfo(
+        title: AppLocalizations.of(context)!.chat_album,
+        iconData: Icons.photo_library,
+        onTap: () async {
+          final List<AssetEntity>? assets =
+              await AssetPicker.pickAssets(context);
+          controller.addPhotoChatInfo(assets);
+        },
+      ),
+      MoreInfo(
+        title: AppLocalizations.of(context)!.chat_camera,
+        iconData: Icons.photo_camera,
+        onTap: () {},
+      ),
+      MoreInfo(
+        title: AppLocalizations.of(context)!.chat_video_call,
+        iconData: Icons.video_call,
+        onTap: () {},
+      ),
+      MoreInfo(
+        title: AppLocalizations.of(context)!.chat_location,
+        iconData: Icons.location_on,
+        onTap: () {},
+      ),
+      MoreInfo(
+        title: AppLocalizations.of(context)!.chat_red_packet,
+        iconData: Icons.email,
+        onTap: () {},
+      ),
+      MoreInfo(
+        title: AppLocalizations.of(context)!.chat_transfer,
+        iconData: Icons.sync_alt,
+        onTap: () {},
+      ),
+      MoreInfo(
+        title: AppLocalizations.of(context)!.chat_voice_input,
+        iconData: Icons.mic,
+        onTap: () {},
+      ),
+      MoreInfo(
+        title: AppLocalizations.of(context)!.chat_favorites,
+        iconData: Icons.book,
+        onTap: () {},
+      ),
+      MoreInfo(
+        title: AppLocalizations.of(context)!.chat_contact_card,
+        iconData: Icons.person,
+        onTap: () {},
+      ),
+      MoreInfo(
+        title: AppLocalizations.of(context)!.chat_file,
+        iconData: Icons.folder_zip,
+        onTap: () {},
+      ),
+      MoreInfo(
+        title: AppLocalizations.of(context)!.chat_coupons,
+        iconData: Icons.folder,
+        onTap: () {},
+      ),
+      MoreInfo(
+        title: AppLocalizations.of(context)!.chat_music,
+        iconData: Icons.music_note,
+        onTap: () {},
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,10 +206,20 @@ class ChatPage extends GetView<ChatController> {
         body: Column(
           children: [
             Expanded(
+              flex: 6,
               child: _buildContentView(context),
             ),
-            _buildBottomView(context),
-            _buildSafetyAreaView(context)
+            Expanded(
+              flex: 1,
+              child: _buildBottomView(context),
+            ),
+            Visibility(
+              visible: controller.isShowSafetyArea.isTrue,
+              child: Expanded(
+                flex: 4,
+                child: _buildSafetyAreaView(context),
+              ),
+            ),
           ],
         ),
       ),
@@ -148,8 +269,7 @@ class ChatPage extends GetView<ChatController> {
             if (event.isKeyPressed(LogicalKeyboardKey.enter) &&
                 event.isControlPressed) {
               //执行操作，例如发送消息或提交表单
-              String text = controller._textEditingController.text;
-              controller.addChatMessage(text);
+              controller.sendChatMessage();
             }
           },
           child: TextField(
@@ -175,45 +295,44 @@ class ChatPage extends GetView<ChatController> {
   }
 
   Widget _buildBottomView(BuildContext context) {
-    return Container(
-      // color: context.theme.primaryColor,
-      // height: 100,
-      child: Flex(
-        direction: Axis.horizontal,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _buildBottomItem(context),
-          Expanded(
-            child: IconButton(
-              onPressed: () {
-                controller.showSafetyArea(BottomViewType.emoji);
-              },
-              icon: const Icon(Icons.mood),
-            ),
+    return Flex(
+      direction: Axis.horizontal,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _buildBottomItem(context),
+        Expanded(
+          child: IconButton(
+            onPressed: () {
+              controller.showSafetyArea(BottomViewType.emoji);
+            },
+            icon: const Icon(Icons.mood),
           ),
-          Expanded(
-            child: IconButton(
-              onPressed: () {
-                controller.showSafetyArea(BottomViewType.more);
-              },
-              icon: const Icon(Icons.add_circle_outline),
-            ),
+        ),
+        Expanded(
+          child: IconButton(
+            onPressed: () {
+              controller.showSafetyArea(BottomViewType.more);
+            },
+            icon: const Icon(Icons.add_circle_outline),
           ),
-        ],
-      ).paddingSymmetric(vertical: 10),
-    ).marginOnly(bottom: controller.bottomSafetyHeight);
+        ),
+      ],
+    )
+        .paddingSymmetric(vertical: 10)
+        .marginOnly(bottom: controller.bottomSafetyHeight);
   }
 
   Widget _buildContentView(BuildContext context) {
     List<Widget> list = [];
     controller.chatMap.forEach((key, value) {
       list.add(Center(
-        child: Text("${key.inHours}:${key.inMinutes}"),
+        child: Text(key),
       ));
       var messages = value
           .map(
             (e) => WeChatChatBox(
               text: e.message,
+              image: e.imageProvider,
               avatar: e.avatar,
               isLeft: !e.isSelf,
             ),
@@ -243,43 +362,84 @@ class ChatPage extends GetView<ChatController> {
   }
 
   Widget _buildEmojiView(BuildContext context) {
-    return SizedBox(
-      height: 250,
-      child: EmojiPicker(
-        textEditingController: controller._textEditingController, // pass here the same [TextEditingController] that is connected to your input field, usually a [TextFormField]
-        config: const Config(
-          columns: 6,
-          verticalSpacing: 0,
-          horizontalSpacing: 0,
-          gridPadding: EdgeInsets.zero,
-          initCategory: Category.RECENT,
-          bgColor: Color(0xFFF2F2F2),
-          indicatorColor: Colors.green,
-          iconColor: Colors.grey,
-          iconColorSelected: Colors.blue,
-          backspaceColor: Colors.blue,
-          skinToneDialogBgColor: Colors.white,
-          skinToneIndicatorColor: Colors.grey,
-          enableSkinTones: true,
-          showRecentsTab: true,
-          recentsLimit: 28,
-          noRecents: Text(
-            'No Recents',
-            style: TextStyle(fontSize: 20, color: Colors.black26),
-            textAlign: TextAlign.center,
-          ),
-          // Needs to be const Widget
-          loadingIndicator: SizedBox.shrink(),
-          // Needs to be const Widget
-          tabIndicatorAnimDuration: kTabScrollDuration,
-          categoryIcons: CategoryIcons(),
-          buttonMode: ButtonMode.MATERIAL,
+    return EmojiPicker(
+      textEditingController: controller._textEditingController,
+      // pass here the same [TextEditingController] that is connected to your input field, usually a [TextFormField]
+      config: Config(
+        columns: 6,
+        verticalSpacing: 0,
+        horizontalSpacing: 0,
+        gridPadding: EdgeInsets.zero,
+        initCategory: Category.RECENT,
+        bgColor: context.theme.primaryColor,
+        enableSkinTones: true,
+        showRecentsTab: true,
+        recentsLimit: 28,
+        noRecents: const Text(
+          'No Resents',
+          style: TextStyle(fontSize: 20, color: Colors.black26),
+          textAlign: TextAlign.center,
         ),
+        // Needs to be const Widget
+        loadingIndicator: const SizedBox.shrink(),
+        // Needs to be const Widget
+        tabIndicatorAnimDuration: kTabScrollDuration,
+        categoryIcons: const CategoryIcons(),
+        buttonMode: ButtonMode.MATERIAL,
       ),
     );
   }
 
-  Widget _buildMoreView(BuildContext context){
-    return const SizedBox();
+  Widget _buildMoreView(BuildContext context) {
+    var mores = getMoreList(context);
+    var length = mores.length;
+    var count = 8;
+    var page =
+        (length % count == 0 ? length / count : length / count + 1).toInt();
+
+    List<Widget> list = [];
+    for (var i = 0; i < page; i++) {
+      var endIndex = (i + 1) * count > length ? length : (i + 1) * count;
+      var map = mores.sublist(i * count, endIndex);
+      list.add(Wrap(
+        direction: Axis.horizontal,
+        alignment: WrapAlignment.center,
+        children: map.map((e) => _buildMoreItem(context, e)).toList(),
+      ));
+    }
+
+    return PageView(
+      children: list,
+    );
+  }
+
+  Widget _buildMoreItem(BuildContext context, MoreInfo moreInfo) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: GestureDetector(
+        onTap: moreInfo.onTap,
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: context.theme.primaryColor,
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(28),
+                child: Icon(
+                  moreInfo.iconData,
+                  size: 25,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: Text(moreInfo.title),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
