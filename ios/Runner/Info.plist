@@ -47,13 +47,17 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
+    <key>NSAppTransportSecurity</key>
     <dict>
     	<key>NSAllowsArbitraryLoads</key>
     	<true/>
     </dict>
+    <key>NSCameraUsageDescription</key>
+    <string>Take a photo for display</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Take a video for display</string>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>Replace with your permission description.</string>
+    <string>Read and write your photos</string>
 </dict>
 </plist>
 

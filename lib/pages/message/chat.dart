@@ -7,6 +7,7 @@ import 'package:pseudo_we_chat/widget/we_chat_chat_box.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
 class ChatInfo {
   ImageProvider? imageProvider;
@@ -132,15 +133,17 @@ class ChatPage extends GetView<ChatController> {
         title: AppLocalizations.of(context)!.chat_album,
         iconData: Icons.photo_library,
         onTap: () async {
-          final List<AssetEntity>? assets =
-              await AssetPicker.pickAssets(context);
+          List<AssetEntity>? assets = await AssetPicker.pickAssets(context);
           controller.addPhotoChatInfo(assets);
         },
       ),
       MoreInfo(
         title: AppLocalizations.of(context)!.chat_camera,
         iconData: Icons.photo_camera,
-        onTap: () {},
+        onTap: () async {
+          AssetEntity? entity = await CameraPicker.pickFromCamera(context);
+          entity ?? controller.addPhotoChatInfo([entity!]);
+        },
       ),
       MoreInfo(
         title: AppLocalizations.of(context)!.chat_video_call,
