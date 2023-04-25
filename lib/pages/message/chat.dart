@@ -70,6 +70,8 @@ class ChatController extends GetxController {
   final TextEditingController _textEditingController = TextEditingController();
   final FocusNode _textFieldFocusNode = FocusNode();
 
+  final textIsEmpty = true.obs;
+
   //发送消息
   void sendChatMessage() {
     var chatInfo = ChatInfo(
@@ -79,6 +81,7 @@ class ChatController extends GetxController {
     addChatInfo(chatInfo);
     _textEditingController.clear();
     scrollBottom();
+    textChange();
   }
 
   void addChatInfo(ChatInfo chatInfo) {
@@ -89,6 +92,10 @@ class ChatController extends GetxController {
     } else {
       chatMap[time] = [chatInfo].obs;
     }
+  }
+
+  void textChange() {
+    textIsEmpty.value = _textEditingController.value.text.trim().isEmpty;
   }
 
   //底部安全区域是否显示
@@ -142,7 +149,9 @@ class ChatPage extends GetView<ChatController> {
         iconData: Icons.photo_camera,
         onTap: () async {
           AssetEntity? entity = await CameraPicker.pickFromCamera(context);
-          entity ?? controller.addPhotoChatInfo([entity!]);
+          if (entity != null) {
+            controller.addPhotoChatInfo([entity]);
+          }
         },
       ),
       MoreInfo(
@@ -276,7 +285,7 @@ class ChatPage extends GetView<ChatController> {
             }
           },
           child: TextField(
-            maxLines: 3,
+            maxLines: 2,
             //最多多少行
             minLines: 1,
             //最少多少行
@@ -291,6 +300,9 @@ class ChatPage extends GetView<ChatController> {
                 gapPadding: 2.0,
               ),
             ),
+            onChanged: (value) {
+              controller.textChange();
+            },
           ).width(width),
         ),
       ],
@@ -303,20 +315,38 @@ class ChatPage extends GetView<ChatController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _buildBottomItem(context),
-        Expanded(
-          child: IconButton(
-            onPressed: () {
-              controller.showSafetyArea(BottomViewType.emoji);
-            },
-            icon: const Icon(Icons.mood),
+        Visibility(
+          visible: controller.textIsEmpty.isFalse,
+          child: Expanded(
+            child: TextButton(
+              style: OutlinedButton.styleFrom(backgroundColor: Colors.green),
+              onPressed: () {
+                controller.sendChatMessage();
+              },
+              child: Text("发送", style: context.textTheme.bodyLarge),
+            ).paddingSymmetric(horizontal: 10),
           ),
         ),
-        Expanded(
-          child: IconButton(
-            onPressed: () {
-              controller.showSafetyArea(BottomViewType.more);
-            },
-            icon: const Icon(Icons.add_circle_outline),
+        Visibility(
+          visible: controller.textIsEmpty.isTrue,
+          child: Expanded(
+            child: IconButton(
+              onPressed: () {
+                controller.showSafetyArea(BottomViewType.emoji);
+              },
+              icon: const Icon(Icons.mood),
+            ),
+          ),
+        ),
+        Visibility(
+          visible: controller.textIsEmpty.isTrue,
+          child: Expanded(
+            child: IconButton(
+              onPressed: () {
+                controller.showSafetyArea(BottomViewType.more);
+              },
+              icon: const Icon(Icons.add_circle_outline),
+            ),
           ),
         ),
       ],
@@ -366,6 +396,9 @@ class ChatPage extends GetView<ChatController> {
 
   Widget _buildEmojiView(BuildContext context) {
     return EmojiPicker(
+      onEmojiSelected: (Category? category, Emoji emoji){
+        controller.textChange();
+      },
       textEditingController: controller._textEditingController,
       // pass here the same [TextEditingController] that is connected to your input field, usually a [TextFormField]
       config: Config(
@@ -389,6 +422,7 @@ class ChatPage extends GetView<ChatController> {
         tabIndicatorAnimDuration: kTabScrollDuration,
         categoryIcons: const CategoryIcons(),
         buttonMode: ButtonMode.MATERIAL,
+
       ),
     );
   }
@@ -404,10 +438,16 @@ class ChatPage extends GetView<ChatController> {
     for (var i = 0; i < page; i++) {
       var endIndex = (i + 1) * count > length ? length : (i + 1) * count;
       var map = mores.sublist(i * count, endIndex);
-      list.add(Wrap(
-        direction: Axis.horizontal,
-        alignment: WrapAlignment.center,
-        children: map.map((e) => _buildMoreItem(context, e)).toList(),
+      list.add(GridView.count(
+        scrollDirection: Axis.vertical,
+        crossAxisCount: 4,
+        //设置主轴间距
+        mainAxisSpacing: 10,
+        children: map
+            .map(
+              (e) => _buildMoreItem(context, e),
+            )
+            .toList(),
       ));
     }
 
@@ -417,8 +457,9 @@ class ChatPage extends GetView<ChatController> {
   }
 
   Widget _buildMoreItem(BuildContext context, MoreInfo moreInfo) {
+    var padding = MediaQuery.of(context).size.width * 0.06;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: GestureDetector(
         onTap: moreInfo.onTap,
         child: Column(
@@ -429,15 +470,14 @@ class ChatPage extends GetView<ChatController> {
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(28),
+                padding: EdgeInsets.all(padding),
                 child: Icon(
                   moreInfo.iconData,
-                  size: 25,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.only(top: 3),
               child: Text(moreInfo.title),
             )
           ],
