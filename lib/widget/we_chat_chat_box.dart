@@ -43,6 +43,9 @@ class WeChatChatBox extends StatelessWidget {
 
   Widget _buildMessage(BuildContext context) {
     return Container(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width * 0.5,
+      ),
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
       color: image == null
@@ -51,7 +54,13 @@ class WeChatChatBox extends StatelessWidget {
               : Colors.green
           : null,
       child: text != null
-          ? Text(text!, style: context.textTheme.titleMedium)
+          ? Text(
+              text!,
+              style: context.textTheme.titleMedium,
+              maxLines: 20,
+              softWrap: true,
+              overflow: TextOverflow.clip,
+            )
           : Image(image: image!),
     );
   }
