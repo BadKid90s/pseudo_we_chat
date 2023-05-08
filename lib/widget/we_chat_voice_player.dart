@@ -16,7 +16,7 @@ class WeChatVoicePlayer extends StatefulWidget {
 class _WeChatVoicePlayerState extends State<WeChatVoicePlayer> {
   late FlutterSoundPlayer? _player;
 
-  void statPlayer() async {
+  Future<void> statPlayer() async {
     await _player?.startPlayer(fromURI: widget.filePath);
     _player?.onProgress?.listen((event) {
       if (event.position == event.duration) {
@@ -37,6 +37,7 @@ class _WeChatVoicePlayerState extends State<WeChatVoicePlayer> {
   @override
   void initState() {
     super.initState();
+
     _initPlayer();
   }
 
@@ -48,11 +49,17 @@ class _WeChatVoicePlayerState extends State<WeChatVoicePlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Icon(Icons.volume_up),
-        Text("${widget.duration.inSeconds}‘’ ")
-      ],
+    return GestureDetector(
+      child: Row(
+        children: [
+          const Icon(Icons.volume_up),
+          Text("${widget.duration.inSeconds}‘’ ")
+        ],
+      ),
+      onTap: () async{
+        debugPrint("statPlayer ............");
+        await statPlayer();
+      },
     );
   }
 }

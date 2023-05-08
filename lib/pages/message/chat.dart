@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pseudo_we_chat/api/interface/message/model/message_info.dart';
 import 'package:pseudo_we_chat/widget/we_chat_chat_box.dart';
+import 'package:pseudo_we_chat/widget/we_chat_voice_input.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -12,12 +13,16 @@ import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 class ChatInfo {
   ImageProvider? imageProvider;
   String? message;
+  String? recordFilePath;
+  Duration? recordDuration;
   String avatar;
   bool isSelf;
 
   ChatInfo(
       {this.message,
       this.imageProvider,
+      this.recordFilePath,
+      this.recordDuration,
       required this.avatar,
       required this.isSelf});
 }
@@ -129,10 +134,26 @@ class ChatController extends GetxController {
     });
     scrollBottom();
   }
+
+  void addSoundChatInfo(String path, Duration duration) {
+    var chatInfo = ChatInfo(
+      recordFilePath: path,
+      recordDuration: duration,
+      avatar: ChatController.selfAvatar,
+      isSelf: true,
+    );
+    addChatInfo(chatInfo);
+    scrollBottom();
+  }
+
+  //录音控制器
+  final voiceInputController = WeChatVoiceInputController();
 }
 
 class ChatPage extends GetView<ChatController> {
-  const ChatPage({super.key});
+  const ChatPage({
+    super.key,
+  });
 
   List<MoreInfo> getMoreList(BuildContext context) {
     return [
@@ -215,24 +236,27 @@ class ChatPage extends GetView<ChatController> {
         appBar: AppBar(
           title: Text(messageInfo.name),
         ),
-        body: Column(
-          children: [
-            Expanded(
-              flex: 6,
-              child: _buildContentView(context),
-            ),
-            Expanded(
-              flex: 1,
-              child: _buildBottomView(context),
-            ),
-            Visibility(
-              visible: controller.isShowSafetyArea.isTrue,
-              child: Expanded(
-                flex: 4,
-                child: _buildSafetyAreaView(context),
+        body: WeChatVoiceInput(
+          controller: controller.voiceInputController,
+          child: Column(
+            children: [
+              Expanded(
+                flex: 6,
+                child: _buildContentView(context),
               ),
-            ),
-          ],
+              Expanded(
+                flex: 1,
+                child: _buildBottomView(context),
+              ),
+              Visibility(
+                visible: controller.isShowSafetyArea.isTrue,
+                child: Expanded(
+                  flex: 4,
+                  child: _buildSafetyAreaView(context),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -249,20 +273,29 @@ class ChatPage extends GetView<ChatController> {
             },
             icon: const Icon(Icons.keyboard),
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              backgroundColor: context.theme.primaryColorLight,
-              shadowColor: context.theme.primaryColorLight,
-              foregroundColor: context.theme.primaryColorLight,
-              disabledForegroundColor: Colors.transparent,
-              disabledBackgroundColor: Colors.transparent,
+          GestureDetector(
+            child: Container(
+              decoration: BoxDecoration(
+                color: context.theme.primaryColorLight,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                AppLocalizations.of(context)!.chat_voice_input_title,
+                textAlign: TextAlign.center,
+                style: context.textTheme.titleMedium,
+              ).paddingSymmetric(horizontal: 5, vertical: 10),
             ),
-            onPressed: () {},
-            child: Text(
-              "Hold to talk",
-              style: context.textTheme.titleMedium,
-            ),
+            onLongPressDown: (detail) {
+              debugPrint("长按开始 ");
+              controller.voiceInputController.startRecording();
+              debugPrint("长按开始");
+            },
+            onLongPressUp: () {
+              debugPrint("长按结束");
+              controller.voiceInputController.stopRecording();
+              controller.addSoundChatInfo(controller.voiceInputController.path,
+                  controller.voiceInputController.duration);
+            },
           ).width(width),
         ],
       );
@@ -323,7 +356,8 @@ class ChatPage extends GetView<ChatController> {
               onPressed: () {
                 controller.sendChatMessage();
               },
-              child: Text("发送", style: context.textTheme.bodyLarge),
+              child: Text(AppLocalizations.of(context)!.chat_send_title,
+                  style: context.textTheme.bodyLarge),
             ).paddingSymmetric(horizontal: 10),
           ),
         ),
@@ -364,6 +398,13 @@ class ChatPage extends GetView<ChatController> {
       var messages = value
           .map(
             (e) => WeChatChatBox(
+              chatType: e.message != null
+                  ? ChatType.text
+                  : e.imageProvider != null
+                      ? ChatType.image
+                      : ChatType.sound,
+              recordFilePath: e.recordFilePath,
+              recordDuration: e.recordDuration,
               text: e.message,
               image: e.imageProvider,
               avatar: e.avatar,
@@ -396,7 +437,7 @@ class ChatPage extends GetView<ChatController> {
 
   Widget _buildEmojiView(BuildContext context) {
     return EmojiPicker(
-      onEmojiSelected: (Category? category, Emoji emoji){
+      onEmojiSelected: (Category? category, Emoji emoji) {
         controller.textChange();
       },
       textEditingController: controller._textEditingController,
@@ -422,7 +463,6 @@ class ChatPage extends GetView<ChatController> {
         tabIndicatorAnimDuration: kTabScrollDuration,
         categoryIcons: const CategoryIcons(),
         buttonMode: ButtonMode.MATERIAL,
-
       ),
     );
   }
