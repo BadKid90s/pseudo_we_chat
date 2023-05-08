@@ -58,6 +58,8 @@
   "chat_file": "File",
   "chat_coupons": "Coupons",
   "chat_music": "Music",
+  "chat_voice_input_title": "Hold to talk",
+  "chat_send_title": "Send",
 
   "directory_title": "Contacts",
 

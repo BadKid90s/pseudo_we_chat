@@ -68,6 +68,8 @@ dependencies:
   wechat_assets_picker: ^8.4.2
   #微信录像
   wechat_camera_picker: ^3.7.0
+  #语音录入
+  flutter_sound: ^9.2.13
 
 dev_dependencies:
   build_runner: ^2.3.3
