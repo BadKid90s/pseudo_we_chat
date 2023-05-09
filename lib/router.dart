@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pseudo_we_chat/pages/message/chat.dart';
+import 'package:pseudo_we_chat/pages/message/red_packet.dart';
 
 import 'pages/index.dart';
 import 'pages/root.dart';
@@ -29,6 +30,9 @@ abstract class AppRoutes {
 
   /// 聊天页
   static const chat = "/chat";
+
+  /// 发红包
+  static const redPacket = "/redPacket";
 }
 
 class AppPages {
@@ -67,6 +71,11 @@ class AppPages {
       name: AppRoutes.chat,
       page: () => const ChatPage(),
       binding: BindingsBuilder(() => Get.lazyPut(() => ChatController())),
+    ),
+    GetPage(
+      name: AppRoutes.redPacket,
+      page: () => const RedPacket(),
+      binding: BindingsBuilder(() => Get.lazyPut(() => RedPacketController())),
     ),
   ];
 }

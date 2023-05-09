@@ -188,7 +188,9 @@ class ChatPage extends GetView<ChatController> {
       MoreInfo(
         title: AppLocalizations.of(context)!.chat_red_packet,
         iconData: Icons.email,
-        onTap: () {},
+        onTap: () {
+          Get.toNamed("/redPacket");
+        },
       ),
       MoreInfo(
         title: AppLocalizations.of(context)!.chat_transfer,
