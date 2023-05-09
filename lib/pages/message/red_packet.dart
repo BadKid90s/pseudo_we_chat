@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+import 'package:pseudo_we_chat/router.dart';
 
 class RedPacketController extends GetxController {
   final RxDouble money = RxDouble(0.00);
 
-  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _moneyController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+
+  final moneyText = "¥0.00".obs;
 }
 
 class RedPacket extends GetView<RedPacketController> {
@@ -39,8 +42,11 @@ class RedPacket extends GetView<RedPacketController> {
                       ),
                       Expanded(
                         child: TextFormField(
-                          controller: controller._textEditingController,
-                          onChanged: (value) {},
+                          controller: controller._moneyController,
+                          onChanged: (value) {
+                            controller
+                                .moneyText(value.isEmpty ? "¥0.00" : value);
+                          },
                           inputFormatters: [
                             NumberInputFormatter(),
                             FilteringTextInputFormatter.allow(
@@ -69,11 +75,18 @@ class RedPacket extends GetView<RedPacketController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "恭喜发财",
-                        style: context.textTheme.titleMedium,
-                      ),
-                      Text("😊"),
+                      Expanded(
+                        child: TextFormField(
+                          controller: controller._titleController,
+                          keyboardType: TextInputType.text,
+                          maxLength: 12,
+                          maxLines: 1,
+                          decoration: const InputDecoration(
+                            hintText: "恭喜发财",
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      )
                     ],
                   ).paddingSymmetric(horizontal: 10),
                 )
@@ -87,17 +100,22 @@ class RedPacket extends GetView<RedPacketController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    "¥${controller.money.toStringAsFixed(2)}",
-                    style: context.textTheme.displaySmall,
-                  ).paddingSymmetric(vertical: 10),
+                  Obx(() => Text(
+                        controller.moneyText.value,
+                        style: context.textTheme.displaySmall,
+                      ).paddingSymmetric(vertical: 10)),
                   SizedBox(
                     width: 200,
                     height: 60,
                     child: ElevatedButton(
                       style:
                           ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.offNamed(AppRoutes.redPacket,parameters: {
+                          "money":controller._moneyController.text.replaceFirst("¥", ''),
+                          "title":controller._titleController.text,
+                        });
+                      },
                       child: Text(
                         "塞钱进红包",
                         style: context.textTheme.titleLarge?.copyWith(
@@ -122,7 +140,7 @@ class NumberInputFormatter extends TextInputFormatter {
     int decimalIndex = numberString.indexOf('.');
     var decimalPlaces = numberString.length - decimalIndex - 1;
 
-    if (decimalIndex >=0 && decimalPlaces > 2) {
+    if (decimalIndex >= 0 && decimalPlaces > 2) {
       return oldValue;
     }
 

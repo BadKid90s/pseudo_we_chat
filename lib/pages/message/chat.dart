@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pseudo_we_chat/api/interface/message/model/message_info.dart';
+import 'package:pseudo_we_chat/router.dart';
 import 'package:pseudo_we_chat/widget/we_chat_chat_box.dart';
 import 'package:pseudo_we_chat/widget/we_chat_voice_input.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -189,7 +190,7 @@ class ChatPage extends GetView<ChatController> {
         title: AppLocalizations.of(context)!.chat_red_packet,
         iconData: Icons.email,
         onTap: () {
-          Get.toNamed("/redPacket");
+          Get.toNamed(AppRoutes.redPacket);
         },
       ),
       MoreInfo(
