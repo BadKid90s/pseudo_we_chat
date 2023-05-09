@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pseudo_we_chat/api/interface/message/message.dart';
 import 'package:pseudo_we_chat/api/interface/message/model/message_info.dart';
 import 'package:pseudo_we_chat/router.dart';
+import 'package:pseudo_we_chat/service/chat_service.dart';
 import 'package:pseudo_we_chat/widget/we_chat_list_tile.dart';
 import 'package:pseudo_we_chat/widget/we_chat_search.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -178,7 +179,8 @@ class MessagePage extends GetView<MessageController> {
         trailingIcon: messageInfo.isMute ? Icons.volume_off : null,
       ),
       onTap: () {
-        Get.toNamed(AppRoutes.chat, arguments: messageInfo);
+        ChatService.instance.currentMessageInfo= messageInfo;
+        Get.toNamed(AppRoutes.chat);
       },
     );
   }

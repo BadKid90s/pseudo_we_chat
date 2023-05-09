@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:pseudo_we_chat/service/chat_service.dart';
 import 'package:pseudo_we_chat/service/user_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -42,6 +43,7 @@ class App extends StatelessWidget {
 class PluginConfig {
   static void init() {
     Get.put(UserService());
+    Get.put(ChatService());
     UserService.instance.init();
 
     // UserService.instance.changeLoginStatue(false);

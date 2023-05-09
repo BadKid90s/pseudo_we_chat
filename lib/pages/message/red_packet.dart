@@ -4,12 +4,35 @@ import 'package:get/get.dart';
 import 'package:pseudo_we_chat/router.dart';
 
 class RedPacketController extends GetxController {
-  final RxDouble money = RxDouble(0.00);
-
   final TextEditingController _moneyController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
 
   final moneyText = "¥0.00".obs;
+  final defaultMoneyText = "¥0.00";
+  final defaultMoneyTitleText = "恭喜发财";
+
+  String get moneyValue =>
+      (_moneyController.text.isEmpty ? defaultMoneyText : _moneyController.text)
+          .replaceFirst("¥", '');
+
+  String get titleValue => _titleController.text.isEmpty
+      ? defaultMoneyTitleText
+      : _titleController.text;
+
+  void back() {
+    var money = double.parse(moneyValue);
+    if (money < 0.01) {
+      Get.defaultDialog(title: "⚠️",content: const Text("金额必须大于0.01"));
+      return;
+    } else if (money > 200) {
+      Get.defaultDialog(title: "⚠️",content: const Text("金额必须小于200"));
+      return;
+    }
+    Get.offNamed(AppRoutes.chat, parameters: {
+      "money": moneyValue,
+      "title": titleValue,
+    });
+  }
 }
 
 class RedPacket extends GetView<RedPacketController> {
@@ -44,8 +67,9 @@ class RedPacket extends GetView<RedPacketController> {
                         child: TextFormField(
                           controller: controller._moneyController,
                           onChanged: (value) {
-                            controller
-                                .moneyText(value.isEmpty ? "¥0.00" : value);
+                            controller.moneyText(value.isEmpty
+                                ? controller.defaultMoneyText
+                                : value);
                           },
                           inputFormatters: [
                             NumberInputFormatter(),
@@ -55,8 +79,8 @@ class RedPacket extends GetView<RedPacketController> {
                           textAlign: TextAlign.right,
                           keyboardType: TextInputType.number,
                           maxLines: 1,
-                          decoration: const InputDecoration(
-                            hintText: "¥0.00",
+                          decoration: InputDecoration(
+                            hintText: controller.defaultMoneyText,
                             border: InputBorder.none,
                           ),
                         ),
@@ -79,10 +103,9 @@ class RedPacket extends GetView<RedPacketController> {
                         child: TextFormField(
                           controller: controller._titleController,
                           keyboardType: TextInputType.text,
-                          maxLength: 12,
                           maxLines: 1,
-                          decoration: const InputDecoration(
-                            hintText: "恭喜发财",
+                          decoration: InputDecoration(
+                            hintText: controller.defaultMoneyTitleText,
                             border: InputBorder.none,
                           ),
                         ),
@@ -111,10 +134,7 @@ class RedPacket extends GetView<RedPacketController> {
                       style:
                           ElevatedButton.styleFrom(backgroundColor: Colors.red),
                       onPressed: () {
-                        Get.offNamed(AppRoutes.redPacket,parameters: {
-                          "money":controller._moneyController.text.replaceFirst("¥", ''),
-                          "title":controller._titleController.text,
-                        });
+                        controller.back();
                       },
                       child: Text(
                         "塞钱进红包",

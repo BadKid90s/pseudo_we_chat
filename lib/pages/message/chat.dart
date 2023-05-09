@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pseudo_we_chat/api/interface/message/model/message_info.dart';
 import 'package:pseudo_we_chat/router.dart';
+import 'package:pseudo_we_chat/service/chat_service.dart';
 import 'package:pseudo_we_chat/widget/we_chat_chat_box.dart';
 import 'package:pseudo_we_chat/widget/we_chat_voice_input.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -233,11 +234,19 @@ class ChatPage extends GetView<ChatController> {
 
   @override
   Widget build(BuildContext context) {
-    MessageInfo messageInfo = Get.arguments;
+    MessageInfo? messageInfo = ChatService.instance.currentMessageInfo;
+
+    var parameters = Get.parameters;
+    var money = parameters['money'];
+    var title = parameters['title'];
+    if (title != null && money != null) {
+      debugPrint("money: $money title: $title");
+    }
+
     return Obx(
       () => Scaffold(
         appBar: AppBar(
-          title: Text(messageInfo.name),
+          title: Text(messageInfo!.name),
         ),
         body: WeChatVoiceInput(
           controller: controller.voiceInputController,
