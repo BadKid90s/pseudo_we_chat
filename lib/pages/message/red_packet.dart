@@ -28,7 +28,7 @@ class RedPacketController extends GetxController {
       Get.defaultDialog(title: "⚠️",content: const Text("金额必须小于200"));
       return;
     }
-    Get.offNamed(AppRoutes.chat, parameters: {
+    Get.back(result: {
       "money": moneyValue,
       "title": titleValue,
     });

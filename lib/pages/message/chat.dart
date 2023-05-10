@@ -6,27 +6,46 @@ import 'package:pseudo_we_chat/api/interface/message/model/message_info.dart';
 import 'package:pseudo_we_chat/router.dart';
 import 'package:pseudo_we_chat/service/chat_service.dart';
 import 'package:pseudo_we_chat/widget/we_chat_chat_box.dart';
+import 'package:pseudo_we_chat/widget/we_chat_red_packet.dart';
 import 'package:pseudo_we_chat/widget/we_chat_voice_input.dart';
+import 'package:pseudo_we_chat/widget/we_chat_voice_player.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
+enum ChatType { image, text, sound, redPacket }
+
 class ChatInfo {
-  ImageProvider? imageProvider;
-  String? message;
-  String? recordFilePath;
-  Duration? recordDuration;
+  //通用
   String avatar;
   bool isSelf;
 
-  ChatInfo(
-      {this.message,
-      this.imageProvider,
-      this.recordFilePath,
-      this.recordDuration,
-      required this.avatar,
-      required this.isSelf});
+  //图片
+  ImageProvider? imageProvider;
+
+  //文字
+  String? message;
+
+  //语音
+  String? recordFilePath;
+  Duration? recordDuration;
+
+  //红包
+  String? redPacketTitle;
+
+  ChatType chatType;
+
+  ChatInfo({
+    this.message,
+    this.imageProvider,
+    this.recordFilePath,
+    this.recordDuration,
+    this.redPacketTitle,
+    required this.avatar,
+    required this.isSelf,
+    required this.chatType,
+  });
 }
 
 class MoreInfo {
@@ -52,10 +71,36 @@ class ChatController extends GetxController {
   //消息数据
   Map<String, RxList<ChatInfo>> chatMap = <String, RxList<ChatInfo>>{
     "12.30": [
-      ChatInfo(message: "你好啊", avatar: otherAvatar, isSelf: false),
-      ChatInfo(message: "干嘛", avatar: selfAvatar, isSelf: true),
-      ChatInfo(message: "你在干什么", avatar: otherAvatar, isSelf: false),
-      ChatInfo(message: "有事吗", avatar: selfAvatar, isSelf: true),
+      ChatInfo(
+        message: "你好啊",
+        avatar: otherAvatar,
+        isSelf: false,
+        chatType: ChatType.text,
+      ),
+      ChatInfo(
+        message: "干嘛",
+        avatar: selfAvatar,
+        isSelf: true,
+        chatType: ChatType.text,
+      ),
+      ChatInfo(
+        message: "你在干什么",
+        avatar: otherAvatar,
+        isSelf: false,
+        chatType: ChatType.text,
+      ),
+      ChatInfo(
+        message: "有事吗",
+        avatar: selfAvatar,
+        isSelf: true,
+        chatType: ChatType.text,
+      ),
+      ChatInfo(
+        redPacketTitle: "恭喜发财，大吉大利",
+        avatar: selfAvatar,
+        isSelf: true,
+        chatType: ChatType.redPacket,
+      ),
     ].obs
   }.obs;
 
@@ -82,9 +127,11 @@ class ChatController extends GetxController {
   //发送消息
   void sendChatMessage() {
     var chatInfo = ChatInfo(
-        message: _textEditingController.value.text,
-        avatar: selfAvatar,
-        isSelf: true);
+      message: _textEditingController.value.text,
+      avatar: selfAvatar,
+      isSelf: true,
+      chatType: ChatType.text,
+    );
     addChatInfo(chatInfo);
     _textEditingController.clear();
     scrollBottom();
@@ -131,6 +178,7 @@ class ChatController extends GetxController {
         imageProvider: AssetEntityImageProvider(element, isOriginal: false),
         avatar: ChatController.selfAvatar,
         isSelf: true,
+        chatType: ChatType.image,
       );
       addChatInfo(chatInfo);
     });
@@ -143,6 +191,7 @@ class ChatController extends GetxController {
       recordDuration: duration,
       avatar: ChatController.selfAvatar,
       isSelf: true,
+      chatType: ChatType.sound,
     );
     addChatInfo(chatInfo);
     scrollBottom();
@@ -150,6 +199,17 @@ class ChatController extends GetxController {
 
   //录音控制器
   final voiceInputController = WeChatVoiceInputController();
+
+  void addReaPacket(String title) {
+    var chatInfo = ChatInfo(
+      redPacketTitle: title,
+      avatar: ChatController.selfAvatar,
+      isSelf: true,
+      chatType: ChatType.redPacket,
+    );
+    addChatInfo(chatInfo);
+    scrollBottom();
+  }
 }
 
 class ChatPage extends GetView<ChatController> {
@@ -188,12 +248,20 @@ class ChatPage extends GetView<ChatController> {
         onTap: () {},
       ),
       MoreInfo(
-        title: AppLocalizations.of(context)!.chat_red_packet,
-        iconData: Icons.email,
-        onTap: () {
-          Get.toNamed(AppRoutes.redPacket);
-        },
-      ),
+          title: AppLocalizations.of(context)!.chat_red_packet,
+          iconData: Icons.email,
+          onTap: () {
+            Get.toNamed(AppRoutes.redPacket)?.then((value) {
+              if(value!=null){
+                var parameters = value;
+                var money = parameters['money'];
+                var title = parameters['title'];
+                if (title != null && money != null) {
+                  controller.addReaPacket(title);
+                }
+              }
+            });
+          }),
       MoreInfo(
         title: AppLocalizations.of(context)!.chat_transfer,
         iconData: Icons.sync_alt,
@@ -235,13 +303,6 @@ class ChatPage extends GetView<ChatController> {
   @override
   Widget build(BuildContext context) {
     MessageInfo? messageInfo = ChatService.instance.currentMessageInfo;
-
-    var parameters = Get.parameters;
-    var money = parameters['money'];
-    var title = parameters['title'];
-    if (title != null && money != null) {
-      debugPrint("money: $money title: $title");
-    }
 
     return Obx(
       () => Scaffold(
@@ -407,23 +468,18 @@ class ChatPage extends GetView<ChatController> {
       list.add(Center(
         child: Text(key),
       ));
-      var messages = value
-          .map(
-            (e) => WeChatChatBox(
-              chatType: e.message != null
-                  ? ChatType.text
-                  : e.imageProvider != null
-                      ? ChatType.image
-                      : ChatType.sound,
-              recordFilePath: e.recordFilePath,
-              recordDuration: e.recordDuration,
-              text: e.message,
-              image: e.imageProvider,
-              avatar: e.avatar,
-              isLeft: !e.isSelf,
-            ),
-          )
-          .toList();
+
+      var messages = value.map(
+        (e) {
+          var childWidget = getChildWidget(context, e);
+
+          return WeChatChatBox(
+            avatar: e.avatar,
+            isLeft: !e.isSelf,
+            child: childWidget,
+          );
+        },
+      ).toList();
 
       list.addAll(messages);
     });
@@ -536,5 +592,36 @@ class ChatPage extends GetView<ChatController> {
         ),
       ),
     );
+  }
+
+  Widget getChildWidget(BuildContext context, ChatInfo chatInfo) {
+    var isSelf = chatInfo.isSelf;
+    switch (chatInfo.chatType) {
+      case ChatType.text:
+        return Container(
+          color: isSelf ? Colors.green : context.theme.primaryColor,
+          child: Text(
+            chatInfo.message!,
+            style: context.textTheme.titleMedium,
+            maxLines: 20,
+            softWrap: true,
+            overflow: TextOverflow.clip,
+          ).paddingAll(10),
+        );
+      case ChatType.image:
+        return Image(image: chatInfo.imageProvider!).paddingAll(10);
+      case ChatType.sound:
+        return Container(
+          color: isSelf ? Colors.green : context.theme.primaryColor,
+          child: WeChatVoicePlayer(
+            filePath: chatInfo.recordFilePath!,
+            duration: chatInfo.recordDuration!,
+          ).paddingAll(10),
+        );
+      case ChatType.redPacket:
+        return WeChatRedPacket(
+          title: chatInfo.redPacketTitle!,
+        );
+    }
   }
 }
