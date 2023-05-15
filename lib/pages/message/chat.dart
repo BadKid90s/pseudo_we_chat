@@ -252,7 +252,7 @@ class ChatPage extends GetView<ChatController> {
           iconData: Icons.email,
           onTap: () {
             Get.toNamed(AppRoutes.redPacket)?.then((value) {
-              if(value!=null){
+              if (value != null) {
                 var parameters = value;
                 var money = parameters['money'];
                 var title = parameters['title'];
@@ -586,7 +586,10 @@ class ChatPage extends GetView<ChatController> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(moreInfo.title),
+              child: Text(
+                moreInfo.title,
+                style: const TextStyle(color: Colors.green),
+              ),
             )
           ],
         ),
@@ -621,7 +624,14 @@ class ChatPage extends GetView<ChatController> {
       case ChatType.redPacket:
         return WeChatRedPacket(
           title: chatInfo.redPacketTitle!,
+          onTap: chatInfo.isSelf ? getRedPacketDetail : receiveRedPacket,
         );
     }
   }
+
+  /// 查看红包详情
+  void getRedPacketDetail() {}
+
+  ///领取红包
+  void receiveRedPacket() {}
 }
